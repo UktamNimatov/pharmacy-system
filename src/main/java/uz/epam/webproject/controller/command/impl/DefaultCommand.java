@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class DefaultCommand implements Command {
 
     @Override
-    public Router /*String*/ execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) throws CommandException {
         return null;
     }
 }

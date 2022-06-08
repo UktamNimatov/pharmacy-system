@@ -15,14 +15,16 @@ public class HttpSessionAttributeListenerImpl implements HttpSessionAttributeLis
 
     @Override
     public void attributeAdded(HttpSessionBindingEvent se) {
+
         logger.log(Level.INFO, "--attribute added " + se.getSession().getAttribute(ParameterName.USERNAME));
         logger.log(Level.INFO, "--attribute added " + se.getSession().getAttribute(ParameterName.PASSWORD));
     }
 
-    @Override
-    public void attributeRemoved(HttpSessionBindingEvent se) {
-        logger.log(Level.INFO, "_+_+attribute removed " + se.getSession().getAttributeNames());
-    }
+//    @Override
+//    public void attributeRemoved(HttpSessionBindingEvent se) {
+//        if (se.getSession().isNew())
+//        logger.log(Level.INFO, "_+_+attribute removed " + se.getSession().getAttributeNames());
+//    }
 
     @Override
     public void attributeReplaced(HttpSessionBindingEvent se) {

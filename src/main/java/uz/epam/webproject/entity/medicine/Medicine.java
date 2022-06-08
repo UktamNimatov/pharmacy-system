@@ -1,6 +1,7 @@
 package uz.epam.webproject.entity.medicine;
 
 import uz.epam.webproject.entity.AbstractEntity;
+import uz.epam.webproject.entity.order.OrderStatus;
 
 import java.io.Serial;
 import java.util.Objects;

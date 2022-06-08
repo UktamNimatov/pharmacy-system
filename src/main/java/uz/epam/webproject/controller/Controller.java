@@ -7,15 +7,12 @@ import uz.epam.webproject.controller.command.CommandType;
 import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
-import uz.epam.webproject.pool.ConnectionPool;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/controller")
@@ -58,7 +55,5 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-//        super.destroy();
-//        ConnectionPool.INSTANCE.destroyPool();
     }
 }

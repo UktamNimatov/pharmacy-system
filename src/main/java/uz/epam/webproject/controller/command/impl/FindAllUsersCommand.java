@@ -13,11 +13,9 @@ import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class FindAllUsersCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(ParameterName.PAGES_PATH);
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -26,10 +24,10 @@ public class FindAllUsersCommand implements Command {
         try {
             List<User> users = userService.findAll();
             if (users != null){
-            request.setAttribute("users", users);
-            router = new Router(resourceBundle.getString(ParameterName.USERS_PAGE), Router.Type.FORWARD);
+            request.setAttribute(ParameterName.USERS, users);
+            router = new Router(ParameterName.LIST_OF_USERS, Router.Type.FORWARD);
             }else {
-                router = new Router(resourceBundle.getString(ParameterName.HOME_PAGE), Router.Type.REDIRECT);
+                router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
 
             }
 

@@ -9,7 +9,6 @@ import uz.epam.webproject.dao.mapper.impl.UserMapper;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.pool.ConnectionPool;
-import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,11 +20,12 @@ public class UserDaoImpl implements UserDao<User> {
     private UserMapper userMapper = new UserMapper();
 
     private static final String ADD_USER = "INSERT INTO user (login, password, first_name, last_name, email, role) values (?, ?, ?, ?, ?, ?)";
-    private static final String EMAIL_FROM_LOGIN = "SELECT user.password FROM user WHERE user.login = ?";
-//    private static final String SELECT_ALL_USERS = "SELECT * FROM user ";
+    private static final String AUTHENTICATE = "SELECT user.password FROM user WHERE user.login = ?";
     private static final String SELECT_ALL_USERS = "SELECT user.id, user.login, user.password, user.first_name, user.last_name, user.email, user.role FROM user";
     private static final String SELECT_BY_LOGIN = "SELECT user.id, user.login, user.password, user.first_name, user.last_name, user.email, user.role FROM user WHERE user.login = ?";
     private static final String FIND_USER_ROLE_BY_LOGIN = "SELECT user.role FROM user WHERE user.login = ?";
+    private static final String CHECK_LOGIN = "SELECT user.first_name FROM user WHERE user.login = ?";
+    private static final String CHECK_EMAIL = "SELECT user.first_name FROM user WHERE user.email = ?";
 
     private static UserDaoImpl instance;
 
@@ -34,6 +34,9 @@ public class UserDaoImpl implements UserDao<User> {
             return instance = new UserDaoImpl();
         }
         return instance;
+    }
+
+    private UserDaoImpl() {
     }
 
     @Override
@@ -47,7 +50,7 @@ public class UserDaoImpl implements UserDao<User> {
                 preparedStatement.setString(3, user.getFirstName());
                 preparedStatement.setString(4, user.getLastName());
                 preparedStatement.setString(5, user.getEmail());
-                preparedStatement.setString(6, user.getRole().getRoleName().toLowerCase());
+                preparedStatement.setString(6, user.getRole().name().toLowerCase());
                 toReturn = preparedStatement.executeUpdate() != 0;
             }
         } catch (SQLException sqlException) {
@@ -59,14 +62,18 @@ public class UserDaoImpl implements UserDao<User> {
 
     @Override
     public boolean authenticate(String login, String password) throws DaoException {
+        if (login.equals("") || password.equals("")){
+            return false;
+        }
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(EMAIL_FROM_LOGIN)){
+             PreparedStatement preparedStatement = connection.prepareStatement(AUTHENTICATE)){
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            String passwordFromDb;
-            if (resultSet.next()){
-                passwordFromDb = resultSet.getString(1);
-                return passwordFromDb.equals(password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                String passwordFromDb;
+                if (resultSet.next()) {
+                    passwordFromDb = resultSet.getString(1);
+                    return passwordFromDb.equals(password);
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
@@ -98,8 +105,10 @@ public class UserDaoImpl implements UserDao<User> {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_LOGIN)){
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
+            Optional<User> user;
             if (resultSet.next()){
-                return userMapper.map(resultSet);
+                user = userMapper.map(resultSet);
+                return user;
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
@@ -126,8 +135,28 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public boolean checkLogin(String login) throws DaoException {
-        return false;
+    public boolean isLoginAvailable(String login) throws DaoException {
+        return EmailAndLoginCheck(login, CHECK_LOGIN);
+    }
+
+    @Override
+    public boolean isEmailAvailable(String email) throws DaoException {
+        return EmailAndLoginCheck(email, CHECK_EMAIL);
+    }
+
+    private boolean EmailAndLoginCheck(String loginOrEmail, String check) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(check)){
+            preparedStatement.setString(1, loginOrEmail);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return false;
+            }
+        } catch (SQLException sqlException) {
+            logger.error("error in connecting the database", sqlException);
+            throw new DaoException(sqlException);
+        }
+        return true;
     }
 
     @Override

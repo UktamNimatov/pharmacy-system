@@ -10,7 +10,7 @@ public enum CommandType {
     DEFAULT(new DefaultCommand());
 
 
-    private final Command command; //why final
+    private final Command command;
 
     CommandType(Command command) {
         this.command = command;
@@ -23,8 +23,14 @@ public enum CommandType {
             current = CommandType.DEFAULT;
             return current.command;
         }
-            current = CommandType.valueOf(strCommand.toUpperCase());
-            return current.command;
+            try {
+                current = CommandType.valueOf(strCommand.toUpperCase());
+                return current.command;
+            }catch (IllegalArgumentException e){
+                current = CommandType.DEFAULT;
+               return current.command;
+            }
+
     }
 
     public Command getCommand() {

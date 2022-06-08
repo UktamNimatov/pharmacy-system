@@ -2,20 +2,13 @@ package uz.epam.webproject.pool;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uz.epam.webproject.controller.command.ParameterName;
-import uz.epam.webproject.entity.user.User;
-import uz.epam.webproject.entity.user.UserRole;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
 import java.util.Properties;
-import java.util.Queue;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -23,9 +16,7 @@ public enum ConnectionPool {
 
     INSTANCE;
 
-
-
-    private /*static*/ final Logger logger = LogManager.getLogger();
+    private final Logger logger = LogManager.getLogger();
     private static final int POOL_SIZE = 10;
     private static final String DATABASE_PROPERTIES = "/config/database.properties";
     private static final String DRIVER = "driver";
@@ -33,23 +24,18 @@ public enum ConnectionPool {
 
     private final BlockingQueue<ProxyConnection> freeConnections;
     private final BlockingQueue<ProxyConnection> busyConnections;
-    private /*static*/ final Properties properties = new Properties();
-    private /*static*/ final InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DATABASE_PROPERTIES);
 
-     /*static*/{
-         try {
-             properties.load(inputStream);
-            Class.forName(properties.getProperty(DRIVER));
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-         } catch (IOException | /*SQLException |*/ ClassNotFoundException exception) {
-             logger.fatal("error in loading driver class or class not found", exception);
-             throw new ExceptionInInitializerError(exception);
-         }
-
-     }
 
     ConnectionPool() {
+    Properties properties = new Properties();
+    InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DATABASE_PROPERTIES);
+        try {
+            properties.load(inputStream);
+            Class.forName(properties.getProperty(DRIVER));
+        } catch (IOException | ClassNotFoundException exception) {
+            logger.fatal("error in loading driver class or class not found", exception);
+            throw new ExceptionInInitializerError(exception);
+        }
         freeConnections = new LinkedBlockingDeque<>(POOL_SIZE);
         busyConnections = new LinkedBlockingDeque<>(POOL_SIZE);
 

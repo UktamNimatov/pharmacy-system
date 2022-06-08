@@ -1,10 +1,6 @@
 package uz.epam.webproject.controller.command;
 
-import java.util.ResourceBundle;
-
 public class Router {
-
-    private static final String INDEX_PAGE_PATH = "index.page";
 
     private String page;
     private Type actionType;
@@ -15,7 +11,7 @@ public class Router {
 
     public Router() {
         this.actionType = Type.FORWARD;
-        this.page = ResourceBundle.getBundle(ParameterName.PAGES_PATH).getString(INDEX_PAGE_PATH)   ;
+        this.page = ParameterName.INDEX_PAGE;
     }
 
     public Router(String page, Type actionType) {

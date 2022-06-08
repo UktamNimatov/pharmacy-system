@@ -16,7 +16,7 @@ public class ReceiptMapper implements EntityMapper<Receipt> {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public Optional<Receipt> map(ResultSet resultSet) throws DaoException {
+    public Optional<Receipt> map(ResultSet resultSet) {
         try {
             Receipt receipt = new Receipt();
             receipt.setId(resultSet.getInt(ColumnName.ID));
@@ -28,8 +28,7 @@ public class ReceiptMapper implements EntityMapper<Receipt> {
             return Optional.of(receipt);
         } catch (SQLException sqlException) {
             logger.error("error in mapping resultSet into an object", sqlException);
-//        return Optional.empty(); //fixme!
-            throw new DaoException(sqlException); //fixme! бросить исключение или вернуть пустой Optional?
         }
+        return Optional.empty();
     }
 }

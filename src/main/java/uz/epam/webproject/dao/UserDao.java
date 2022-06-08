@@ -19,7 +19,9 @@ public interface UserDao<T extends User> {
 
     UserRole findUserRole(String login)throws DaoException;
 
-    boolean checkLogin(String login) throws DaoException;
+    boolean isLoginAvailable(String login) throws DaoException;
+
+    boolean isEmailAvailable(String email) throws DaoException;
 
     boolean updatePassword(String login, String newPassword) throws DaoException;
 

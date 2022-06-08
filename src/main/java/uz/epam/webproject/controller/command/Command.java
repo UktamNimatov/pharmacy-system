@@ -13,8 +13,6 @@ public interface Command {
 
     Router execute(HttpServletRequest request) throws CommandException;
 
-    default void refresh(){};
-
     default boolean isPharmacist(HttpSession session){
         return getAuthUser(session).getRole().equals(UserRole.PHARMACIST); }
 

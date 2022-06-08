@@ -1,17 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: uktamnimatov
-  Date: 5/30/22
-  Time: 4:35 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>REGISTRATION CONFIRMATION PAGE</title>
 </head>
 <body>
-${users}
+<h2>User successfully registered</h2>
+<hr>
+<form action="controller">
+    <a href="${pageContext.request.contextPath}/">Login with new user</a>
+</form>
+<h4>Added User</h4>
 ${user}
 </body>
 </html>

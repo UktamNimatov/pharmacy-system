@@ -1,5 +1,6 @@
 package uz.epam.webproject.service;
 
+import uz.epam.webproject.dao.exception.DaoException;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.exception.ServiceException;
@@ -19,7 +20,9 @@ public interface UserService {
 
     UserRole findUserRole(String login)throws ServiceException;
 
-    boolean checkLogin(String login) throws ServiceException;
+    boolean isLoginAvailable(String login) throws ServiceException;
+
+    boolean isEmailAvailable(String email) throws ServiceException;
 
     boolean updatePassword(String login, String newPassword) throws ServiceException;
 
