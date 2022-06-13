@@ -7,5 +7,4 @@ import java.util.Optional;
 public interface EntityMapper<T> {
 
     Optional<T> map(ResultSet resultSet);
-
 }

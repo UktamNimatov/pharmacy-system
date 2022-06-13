@@ -20,6 +20,7 @@ public enum ColumnName {
     public static final String PRICE = "price";
     public static final String DESCRIPTION = "description";
     public static final String WITH_PRESCRIPTION = "with_prescription";
+    public static final String MEDICINE_PRICE = "medicine_price";
 
 
     /*
@@ -39,8 +40,9 @@ public enum ColumnName {
     public static final String CLIENT_USER_ID = "client_user_id";
     public static final String MEDICINE_ID = "medicine_id";
     public static final String MEDICINE_QUANTITY = "medicine_quantity";
+    public static final String MEDICINE_LIST = "medicine_list";
     public static final String USAGE = "usage";
     public static final String ASSIGNED_TIME = "assigned_time";
-
+    public static final String RECEIPT_ID = "receipt_id";
 
 }

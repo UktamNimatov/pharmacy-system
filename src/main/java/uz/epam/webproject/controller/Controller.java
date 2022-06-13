@@ -43,8 +43,10 @@ public class Controller extends HttpServlet {
             router = command.execute(request);
             logger.info("moving to page: " + router.getPage());
             if (router.getActionType() == Router.Type.FORWARD){
+                logger.info("inside if");
                 request.getRequestDispatcher(router.getPage()).forward(request, response);
             }else {
+                logger.info("inside else");
                 response.sendRedirect(request.getContextPath() + router.getPage());
             }
         } catch (CommandException e) {

@@ -67,7 +67,7 @@
 <br>
 <form action="controller">
     <div>
-<a href="${pageContext.request.contextPath}/registration.jsp" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
+<a href="${pageContext.request.contextPath}/pages/registration.jsp" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
     </div>
 </form>
         <c:if test="${error_message != ''}">

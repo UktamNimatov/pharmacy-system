@@ -1,5 +1,7 @@
 package uz.epam.webproject.test;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.regex.Pattern;
 
 public class RegexTests {
@@ -12,5 +14,6 @@ public class RegexTests {
         System.out.println(Pattern.matches(FIRST_NAME_REGEX, "Rayona"));
         System.out.println(Pattern.matches(LAST_NAME_REGEX, "Rayona"));
         System.out.println(Pattern.matches(EMAIL_REGEX, "rayona@gmail.com"));
+        System.out.println(BCrypt.checkpw("asdasdasd", "$2a$10$JdB5mGvNW4nOkK5COtiULer9NkMMY.PtugoczJYNPTOp7h3o8Pcq2"));
     }
 }

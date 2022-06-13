@@ -7,15 +7,17 @@ import uz.epam.webproject.entity.user.UserRole;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserDao<T extends User> {
+public interface UserDao extends EntityDao<User> {
 
-    boolean registerUser(User user) throws DaoException;
+    @Override
+    boolean addEntity(User user) throws DaoException;
 
     boolean authenticate(String login, String email) throws DaoException;
 
-    List<T> findAll() throws DaoException;
+    @Override
+    List<User> findAll() throws DaoException;
 
-    Optional<T> findByLogin(String login) throws DaoException;
+    Optional<User> findByLogin(String login) throws DaoException;
 
     UserRole findUserRole(String login)throws DaoException;
 
@@ -25,4 +27,13 @@ public interface UserDao<T extends User> {
 
     boolean updatePassword(String login, String newPassword) throws DaoException;
 
+    @Override
+    Optional<User> findById(Long id) throws DaoException;
+
+    List<User> findUsersByRole(UserRole userRole) throws DaoException;
+
+    List<User> findUsersByQuery(String searchQuery) throws DaoException;
+
+    @Override
+    boolean delete(Long id) throws DaoException;
 }

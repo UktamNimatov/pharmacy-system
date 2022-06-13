@@ -15,5 +15,9 @@ Hello, ${username}
     <input type="hidden" name="command" value="logout">
     <input type="submit" value="logout">
 </form>
+
+<a href="${pageContext.request.contextPath}/pages/password-update.jsp">Update Password</a>
+
+${password_change_message}
 </body>
 </html>

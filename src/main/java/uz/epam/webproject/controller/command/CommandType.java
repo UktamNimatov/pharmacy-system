@@ -7,6 +7,7 @@ public enum CommandType {
     LOGOUT(new LogoutCommand()),
     REGISTRATION(new RegistrationCommand()),
     FIND_ALL_USERS(new FindAllUsersCommand()),
+    UPDATE_PASSWORD(new UpdatePasswordCommand()),
     DEFAULT(new DefaultCommand());
 
 

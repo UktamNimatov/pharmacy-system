@@ -28,7 +28,7 @@ public class UserMapper implements EntityMapper<User> {
             user.setRole(UserRole.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase()));
             return Optional.of(user);
         } catch (SQLException sqlException) {
-            logger.error("error in mapping resultSet into an object", sqlException);
+            logger.error("error in mapping resultSet into an object (User)", sqlException);
         }
         return Optional.empty();
     }

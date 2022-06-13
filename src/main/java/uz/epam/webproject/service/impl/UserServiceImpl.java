@@ -9,20 +9,19 @@ import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.UserService;
 import uz.epam.webproject.service.exception.ServiceException;
+import uz.epam.webproject.util.PasswordEncoder;
 import uz.epam.webproject.validator.UserValidator;
 import uz.epam.webproject.validator.impl.UserValidatorImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger();
     private final UserValidator userValidator = UserValidatorImpl.getInstance();
 
     private static UserServiceImpl instance;
-    private final UserDao<User> userDao = UserDaoImpl.getInstance();
+    private final UserDao userDao = UserDaoImpl.getInstance();
 
     public static UserServiceImpl getInstance() {
         if (instance == null){
@@ -37,8 +36,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean registerUser(User user) throws ServiceException {
         if (userValidator.checkUser(user)){
+            user.setPassword(PasswordEncoder.hashPassword(user.getPassword()));
             try {
-                return userDao.registerUser(user);
+                return userDao.addEntity(user);
             } catch (DaoException e) {
                 logger.error("error in adding user in service layer", e);
                 throw new ServiceException(e);
@@ -49,10 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean authenticate(String login, String email) throws ServiceException {
+    public boolean authenticate(String login, String password) throws ServiceException {
         boolean match;
         try {
-            match = userDao.authenticate(login, email);
+//            String hashedPassword = PasswordEncoder.hashPassword(password);
+            match = userDao.authenticate(login, password);
             logger.info(match);
         } catch (DaoException e) {
             logger.error("error in authenticating the user", e);
@@ -115,13 +116,62 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updatePassword(String login, String newPassword) throws ServiceException {
+        if (userValidator.checkPassword(newPassword)) {
+            logger.info(newPassword);
+            logger.info("after passing user validator password");
+            String newHashedPassword = PasswordEncoder.hashPassword(newPassword);
+            try {
+                logger.info(userDao.updatePassword(login, newHashedPassword));
+                return userDao.updatePassword(login, newHashedPassword);
+            } catch (DaoException e) {
+                logger.error("error in updating the password", e);
+                throw new ServiceException(e);
+            }
+        }else {
+            logger.info(newPassword);
+            logger.info("not passing user validator password");
+            return false;
+        }
+    }
+
+    @Override
+    public Optional<User> findById(Long id) throws ServiceException {
         try {
-            userDao.updatePassword(login, newPassword);
+            return userDao.findById(id);
         } catch (DaoException e) {
-            logger.error("error in updating the password", e);
+            logger.error("error in finding the user by id", e);
             throw new ServiceException(e);
         }
-        return false;
+    }
+
+    @Override
+    public List<User> findUsersByRole(UserRole userRole) throws ServiceException {
+        try {
+            return userDao.findUsersByRole(userRole);
+        } catch (DaoException e) {
+            logger.error("error in finding all the users by user role", e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<User> findUsersByQuery(String searchQuery) throws ServiceException {
+        try {
+            return userDao.findUsersByQuery(searchQuery);
+        } catch (DaoException e) {
+            logger.error("error in finding all the users by search query", e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean delete(Long id) throws ServiceException {
+        try {
+            return userDao.delete(id);
+        } catch (DaoException e) {
+            logger.error("error in deleting the user by id", e);
+            throw new ServiceException(e);
+        }
     }
 
 }

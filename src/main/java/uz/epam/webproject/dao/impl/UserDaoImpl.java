@@ -2,6 +2,7 @@ package uz.epam.webproject.dao.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 import uz.epam.webproject.dao.UserDao;
 import uz.epam.webproject.dao.exception.DaoException;
 import uz.epam.webproject.dao.mapper.ColumnName;
@@ -9,23 +10,29 @@ import uz.epam.webproject.dao.mapper.impl.UserMapper;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.pool.ConnectionPool;
+import uz.epam.webproject.util.PasswordEncoder;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImpl implements UserDao<User> {
+public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
-    private UserMapper userMapper = new UserMapper();
+    private final UserMapper userMapper = new UserMapper();
 
-    private static final String ADD_USER = "INSERT INTO user (login, password, first_name, last_name, email, role) values (?, ?, ?, ?, ?, ?)";
-    private static final String AUTHENTICATE = "SELECT user.password FROM user WHERE user.login = ?";
-    private static final String SELECT_ALL_USERS = "SELECT user.id, user.login, user.password, user.first_name, user.last_name, user.email, user.role FROM user";
-    private static final String SELECT_BY_LOGIN = "SELECT user.id, user.login, user.password, user.first_name, user.last_name, user.email, user.role FROM user WHERE user.login = ?";
-    private static final String FIND_USER_ROLE_BY_LOGIN = "SELECT user.role FROM user WHERE user.login = ?";
-    private static final String CHECK_LOGIN = "SELECT user.first_name FROM user WHERE user.login = ?";
-    private static final String CHECK_EMAIL = "SELECT user.first_name FROM user WHERE user.email = ?";
+    private static final String ADD_USER = "INSERT INTO users (login, password, first_name, last_name, email, role) values (?, ?, ?, ?, ?, ?)";
+    private static final String AUTHENTICATE = "SELECT users.password FROM users WHERE users.login = ?";
+    private static final String SELECT_ALL_USERS = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users";
+    private static final String SELECT_BY_LOGIN = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.login = ?";
+    private static final String FIND_USER_ROLE_BY_LOGIN = "SELECT users.role FROM users WHERE users.login = ?";
+    private static final String CHECK_LOGIN = "SELECT users.first_name FROM users WHERE users.login = ?";
+    private static final String CHECK_EMAIL = "SELECT users.first_name FROM users WHERE users.email = ?";
+    private static final String UPDATE_PASSWORD = "UPDATE users SET users.password = ?  WHERE users.login = ?";
+    private static final String FIND_BY_ID = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.id = ?";
+    private static final String DELETE_USER = "DELETE FROM users WHERE users.id = ?";
+    private static final String FIND_BY_ROLE = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.role = ?";
+    private static final String USER_SEARCH_QUERY = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.login LIKE CONCAT ('%', ?, '%') OR users.first_name LIKE CONCAT ('%', ?, '%') OR users.last_name LIKE CONCAT ('%', ?, '%')";
 
     private static UserDaoImpl instance;
 
@@ -40,7 +47,7 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public boolean registerUser(User user) throws DaoException{
+    public boolean addEntity(User user) throws DaoException{
         boolean toReturn = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)){
@@ -72,7 +79,9 @@ public class UserDaoImpl implements UserDao<User> {
                 String passwordFromDb;
                 if (resultSet.next()) {
                     passwordFromDb = resultSet.getString(1);
-                    return passwordFromDb.equals(password);
+//                   return BCrypt.checkpw(password, passwordFromDb);
+//                    return passwordFromDb.equals(password);
+                    return PasswordEncoder.checkPassword(password, passwordFromDb);
                 }
             }
         } catch (SQLException sqlException) {
@@ -160,8 +169,88 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public boolean updatePassword(String login, String newPassword) throws DaoException {
-        return false;
+    public boolean updatePassword(String login, String newHashedPassword) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD)){
+            preparedStatement.setString(1, newHashedPassword);
+            preparedStatement.setString(2, login);
+            int result = preparedStatement.executeUpdate();
+            logger.info(result == 1);
+            return result == 1;
+        } catch (SQLException sqlException) {
+            logger.error("error in updating the user password", sqlException);
+            throw new DaoException(sqlException);
+        }
+
+    }
+
+    @Override
+    public Optional<User> findById(Long id) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Optional<User> user;
+            if (resultSet.next()){
+                user = userMapper.map(resultSet);
+                return user;
+            }
+        } catch (SQLException sqlException) {
+            logger.error("error in finding the user by id", sqlException);
+            throw new DaoException(sqlException);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean delete(Long id) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)){
+            preparedStatement.setLong(1, id);
+            int count = preparedStatement.executeUpdate();
+            return count == 1;
+        }catch (SQLException sqlException) {
+            logger.error("error in deleting the user by id", sqlException);
+            throw new DaoException(sqlException);
+        }
+    }
+
+    @Override
+    public List<User> findUsersByRole(UserRole userRole) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ROLE)){
+            preparedStatement.setString(1, userRole.name().toLowerCase());
+            List<User> users = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Optional<User> user = userMapper.map(resultSet);
+                user.ifPresent(users::add);
+            }
+            return users;
+        } catch (SQLException sqlException) {
+            logger.error("error in finding the users by role", sqlException);
+            throw new DaoException(sqlException);
+        }
+    }
+
+    @Override
+    public List<User> findUsersByQuery(String searchQuery) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(USER_SEARCH_QUERY)){
+            preparedStatement.setString(1, searchQuery);
+            preparedStatement.setString(2, searchQuery);
+            preparedStatement.setString(3, searchQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();;
+            List<User> users = new ArrayList<>();
+            while (resultSet.next()){
+                Optional<User> user = userMapper.map(resultSet);
+                user.ifPresent(users::add);
+            }
+            return users;
+        } catch (SQLException sqlException) {
+            logger.error("error in finding the users by search query", sqlException);
+            throw new DaoException(sqlException);
+        }
     }
 
 }

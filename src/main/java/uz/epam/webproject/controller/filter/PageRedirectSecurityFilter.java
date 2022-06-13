@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebFilter(urlPatterns = {"/pages/*"}, initParams = {@WebInitParam(name = "INDEX", value = "/index.jsp")})
+@WebFilter(/*urlPatterns = {"/pages/*"},*/ initParams = {@WebInitParam(name = "INDEX", value = "/index.jsp")})
 public class PageRedirectSecurityFilter implements Filter {
     private String indexPath;
 
