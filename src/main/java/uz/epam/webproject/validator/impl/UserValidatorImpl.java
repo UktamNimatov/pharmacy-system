@@ -9,8 +9,8 @@ public class UserValidatorImpl implements UserValidator {
     private static final String INCORRECT_VALUE_PARAMETER = " - incorrect value";
     private static final String LOGIN_REGEX = "[\\p{Alpha}][\\p{Alpha}\\d]{3,29}";
     private static final String PASSWORD_REGEX = "[\\p{Alpha}][\\p{Alpha}\\d]{7,29}";
-    private static final String FIRST_NAME_REGEX = "[A-Z\\p{Upper}][a-z\\p{Lower}]{1,20}";
-    private static final String LAST_NAME_REGEX = "[A-Z\\p{Upper}][a-z\\p{Lower}]{1,20}";
+    private static final String FIRST_NAME_REGEX = "[\\p{Upper}][\\p{Lower}]{1,20}";
+    private static final String LAST_NAME_REGEX = "[\\p{Upper}][\\p{Lower}]{1,20}";
     private static final String EMAIL_REGEX = "(([\\p{Alpha}\\d._]+){5,25}@([\\p{Lower}]+){3,7}\\.([\\p{Lower}]+){2,3})";
 
 
