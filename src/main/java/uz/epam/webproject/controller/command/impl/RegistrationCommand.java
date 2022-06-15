@@ -46,6 +46,7 @@ public class RegistrationCommand implements Command {
                 return new Router(ParameterName.REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             if (userService.isEmailAvailable(email)) {
+                logger.info("service level : " + email + " is available");
                 user.setEmail(email);
             } else {
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);

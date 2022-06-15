@@ -160,7 +160,10 @@ public class UserDaoImpl implements UserDao {
             logger.info(loginOrEmail);
             preparedStatement.setString(1, loginOrEmail);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return !resultSet.next();
+                boolean toReturn = !resultSet.next();
+                logger.info("dao level : " + loginOrEmail + " is availability is " + toReturn);
+                return toReturn;
+//                return !resultSet.next();
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
