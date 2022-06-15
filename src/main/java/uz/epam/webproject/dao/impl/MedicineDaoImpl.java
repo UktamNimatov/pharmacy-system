@@ -70,10 +70,11 @@ public class MedicineDaoImpl implements MedicineDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                Optional<Medicine> medicine = medicineMapper.map(resultSet);
-                return medicine;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Optional<Medicine> medicine = medicineMapper.map(resultSet);
+                    return medicine;
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in finding a medicine by id ", sqlException);
@@ -134,12 +135,13 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     private List<Medicine> getMedicinesFromResultSet(PreparedStatement preparedStatement) throws SQLException {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<Medicine> medicineList = new ArrayList<>();
-        while (resultSet.next()){
-            Optional<Medicine> medicine = medicineMapper.map(resultSet);
-            medicine.ifPresent(medicineList::add);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            List<Medicine> medicineList = new ArrayList<>();
+            while (resultSet.next()) {
+                Optional<Medicine> medicine = medicineMapper.map(resultSet);
+                medicine.ifPresent(medicineList::add);
+            }
+            return medicineList;
         }
-        return medicineList;
     }
 }

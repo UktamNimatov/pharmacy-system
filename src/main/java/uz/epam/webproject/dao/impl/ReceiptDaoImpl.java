@@ -72,10 +72,11 @@ public class ReceiptDaoImpl implements ReceiptDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                Optional<Receipt> receipt = receiptMapper.map(resultSet);
-                return receipt;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Optional<Receipt> receipt = receiptMapper.map(resultSet);
+                    return receipt;
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in finding a receipt by id ", sqlException);
@@ -123,11 +124,12 @@ public class ReceiptDaoImpl implements ReceiptDao {
 
     private List<Receipt> getReceiptListFromResultSet(PreparedStatement preparedStatement) throws SQLException {
         List<Receipt> receipts = new ArrayList<>();
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            Optional<Receipt> receipt = receiptMapper.map(resultSet);
-            receipt.ifPresent(receipts::add);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Optional<Receipt> receipt = receiptMapper.map(resultSet);
+                receipt.ifPresent(receipts::add);
+            }
+            return receipts;
         }
-        return receipts;
     }
 }

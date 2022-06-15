@@ -109,14 +109,13 @@ public class OrderMedicineListDaoImpl implements OrderMedicineListDao {
     }
 
     private List<OrderMedicineList> getOrderMedicineListByResultSet(PreparedStatement preparedStatement) throws SQLException {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<OrderMedicineList> orderMedicineLists = new ArrayList<>();
-        while (resultSet.next()){
-            Optional<OrderMedicineList> orderMedicineList = orderMedicineListMapper.map(resultSet);
-            orderMedicineList.ifPresent(orderMedicineLists::add);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            List<OrderMedicineList> orderMedicineLists = new ArrayList<>();
+            while (resultSet.next()) {
+                Optional<OrderMedicineList> orderMedicineList = orderMedicineListMapper.map(resultSet);
+                orderMedicineList.ifPresent(orderMedicineLists::add);
+            }
+            return orderMedicineLists;
         }
-        return orderMedicineLists;
     }
-
-
 }

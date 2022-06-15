@@ -109,13 +109,13 @@ public class ReceiptMedicineListDaoImpl implements ReceiptMedicineListDao {
     }
 
     private List<ReceiptMedicineList> getReceiptMedicineListByResultSet(PreparedStatement preparedStatement) throws SQLException {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<ReceiptMedicineList> receiptMedicineLists = new ArrayList<>();
-        while (resultSet.next()){
-            Optional<ReceiptMedicineList> receiptMedicineList = receiptMedicineListMapper.map(resultSet);
-            receiptMedicineList.ifPresent(receiptMedicineLists::add);
+        try (ResultSet resultSet = preparedStatement.executeQuery();) {
+            List<ReceiptMedicineList> receiptMedicineLists = new ArrayList<>();
+            while (resultSet.next()) {
+                Optional<ReceiptMedicineList> receiptMedicineList = receiptMedicineListMapper.map(resultSet);
+                receiptMedicineList.ifPresent(receiptMedicineLists::add);
+            }
+            return receiptMedicineLists;
         }
-        return receiptMedicineLists;
     }
-
 }

@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean authenticate(String login, String password) throws DaoException {
-        if (login.equals("") || password.equals("")){
+        if (login.isBlank() || password.isBlank()){
             return false;
         }
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -79,8 +79,6 @@ public class UserDaoImpl implements UserDao {
                 String passwordFromDb;
                 if (resultSet.next()) {
                     passwordFromDb = resultSet.getString(1);
-//                   return BCrypt.checkpw(password, passwordFromDb);
-//                    return passwordFromDb.equals(password);
                     return PasswordEncoder.checkPassword(password, passwordFromDb);
                 }
             }
@@ -95,13 +93,14 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)){
-            ResultSet resultSet = statement.executeQuery();
-            List<User> users = new ArrayList<>();
-            while (resultSet.next()){
-                Optional<User> optionalUser = userMapper.map(resultSet);
-                optionalUser.ifPresent(users::add);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<User> users = new ArrayList<>();
+                while (resultSet.next()) {
+                    Optional<User> optionalUser = userMapper.map(resultSet);
+                    optionalUser.ifPresent(users::add);
+                }
+                return users;
             }
-            return users;
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
             throw new DaoException(sqlException);
@@ -113,11 +112,12 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_LOGIN)){
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Optional<User> user;
-            if (resultSet.next()){
-                user = userMapper.map(resultSet);
-                return user;
+            try ( ResultSet resultSet = preparedStatement.executeQuery()) {
+                Optional<User> user;
+                if (resultSet.next()) {
+                    user = userMapper.map(resultSet);
+                    return user;
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
@@ -132,9 +132,10 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ROLE_BY_LOGIN)){
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                userRole = UserRole.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    userRole = UserRole.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase());
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
@@ -156,16 +157,15 @@ public class UserDaoImpl implements UserDao {
     private boolean EmailAndLoginCheck(String loginOrEmail, String check) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(check)){
+            logger.info(loginOrEmail);
             preparedStatement.setString(1, loginOrEmail);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                return false;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return !resultSet.next();
             }
         } catch (SQLException sqlException) {
             logger.error("error in connecting the database", sqlException);
             throw new DaoException(sqlException);
         }
-        return true;
     }
 
     @Override
@@ -189,11 +189,12 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Optional<User> user;
-            if (resultSet.next()){
-                user = userMapper.map(resultSet);
-                return user;
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                Optional<User> user;
+                if (resultSet.next()) {
+                    user = userMapper.map(resultSet);
+                    return user;
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in finding the user by id", sqlException);
@@ -220,13 +221,7 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ROLE)){
             preparedStatement.setString(1, userRole.name().toLowerCase());
-            List<User> users = new ArrayList<>();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                Optional<User> user = userMapper.map(resultSet);
-                user.ifPresent(users::add);
-            }
-            return users;
+            return getUsersByRoleOrQuery(preparedStatement);
         } catch (SQLException sqlException) {
             logger.error("error in finding the users by role", sqlException);
             throw new DaoException(sqlException);
@@ -240,17 +235,22 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, searchQuery);
             preparedStatement.setString(2, searchQuery);
             preparedStatement.setString(3, searchQuery);
-            ResultSet resultSet = preparedStatement.executeQuery();;
-            List<User> users = new ArrayList<>();
-            while (resultSet.next()){
-                Optional<User> user = userMapper.map(resultSet);
-                user.ifPresent(users::add);
-            }
-            return users;
+            return getUsersByRoleOrQuery(preparedStatement);
         } catch (SQLException sqlException) {
             logger.error("error in finding the users by search query", sqlException);
             throw new DaoException(sqlException);
         }
+    }
+
+    private List<User> getUsersByRoleOrQuery(PreparedStatement preparedStatement) throws SQLException {
+        List<User> users = new ArrayList<>();
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                Optional<User> user = userMapper.map(resultSet);
+                user.ifPresent(users::add);
+            }
+        }
+        return users;
     }
 
 }

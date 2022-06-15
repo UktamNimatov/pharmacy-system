@@ -19,6 +19,18 @@ public class User implements AbstractEntity{
     private String email;
     private UserRole role;
 
+    public User() {
+    }
+
+    public User(String login, String password, String firstName, String lastName, String email, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+    }
+
     public long getId() {
         return id;
     }

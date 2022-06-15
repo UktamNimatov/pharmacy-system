@@ -18,6 +18,15 @@ public class Medicine implements AbstractEntity{
     private String description;
     private boolean withPrescription;
 
+    public Medicine(String title, double price, String description, boolean withPrescription) {
+        this.title = title;
+        this.price = price;
+        this.description = description;
+        this.withPrescription = withPrescription;
+    }
+
+    public Medicine() {
+    }
 
     public long getId() {
         return id;

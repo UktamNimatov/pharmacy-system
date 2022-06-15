@@ -27,6 +27,9 @@ public enum ParameterName {
     public static final String PASSWORD_UPDATE_PAGE = "/pages/password-update.jsp";
     public static final String ERROR_500_PAGE = "/pages/error/error_500.jsp";
     public static final String ERROR_404_PAGE = "/pages/error/error_404.jsp";
+    public static final String LIST_OF_MEDICINES_PAGE = "/pages/list-medicine.jsp";
+    public static final String MEDICINE_CREATED_PAGE = "/pages/medicine-created.jsp";
+    public static final String MEDICINE_LIST_BY_QUERY_PAGE = "/pages/medicine-list-by-query.jsp";
 
     /*
      * Session attributes
@@ -47,4 +50,17 @@ public enum ParameterName {
     * operation
     * */
     public static final String PASSWORD_CHANGE_MESSAGE = "password_change_message";
+
+    /*
+    * medicine parameters
+    * */
+    public static final String MEDICINE_LIST = "medicine_list";
+    public static final String MEDICINE_LIST_BY_QUERY = "medicine_list_by_query";
+    public static final String MEDICINE_TITLE = "title";
+    public static final String MEDICINE_PRICE = "price";
+    public static final String MEDICINE_DESCRIPTION = "description";
+    public static final String WITH_PRESCRIPTION = "with_prescription";
+    public static final String MEDICINE_CREATED = "medicine_created";
+    public static final String MEDICINE_SEARCH_QUERY = "medicine_search_query";
+
 }

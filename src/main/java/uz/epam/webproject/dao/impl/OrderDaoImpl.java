@@ -74,10 +74,11 @@ public class OrderDaoImpl implements OrderDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                Optional<Order> order = orderMapper.map(resultSet);
-                return order;
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                if (resultSet.next()) {
+                    Optional<Order> order = orderMapper.map(resultSet);
+                    return order;
+                }
             }
         } catch (SQLException sqlException) {
             logger.error("error in finding an order by id ", sqlException);
@@ -124,12 +125,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private List<Order> getOrdersFromResultSet(PreparedStatement preparedStatement) throws SQLException {
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<Order> orderList = new ArrayList<>();
-        while (resultSet.next()){
-            Optional<Order> order = orderMapper.map(resultSet);
-            order.ifPresent(orderList::add);
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            List<Order> orderList = new ArrayList<>();
+            while (resultSet.next()) {
+                Optional<Order> order = orderMapper.map(resultSet);
+                order.ifPresent(orderList::add);
+            }
+            return orderList;
         }
-        return orderList;
     }
 }

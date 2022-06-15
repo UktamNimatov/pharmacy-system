@@ -8,6 +8,9 @@ public enum CommandType {
     REGISTRATION(new RegistrationCommand()),
     FIND_ALL_USERS(new FindAllUsersCommand()),
     UPDATE_PASSWORD(new UpdatePasswordCommand()),
+    FIND_ALL_MEDICINE(new FindAllMedicineCommand()),
+    FIND_MEDICINE_BY_QUERY(new FindMedicineByQueryCommand()),
+    ADD_MEDICINE(new AddMedicineCommand()),
     DEFAULT(new DefaultCommand());
 
 
