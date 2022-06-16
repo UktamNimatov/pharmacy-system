@@ -25,11 +25,11 @@
                 </tr>
                 <c:forEach var="tempMedicine" items="${medicine_list}">
 
-                <c:url var="updateLink" value="/medicine/showFormForUpdate">
+                <c:url var="updateLink" value="/controller?command=update_medicine">
                 <c:param name="medicineId" value="${tempMedicine.id}"/>
                 </c:url>
 
-                <c:url var="deleteLink" value="/medicine/delete">
+                <c:url var="deleteLink" value="/controller?command=delete_medicine">
                     <c:param name="medicineId" value="${tempMedicine.id}"/>
                 </c:url>
                 <tr>

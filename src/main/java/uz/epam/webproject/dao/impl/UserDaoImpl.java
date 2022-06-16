@@ -157,9 +157,11 @@ public class UserDaoImpl implements UserDao {
     private boolean EmailAndLoginCheck(String loginOrEmail, String check) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(check)){
-            logger.info(loginOrEmail);
+            logger.info(loginOrEmail + " is login or email");
             preparedStatement.setString(1, loginOrEmail);
+            logger.info(preparedStatement.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//                logger.info(resultSet.getString(1) + " is coming from resultset");
                 boolean toReturn = !resultSet.next();
                 logger.info("dao level : " + loginOrEmail + " is availability is " + toReturn);
                 return toReturn;

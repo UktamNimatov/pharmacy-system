@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isEmailAvailable(String email) throws ServiceException {
         try {
-            return userDao.isLoginAvailable(email);
+            return userDao.isEmailAvailable(email);
         } catch (DaoException e) {
             logger.error("error in finding out whether email is available or not", e);
             throw new ServiceException(e);
