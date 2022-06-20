@@ -18,8 +18,8 @@ public class OrderMapper implements EntityMapper<Order> {
     public Optional<Order> map(ResultSet resultSet) {
         try {
             Order order = new Order();
-            order.setId(resultSet.getInt(ColumnName.ID));
-            order.setUserId(resultSet.getInt(ColumnName.USER_ID));
+            order.setId(resultSet.getLong(ColumnName.ID));
+            order.setUserId(resultSet.getLong(ColumnName.USER_ID));
             order.setStatus(OrderStatus.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
             order.setOrderedTime(resultSet.getTimestamp(ColumnName.ORDERED_TIME));
             order.setConfirmedTime(resultSet.getTimestamp(ColumnName.CONFIRMED_TIME));

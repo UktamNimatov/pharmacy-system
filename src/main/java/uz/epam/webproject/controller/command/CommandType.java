@@ -11,6 +11,11 @@ public enum CommandType {
     FIND_ALL_MEDICINE(new FindAllMedicineCommand()),
     FIND_MEDICINE_BY_QUERY(new FindMedicineByQueryCommand()),
     ADD_MEDICINE(new AddMedicineCommand()),
+    CHANGE_LOCALE(new ChangeLocaleCommand()),
+    FIND_ALL_ORDERS(new FindAllOrdersCommand()),
+    SELECT_ORDERS_BY_ID(new SelectOrdersByIdCommand()),
+    DELETE_MEDICINE(new DeleteMedicineCommand()),
+    DELETE_USER(new DeleteUserCommand()),
     DEFAULT(new DefaultCommand());
 
 

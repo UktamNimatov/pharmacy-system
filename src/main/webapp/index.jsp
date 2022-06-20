@@ -33,7 +33,7 @@
 
             <div style="padding-top: 30px" class="panel-body">
 
-<form action="controller" class="form-horizontal">
+<form action="controller" class="form-horizontal" method="post">
     <div class="form-group">
         <div class="col-xs-15">
             <div>
@@ -65,11 +65,17 @@
             </div>
         </div>
 <br>
-<form action="controller">
+<form action="${pageContext.request.contextPath}/controller">
     <div>
 <a href="${pageContext.request.contextPath}/pages/registration.jsp" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
     </div>
 </form>
+        <form action="${pageContext.request.contextPath}/controller">
+            <div>
+                <a href="${pageContext.request.contextPath}/pages/sidebar.jsp" class="btn btn-primary" role="button" aria-pressed="true">Go to side bars</a>
+            </div>
+        </form>
+
         <c:if test="${error_message != ''}">
         <div class="alert alert-danger col-xs-offset-1 col-xs-10">
             ${error_message}

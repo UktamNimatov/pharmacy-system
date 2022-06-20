@@ -5,7 +5,7 @@
     <title>Add medicine</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/controller">
+<form action="${pageContext.request.contextPath}/controller" method="post">
     <input type="hidden" name="command" value="add_medicine">
     <input type="text" name="title" placeholder="title">
     <br>

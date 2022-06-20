@@ -27,7 +27,7 @@ public class FindAllMedicineCommand implements Command {
             List<Medicine> medicineList = medicineService.findAll();
             if (medicineList != null){
                 session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
-                router = new Router(ParameterName.LIST_OF_MEDICINES_PAGE, Router.Type.FORWARD);
+                router = new Router(ParameterName.NEW_LIST_OF_MEDICINES_PAGE, Router.Type.FORWARD);
             }else{
                 router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
             }

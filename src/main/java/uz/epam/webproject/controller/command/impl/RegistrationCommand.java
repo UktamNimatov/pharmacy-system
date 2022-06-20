@@ -30,6 +30,7 @@ public class RegistrationCommand implements Command {
         String firstName = request.getParameter(ColumnName.FIRST_NAME);
         String lastName = request.getParameter(ColumnName.LAST_NAME);
         String email = request.getParameter(ColumnName.EMAIL);
+        String role = request.getParameter(ColumnName.ROLE);
 
         logger.info("retrieved login is: " + login);
         logger.info("retrieved password is: " + password);
@@ -55,7 +56,7 @@ public class RegistrationCommand implements Command {
             user.setPassword(password);
             user.setFirstName(firstName);
             user.setLastName(lastName);
-            user.setRole(UserRole.CLIENT);
+            user.setRole(UserRole.valueOf(role));
             logger.info("user.toString() ===> " + user.toString());
 
             request.setAttribute(ParameterName.USER, user);

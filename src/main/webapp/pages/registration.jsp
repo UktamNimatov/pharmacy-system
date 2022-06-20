@@ -36,7 +36,12 @@
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" id="email" required value="">
 
-        <input type="hidden" name="role" value="client">
+        <select name="role" id="role">
+            <option value="CLIENT">Client</option>
+            <option value="PHARMACIST">Pharmacist</option>
+            <option value="DOCTOR">Doctor</option>
+<%--        <input type="hidden" name="role" value="client">--%>
+        </select>
 
         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 <%--        <button type="submit" >Register</button>--%>

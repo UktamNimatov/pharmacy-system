@@ -4,5 +4,6 @@ public enum UserRole {
     GUEST(),
     CLIENT(),
     PHARMACIST(),
-    DOCTOR();
+    DOCTOR(),
+    ADMIN();
 }

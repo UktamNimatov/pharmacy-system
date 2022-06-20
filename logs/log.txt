@@ -1,0 +1,6 @@
+2022-06-19 22:12:48 [main] [main] [33] INFO  uz.epam.webproject.test.OrderTest - error in finding
+java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order' at line 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.29.jar:8.0.29]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.29.jar:8.0.29]
+	at com.mysql.cj.jdbc.StatementImpl.executeQuery(StatementImpl.java:1201) ~[mysql-connector-java-8.0.29.jar:8.0.29]
+	at uz.epam.webproject.test.OrderTest.main(OrderTest.java:26) ~[classes/:?]

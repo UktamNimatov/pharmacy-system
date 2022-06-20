@@ -15,6 +15,8 @@ public enum ParameterName {
     public static final String USERS = "users";
     public static final String NEW_PASSWORD = "new_password";
     public static final String LOGIN = "login";
+    public static final String USER_DELETED = "user_deleted";
+    public static final String USER_NOT_DELETED = "user_not_deleted";
 
     /*
      * page parameters
@@ -30,6 +32,10 @@ public enum ParameterName {
     public static final String LIST_OF_MEDICINES_PAGE = "/pages/list-medicine.jsp";
     public static final String MEDICINE_CREATED_PAGE = "/pages/medicine-created.jsp";
     public static final String MEDICINE_LIST_BY_QUERY_PAGE = "/pages/medicine-list-by-query.jsp";
+    public static final String NEW_LIST_OF_USERS_PAGE = "/pages/new-list-users.jsp";
+    public static final String NEW_LIST_OF_MEDICINES_PAGE = "/pages/new-list-medicine.jsp";
+    public static final String SIDEBAR_PAGE = "/pages/sidebar.jsp";
+    public static final String LIST_OF_ORDERS_PAGE = "/pages/list-orders.jsp";
 
     /*
      * Session attributes
@@ -62,5 +68,11 @@ public enum ParameterName {
     public static final String WITH_PRESCRIPTION = "with_prescription";
     public static final String MEDICINE_CREATED = "medicine_created";
     public static final String MEDICINE_SEARCH_QUERY = "medicine_search_query";
+    public static final String MEDICINE_DELETED = "medicine_deleted";
+    public static final String MEDICINE_NOT_DELETED = "medicine_not_deleted";
 
+    /*
+    * Order parameters
+    * */
+    public static final String ORDERS = "orders";
 }

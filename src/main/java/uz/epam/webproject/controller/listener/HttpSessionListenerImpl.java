@@ -27,6 +27,7 @@ public class HttpSessionListenerImpl implements HttpSessionListener {
         httpSession.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         httpSession.setAttribute(ParameterName.LOCALE, DEFAULT_LOCALE);
         httpSession.setAttribute(ParameterName.LANGUAGE, DEFAULT_LANGUAGE);
+        logger.info("Current locale is " + httpSession.getAttribute(ParameterName.LOCALE));
         httpSession.setAttribute(ParameterName.ROLE, UserRole.GUEST.name().toLowerCase());
         logger.log(Level.INFO, "<><><> Session created: " + se.getSession().getId());
     }

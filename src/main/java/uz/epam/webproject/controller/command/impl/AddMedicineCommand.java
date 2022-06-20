@@ -7,6 +7,7 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -20,7 +21,7 @@ public class AddMedicineCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         MedicineService medicineService = MedicineServiceImpl.getInstance();
-        Router router;
+        Router router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
         HttpSession session = request.getSession();
 
         String title = request.getParameter(ParameterName.MEDICINE_TITLE);
@@ -30,17 +31,23 @@ public class AddMedicineCommand implements Command {
 
         Medicine medicine = new Medicine(title, price, description, withPrescription);
         try {
-            if (medicineService.addEntity(medicine)){
-                session.setAttribute(ParameterName.MEDICINE_CREATED, medicine);
-                router = new Router(ParameterName.MEDICINE_CREATED_PAGE, Router.Type.FORWARD);
-            }else{
-                router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
+            if (isPharmacist(session)) {
+                if (medicineService.addEntity(medicine)) {
+                    session.setAttribute(ParameterName.MEDICINE_CREATED, medicine);
+                    router = new Router(ParameterName.MEDICINE_CREATED_PAGE, Router.Type.FORWARD);
+                } else {
+                    router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
+                }
             }
-
         } catch (ServiceException e) {
             logger.error("error in adding a new medicine ", e);
             throw new CommandException(e);
         }
         return router;
+    }
+
+    @Override
+    public boolean isPharmacist(HttpSession session) {
+        return  session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
     }
 }
