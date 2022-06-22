@@ -30,6 +30,7 @@ public class LoginCommand implements Command {
         session.setAttribute(ParameterName.LOCALE, defaultLocale);
         Router router;
         UserService userService = UserServiceImpl.getInstance();
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         try {
             if(userService.authenticate(userName, password)){
                 UserRole userRole = userService.findUserRole(userName);
@@ -37,7 +38,7 @@ public class LoginCommand implements Command {
                 session.setAttribute(ParameterName.USERNAME, userName);
                 session.setAttribute(ParameterName.PASSWORD, password);
                 session.setAttribute(ParameterName.ROLE, userRole.toString());
-                router = new Router(/*ParameterName.SIDEBAR_PAGE*/ ParameterName.HOME_PAGE, Router.Type.FORWARD);
+                router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE /*ParameterName.HOME_PAGE*/, Router.Type.FORWARD);
             }else {
                 request.setAttribute(ParameterName.ERROR_MESSAGE_SIGN_IN, ERROR_MESSAGE);
                 router = new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);

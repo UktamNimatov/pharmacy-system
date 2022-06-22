@@ -44,14 +44,14 @@ public class RegistrationCommand implements Command {
                 user.setLogin(login);
             } else {
                 request.setAttribute(ParameterName.UNAVAILABLE_LOGIN, login + ALREADY_EXISTING_LOGIN);
-                return new Router(ParameterName.REGISTRATION_PAGE, Router.Type.FORWARD);
+                return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             if (userService.isEmailAvailable(email)) {
                 logger.info("service level : " + email + " is available");
                 user.setEmail(email);
             } else {
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
-                return new Router(ParameterName.REGISTRATION_PAGE, Router.Type.FORWARD);
+                return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             user.setPassword(password);
             user.setFirstName(firstName);
@@ -61,7 +61,7 @@ public class RegistrationCommand implements Command {
 
             request.setAttribute(ParameterName.USER, user);
             if (userService.registerUser(user)) {
-                return new Router(ParameterName.USERS_PAGE, Router.Type.FORWARD);
+                return new Router(ParameterName.USERS_PAGE /*ParameterName.REGISTRATION_CONFIRMATION_PAGE*/, Router.Type.FORWARD);
             } else {
                 return new Router(ParameterName.REGISTRATION_PAGE, Router.Type.FORWARD);
             }

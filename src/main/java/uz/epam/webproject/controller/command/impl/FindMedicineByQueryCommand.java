@@ -22,6 +22,7 @@ public class FindMedicineByQueryCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         MedicineService medicineService = MedicineServiceImpl.getInstance();
         HttpSession session = request.getSession();
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
         Router router;
         String searchQuery = request.getParameter(ParameterName.MEDICINE_SEARCH_QUERY);
         try {

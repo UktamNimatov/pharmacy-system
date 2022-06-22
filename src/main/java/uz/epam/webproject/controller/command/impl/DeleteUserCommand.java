@@ -42,7 +42,7 @@ public class DeleteUserCommand implements Command {
                 logger.info("User with id " + userId + " not deleted");
                 request.setAttribute(ParameterName.USER_NOT_DELETED, ParameterName.USER_NOT_DELETED);
             }
-            return new Router(ParameterName.NEW_LIST_OF_USERS_PAGE);
+            return new Router(ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
 
         } catch (ServiceException e) {
             logger.error("error in deleting the user by id ", e);

@@ -1,89 +1,105 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>Index Page</title>
+
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- Reference Bootstrap files -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Login Page</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Custom fonts for this template-->
+    <link href="startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template-->
+    <link href="startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<body>
-<style>
-    h2{text-align: center;}
-</style>
-<h2>Welcome</h2>
 
-<div>
+<body class="bg-gradient-primary">
 
-    <div id="loginbox" style="margin-top: 50px;"
-         class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+    <div class="container">
 
-        <div class="panel panel-info">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-            <div class="panel-heading">
-                <div class="panel-title">Sign In</div>
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    <form class="user" action="${pageContext.request.contextPath}/controller" method="post">
+                                        <input type="hidden" class="form-control form-control-user" value="login" name="command">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" name="username"
+                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                placeholder="Enter Username...">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" name="password"
+                                                   placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">Remember
+                                                    Me</label>
+                                            </div>
+                                        </div>
+<%--                                        <a href="startbootstrap/index.jsp" class="btn btn-primary btn-user btn-block">--%>
+                                            <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
+<%--                                            Login--%>
+<%--                                        </a>--%>
+                                        <hr>
+                                        <a href="startbootstrap/index.jsp" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+                                        <a href="startbootstrap/index.jsp" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="startbootstrap/forgot-password.jsp">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="startbootstrap/register.jsp">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div style="padding-top: 30px" class="panel-body">
-
-<form action="controller" class="form-horizontal" method="post">
-    <div class="form-group">
-        <div class="col-xs-15">
-            <div>
-    <input type="hidden" value="login" name="command">
-            </div>
         </div>
-    </div>
-    <!-- User name -->
-    <div style="margin-bottom: 25px" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-        <input type="text" name="username" placeholder="login" class="form-control">
     </div>
 
-    <!-- Password -->
-    <div style="margin-bottom: 25px" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <!-- Bootstrap core JavaScript-->
+    <script src="startbootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <input type="password" name="password" placeholder="password" class="form-control" >
-    </div>
+    <!-- Core plugin JavaScript-->
+    <script src="startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Login/Submit Button -->
-    <div style="margin-top: 10px" class="form-group">
-        <div class="col-sm-6 controls">
-            <button type="submit" class="btn btn-success">Login</button>
-        </div>
-    </div>
-</form>
-            </div>
-        </div>
-<br>
-<form action="${pageContext.request.contextPath}/controller">
-    <div>
-<a href="${pageContext.request.contextPath}/pages/registration.jsp" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
-    </div>
-</form>
-        <form action="${pageContext.request.contextPath}/controller">
-            <div>
-                <a href="${pageContext.request.contextPath}/pages/sidebar.jsp" class="btn btn-primary" role="button" aria-pressed="true">Go to side bars</a>
-            </div>
-        </form>
+    <!-- Custom scripts for all pages-->
+    <script src="startbootstrap/js/sb-admin-2.min.js"></script>
 
-        <c:if test="${error_message != ''}">
-        <div class="alert alert-danger col-xs-offset-1 col-xs-10">
-            ${error_message}
-        </div>
-        </c:if>
-<br>
-${pageContext.session.id}
-    </div>
-</div>
 </body>
+
 </html>

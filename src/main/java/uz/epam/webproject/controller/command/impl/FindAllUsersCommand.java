@@ -25,7 +25,7 @@ public class FindAllUsersCommand implements Command {
             List<User> users = userService.findAll();
             if (users != null){
             request.setAttribute(ParameterName.USERS, users);
-            router = new Router(ParameterName.NEW_LIST_OF_USERS_PAGE , Router.Type.FORWARD);
+            router = new Router(/*ParameterName.NEW_LIST_OF_USERS_PAGE */ParameterName.BOOTSTRAP_USERS_LIST_TABLE, Router.Type.FORWARD);
             }else {
                 router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
 

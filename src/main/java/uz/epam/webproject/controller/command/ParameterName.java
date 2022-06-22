@@ -38,6 +38,16 @@ public enum ParameterName {
     public static final String LIST_OF_ORDERS_PAGE = "/pages/list-orders.jsp";
 
     /*
+    * bootstrap pages
+    * */
+    public static final String BOOTSTRAP_REGISTRATION_PAGE = "startbootstrap/register.jsp";
+    public static final String BOOTSTRAP_HOME_PAGE = "startbootstrap/home.jsp";
+//    public static final String BOOTSTRAP_MEDICINE_LIST_PAGE = "startbootstrap/medicine-list.jsp";
+    public static final String REGISTRATION_CONFIRMATION_PAGE = "startbootstrap/registration-confirmation-page.jsp";
+    public static final String BOOTSTRAP_USERS_LIST_TABLE = "startbootstrap/user-table.jsp";
+    public static final String BOOTSTRAP_MEDICINE_LIST_TABLE = "startbootstrap/medicine-table.jsp";
+
+    /*
      * Session attributes
      * */
     public static final String LOCALE = "locale";

@@ -33,7 +33,7 @@ public class DeleteMedicineCommand implements Command {
                 logger.info("medicine with id " + medicineId + " not deleted");
                 request.setAttribute(ParameterName.MEDICINE_NOT_DELETED, ParameterName.MEDICINE_NOT_DELETED);
             }
-                return new Router(ParameterName.NEW_LIST_OF_MEDICINES_PAGE);
+                return new Router(/*ParameterName.NEW_LIST_OF_MEDICINES_PAGE*/ ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
 
         } catch (ServiceException e) {
             logger.error("error in deleting the medicine by id ", e);

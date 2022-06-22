@@ -21,6 +21,6 @@ public class ChangeLocaleCommand implements Command {
         HttpSession session = request.getSession();
         String locale = request.getParameter(ParameterName.LOCALE);
         session.setAttribute(ParameterName.LOCALE, locale);
-        return new Router(ParameterName.HOME_PAGE);
+        return new Router(ParameterName.CURRENT_PAGE);
     }
 }
