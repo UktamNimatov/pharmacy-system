@@ -8,7 +8,7 @@ import uz.epam.webproject.entity.user.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class FindMedicineInfo implements Command {
+public class FindMedicineToUpdateCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
