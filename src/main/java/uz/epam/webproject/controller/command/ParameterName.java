@@ -7,6 +7,7 @@ public enum ParameterName {
      *  */
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String CURRENT_PASSWORD = "current_password";
     public static final String EMAIL = "email";
     public static final String PAGES_PATH = "/config/page";
     public static final String COMMAND = "command";
@@ -14,9 +15,13 @@ public enum ParameterName {
     public static final String USER = "user";
     public static final String USERS = "users";
     public static final String NEW_PASSWORD = "new_password";
+    public static final String CONFIRM_NEW_PASSWORD = "confirm_new_password";
     public static final String LOGIN = "login";
     public static final String USER_DELETED = "user_deleted";
     public static final String USER_NOT_DELETED = "user_not_deleted";
+    public static final String UPDATED_USER = "updated_user";
+    public static final String USER_ID = "user_id";
+    public static final String TEMPORARY_USER = "temp_user";
 
     /*
      * page parameters
@@ -46,6 +51,10 @@ public enum ParameterName {
     public static final String REGISTRATION_CONFIRMATION_PAGE = "startbootstrap/registration-confirmation-page.jsp";
     public static final String BOOTSTRAP_USERS_LIST_TABLE = "startbootstrap/user-table.jsp";
     public static final String BOOTSTRAP_MEDICINE_LIST_TABLE = "startbootstrap/medicine-table.jsp";
+    public static final String BOOTSTRAP_PROFILE_PAGE = "startbootstrap/profile.jsp";
+    public static final String BOOTSTRAP_CLIENT_PROFILE_PAGE = "startbootstrap/client-profile.jsp";
+    public static final String BOOTSTRAP_CLIENT_INFO_PAGE = "startbootstrap/client-info.jsp";
+    public static final String BOOTSTRAP_PASSWORD_CHANGE = "startbootstrap/password-change.jsp";
 
     /*
      * Session attributes
@@ -61,6 +70,7 @@ public enum ParameterName {
      * */
     public static final String UNAVAILABLE_EMAIL_ADDRESS = "unavailable_email_address";
     public static final String UNAVAILABLE_LOGIN = "unavailable_login";
+    public static final String INVALID_CERTIFICATE_NUMBER = "invalid_certificate_number";
 
     /*
     * operation

@@ -12,6 +12,7 @@ public enum ColumnName {
     public static final String LAST_NAME = "last_name";
     public static final String EMAIL = "email";
     public static final String ROLE = "role";
+    public static final String CERTIFICATE = "certificate";
 
     /*
     * medicine

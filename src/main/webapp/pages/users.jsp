@@ -12,5 +12,6 @@
 </form>
 <h4>Added User</h4>
 ${user}
+${updated_user}
 </body>
 </html>

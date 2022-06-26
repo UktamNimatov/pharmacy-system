@@ -16,6 +16,9 @@ public enum CommandType {
     SELECT_ORDERS_BY_ID(new SelectOrdersByIdCommand()),
     DELETE_MEDICINE(new DeleteMedicineCommand()),
     DELETE_USER(new DeleteUserCommand()),
+    UPDATE_USER(new UpdateUserCommand()),
+    FIND_USER_TO_UPDATE(new FindUserToUpdateCommand()),
+    FIND_USER_INFO(new FindUserInfoCommand()),
     DEFAULT(new DefaultCommand());
 
 

@@ -18,6 +18,7 @@ public class User implements AbstractEntity{
     private String lastName;
     private String email;
     private UserRole role;
+    private String certificateSerialNumber;
 
     public User() {
     }
@@ -87,6 +88,14 @@ public class User implements AbstractEntity{
         this.role = role;
     }
 
+    public String getCertificateSerialNumber() {
+        return certificateSerialNumber;
+    }
+
+    public void setCertificateSerialNumber(String certificateSerialNumber) {
+        this.certificateSerialNumber = certificateSerialNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,12 +107,13 @@ public class User implements AbstractEntity{
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(email, user.email) &&
-                role == user.role;
+                role == user.role &&
+                Objects.equals(certificateSerialNumber, user.certificateSerialNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, firstName, lastName, email, role);
+        return Objects.hash(id, login, password, firstName, lastName, email, role, certificateSerialNumber);
     }
 
     @Override
@@ -116,6 +126,7 @@ public class User implements AbstractEntity{
                 .add("lastName='" + lastName + "'")
                 .add("email='" + email + "'")
                 .add("role=" + role)
+                .add("certificateSerialNumber='" + certificateSerialNumber + "'")
                 .toString();
     }
 }

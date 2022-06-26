@@ -26,10 +26,10 @@ public class CurrentPageFilter implements Filter {
         if (httpServletRequest.getParameter(ParameterName.COMMAND) != null){
 //            String commandName = httpServletRequest.getParameter(ParameterName.COMMAND);
             String currentPage = httpServletRequest.getServletPath() + COMMAND_DELIMITER + httpServletRequest.getQueryString();
-            httpSession.setAttribute(ParameterName.CURRENT_PAGE, currentPage);
+//            httpSession.setAttribute(ParameterName.CURRENT_PAGE, currentPage);
             logger.log(Level.INFO, "currentPage is ----> " + currentPage);
         }else {
-            httpSession.setAttribute(ParameterName.CURRENT_PAGE, httpServletRequest.getServletPath());
+//            httpSession.setAttribute(ParameterName.CURRENT_PAGE, httpServletRequest.getServletPath());
             logger.log(Level.INFO, "currentPage is ----> " + httpServletRequest.getServletPath());
         }
         filterChain.doFilter(servletRequest, servletResponse);

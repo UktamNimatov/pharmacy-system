@@ -7,6 +7,8 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.user.User;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -27,8 +29,10 @@ public class FindAllMedicineCommand implements Command {
             List<Medicine> medicineList = medicineService.findAll();
             if (medicineList != null){
                 session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
                 router = new Router(/*ParameterName.NEW_LIST_OF_MEDICINES_PAGE*/ ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
             }else{
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
                 router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
             }
         } catch (ServiceException e) {
@@ -37,4 +41,5 @@ public class FindAllMedicineCommand implements Command {
         }
         return router;
     }
+
 }

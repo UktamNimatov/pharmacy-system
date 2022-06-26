@@ -46,7 +46,7 @@
 <%--                    &lt;%&ndash;                <a href="${updateLink}">Update</a>&ndash;%&gt;--%>
 <%--            </form>--%>
             <form action="${pageContext.request.contextPath}/controller" method="post">
-                <input type="hidden" name="userId" value="${tempUser.id}">
+                <input type="hidden" name="user_id" value="${tempUser.id}">
                 <input type="hidden" name="command" value="delete_user">
                 <input type="submit" value="Delete" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false">
                     <%--                <a href="${deleteLink}" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false">Delete</a>--%>

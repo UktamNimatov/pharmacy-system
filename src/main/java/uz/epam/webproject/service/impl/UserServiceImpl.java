@@ -7,12 +7,17 @@ import uz.epam.webproject.dao.exception.DaoException;
 import uz.epam.webproject.dao.impl.UserDaoImpl;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
+import uz.epam.webproject.pool.ConnectionPool;
 import uz.epam.webproject.service.UserService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.util.PasswordEncoder;
 import uz.epam.webproject.validator.UserValidator;
 import uz.epam.webproject.validator.impl.UserValidatorImpl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -174,4 +179,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean isCertificateValid(String serialNumber) throws ServiceException {
+        try {
+            return userDao.isCertificateValid(serialNumber);
+        } catch (DaoException e) {
+            logger.error("error in deleting the user by id", e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateUser(User user) throws ServiceException {
+        if (userValidator.checkFirstName(user.getFirstName()) && userValidator.checkLastName(user.getLastName())
+        && userValidator.checkLogin(user.getLogin()) && userValidator.checkEmail(user.getEmail())) {
+            try {
+                return userDao.updateUser(user);
+            } catch (DaoException e) {
+                logger.error("error in updating the user by id", e);
+                throw new ServiceException(e);
+            }
+        }else {
+            return false;
+        }
+    }
 }

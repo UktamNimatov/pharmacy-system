@@ -16,7 +16,7 @@ public class LogoutCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
-        if (session != null){
+        if (!session.isNew()){
             session.invalidate();
         }
         return new Router(ParameterName.INDEX_PAGE);

@@ -7,6 +7,8 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.order.Order;
+import uz.epam.webproject.entity.user.User;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.OrderService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.OrderServiceImpl;
@@ -25,18 +27,38 @@ public class FindAllOrdersCommand implements Command {
         HttpSession session = request.getSession();
         Router router;
         try {
-            List<Order> orders = orderService.findAll();
-            if (orders != null){
-                session.setAttribute(ParameterName.ORDERS, orders);
-                request.setAttribute(ParameterName.ORDERS, orders);
-                router = new Router(ParameterName.LIST_OF_ORDERS_PAGE, Router.Type.FORWARD);
-            }else {
-                router = new Router(ParameterName.SIDEBAR_PAGE, Router.Type.FORWARD);
+            if (isPharmacist(session) || isDoctor(session) ) {
+                List<Order> orders = orderService.findAll();
+                if (orders != null) {
+                    session.setAttribute(ParameterName.ORDERS, orders);
+                    request.setAttribute(ParameterName.ORDERS, orders);
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.LIST_OF_ORDERS_PAGE);
+                    router = new Router(ParameterName.LIST_OF_ORDERS_PAGE, Router.Type.FORWARD);
+                    return router;
+                }
             }
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.SIDEBAR_PAGE);
+            router = new Router(ParameterName.SIDEBAR_PAGE, Router.Type.FORWARD);
+
         } catch (ServiceException e) {
             logger.info("error in finding all orders ", e);
             throw new CommandException(e);
         }
         return router;
+    }
+
+    @Override
+    public boolean isPharmacist(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+    }
+
+    @Override
+    public boolean isDoctor(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR.toString());
+    }
+
+    @Override
+    public boolean isAdmin(HttpSession session) {
+        return false;
     }
 }

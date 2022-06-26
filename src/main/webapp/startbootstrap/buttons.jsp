@@ -1,5 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="message"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.language}">
 
 <head>
 
@@ -35,7 +39,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome" /> ${username}</div>
             </a>
 
             <!-- Divider -->
@@ -547,7 +551,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span><fmt:message key="footer.copyright"/> &copy;</span>
                     </div>
                 </div>
             </footer>

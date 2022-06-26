@@ -36,4 +36,8 @@ public interface UserDao extends EntityDao<User> {
 
     @Override
     boolean delete(Long id) throws DaoException;
+
+    boolean isCertificateValid(String serialNumber) throws DaoException;
+
+    boolean updateUser(User user) throws DaoException;
 }

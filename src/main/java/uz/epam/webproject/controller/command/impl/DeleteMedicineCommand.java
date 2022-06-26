@@ -7,6 +7,7 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -21,18 +22,22 @@ public class DeleteMedicineCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
+        HttpSession session = request.getSession();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
         long medicineId = Long.parseLong(request.getParameter(MEDICINE_ID));
         try {
-            if (medicineService.delete(medicineId)){
-                logger.info("medicine with id " + medicineId + " successfully deleted");
-                List<Medicine> medicineList = medicineService.findAll();
-                request.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
-                request.setAttribute(ParameterName.MEDICINE_DELETED, ParameterName.MEDICINE_DELETED);
-            }else {
-                logger.info("medicine with id " + medicineId + " not deleted");
-                request.setAttribute(ParameterName.MEDICINE_NOT_DELETED, ParameterName.MEDICINE_NOT_DELETED);
+            if (isPharmacist(session)) {
+                if (medicineService.delete(medicineId)) {
+                    logger.info("medicine with id " + medicineId + " successfully deleted");
+                    List<Medicine> medicineList = medicineService.findAll();
+                    request.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
+                    request.setAttribute(ParameterName.MEDICINE_DELETED, ParameterName.MEDICINE_DELETED);
+                } else {
+                    logger.info("medicine with id " + medicineId + " not deleted");
+                    request.setAttribute(ParameterName.MEDICINE_NOT_DELETED, ParameterName.MEDICINE_NOT_DELETED);
+                }
             }
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
                 return new Router(/*ParameterName.NEW_LIST_OF_MEDICINES_PAGE*/ ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
 
         } catch (ServiceException e) {
@@ -43,6 +48,16 @@ public class DeleteMedicineCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
+        return  session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+    }
+
+    @Override
+    public boolean isAdmin(HttpSession session) {
+        return false;
+    }
+
+    @Override
+    public boolean isDoctor(HttpSession session) {
         return false;
     }
 }

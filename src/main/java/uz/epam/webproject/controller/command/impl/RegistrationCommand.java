@@ -20,6 +20,7 @@ public class RegistrationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
     private static final String ALREADY_EXISTING_LOGIN = " - already existing login";
     private static final String ALREADY_EXISTING_EMAIL = " - already existing email";
+    private static final String INVALID_CERTIFICATE_NUMBER = " - invalid certificate number";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -31,6 +32,10 @@ public class RegistrationCommand implements Command {
         String lastName = request.getParameter(ColumnName.LAST_NAME);
         String email = request.getParameter(ColumnName.EMAIL);
         String role = request.getParameter(ColumnName.ROLE);
+        String certificate_serial_number = "";
+        if (role.equalsIgnoreCase(UserRole.DOCTOR.toString()) || role.equalsIgnoreCase(UserRole.PHARMACIST.toString())){
+            certificate_serial_number = request.getParameter(ColumnName.CERTIFICATE);
+        }
 
         logger.info("retrieved login is: " + login);
         logger.info("retrieved password is: " + password);
@@ -52,6 +57,16 @@ public class RegistrationCommand implements Command {
             } else {
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
                 return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+            }
+            if (!certificate_serial_number.isBlank()){
+                if (userService.isCertificateValid(certificate_serial_number)){
+                    user.setCertificateSerialNumber(certificate_serial_number);
+                }else {
+                    request.setAttribute(ParameterName.INVALID_CERTIFICATE_NUMBER, certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
+                    return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+                }
+            }else {
+                user.setCertificateSerialNumber(certificate_serial_number);
             }
             user.setPassword(password);
             user.setFirstName(firstName);

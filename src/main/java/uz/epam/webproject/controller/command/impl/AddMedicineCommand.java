@@ -34,8 +34,10 @@ public class AddMedicineCommand implements Command {
             if (isPharmacist(session)) {
                 if (medicineService.addEntity(medicine)) {
                     session.setAttribute(ParameterName.MEDICINE_CREATED, medicine);
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.MEDICINE_CREATED_PAGE);
                     router = new Router(ParameterName.MEDICINE_CREATED_PAGE, Router.Type.FORWARD);
                 } else {
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
                     router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
                 }
             }
@@ -48,6 +50,6 @@ public class AddMedicineCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return  session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
     }
 }

@@ -21,18 +21,21 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger();
     private final UserMapper userMapper = new UserMapper();
 
-    private static final String ADD_USER = "INSERT INTO users (login, password, first_name, last_name, email, role) values (?, ?, ?, ?, ?, ?)";
+    private static final String ADD_USER = "INSERT INTO users (login, password, first_name, last_name, email, role, certificate) values (?, ?, ?, ?, ?, ?, ?)";
     private static final String AUTHENTICATE = "SELECT users.password FROM users WHERE users.login = ?";
-    private static final String SELECT_ALL_USERS = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users";
-    private static final String SELECT_BY_LOGIN = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.login = ?";
+    private static final String SELECT_ALL_USERS = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role, users.certificate FROM users";
+    private static final String SELECT_BY_LOGIN = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role, users.certificate FROM users WHERE users.login = ?";
     private static final String FIND_USER_ROLE_BY_LOGIN = "SELECT users.role FROM users WHERE users.login = ?";
     private static final String CHECK_LOGIN = "SELECT users.first_name FROM users WHERE users.login = ?";
     private static final String CHECK_EMAIL = "SELECT users.first_name FROM users WHERE users.email = ?";
     private static final String UPDATE_PASSWORD = "UPDATE users SET users.password = ?  WHERE users.login = ?";
-    private static final String FIND_BY_ID = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.id = ?";
+    private static final String FIND_BY_ID = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role, users.certificate FROM users WHERE users.id = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE users.id = ?";
-    private static final String FIND_BY_ROLE = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.role = ?";
-    private static final String USER_SEARCH_QUERY = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role FROM users WHERE users.login LIKE CONCAT ('%', ?, '%') OR users.first_name LIKE CONCAT ('%', ?, '%') OR users.last_name LIKE CONCAT ('%', ?, '%')";
+    private static final String FIND_BY_ROLE = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role, users.certificate FROM users WHERE users.role = ?";
+    private static final String USER_SEARCH_QUERY = "SELECT users.id, users.login, users.password, users.first_name, users.last_name, users.email, users.role, users.certificate FROM users WHERE users.login LIKE CONCAT ('%', ?, '%') OR users.first_name LIKE CONCAT ('%', ?, '%') OR users.last_name LIKE CONCAT ('%', ?, '%')";
+    private static final String CERTIFICATE_CHECK_FIRST = "SELECT certificates.id FROM certificates WHERE certificates.serial_number = ?";
+    private static final String CERTIFICATE_CHECK_SECOND = "SELECT users.id FROM users WHERE users.certificate = ?";
+    private static final String UPDATE_USER = "UPDATE users SET users.login = ?, users.first_name = ?, users.last_name = ?, users.email = ?, users.certificate = ? WHERE users.id = ?";
 
     private static UserDaoImpl instance;
 
@@ -58,6 +61,11 @@ public class UserDaoImpl implements UserDao {
                 preparedStatement.setString(4, user.getLastName());
                 preparedStatement.setString(5, user.getEmail());
                 preparedStatement.setString(6, user.getRole().name().toLowerCase());
+                if (user.getRole().name().toLowerCase().equalsIgnoreCase(UserRole.CLIENT.toString()) || user.getRole().name().toLowerCase().equalsIgnoreCase(UserRole.GUEST.toString())){
+                    preparedStatement.setString(7, null);
+                }else {
+                    preparedStatement.setString(7, user.getCertificateSerialNumber());
+                }
                 toReturn = preparedStatement.executeUpdate() != 0;
             }
         } catch (SQLException sqlException) {
@@ -258,4 +266,44 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
+    public boolean isCertificateValid(String serialNumber) throws DaoException{
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(CERTIFICATE_CHECK_FIRST);
+        PreparedStatement preparedStatement1 = connection.prepareStatement(CERTIFICATE_CHECK_SECOND)){
+            preparedStatement.setString(1, serialNumber);
+            preparedStatement1.setString(1, serialNumber);
+            try (ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet1 = preparedStatement1.executeQuery()){
+                return resultSet.next() && !resultSet1.next();
+            }
+        } catch (SQLException sqlException) {
+            logger.error("error in checking the certificate ", sqlException);
+            throw new DaoException(sqlException);
+        }
+    }
+
+    @Override
+    public boolean updateUser(User user) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)){
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getEmail());
+            if (user.getCertificateSerialNumber() == null || user.getCertificateSerialNumber().isBlank()){
+                logger.info("as certificate is null or empty null is being set");
+                preparedStatement.setObject(5, null);
+            }else {
+                preparedStatement.setString(5, user.getCertificateSerialNumber());
+            }
+            preparedStatement.setLong(6, user.getId());
+            int count = preparedStatement.executeUpdate();
+            logger.info("number of rows changed is " + count);
+            return count == 1;
+        } catch (SQLException sqlException) {
+            logger.error("error in updating the user with id number " + user.getId(),sqlException);
+            throw new DaoException(sqlException);
+        }
+    }
 }

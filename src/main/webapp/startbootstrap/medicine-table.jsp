@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="message"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.language}">
 
 <head>
 
@@ -22,6 +25,9 @@
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Medicine table css -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/usertable.css" rel="stylesheet">
+
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -40,7 +46,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome" /> ${username}</div>
         </a>
 
         <!-- Divider -->
@@ -50,7 +56,7 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span><fmt:message key="dashboard" /></span></a>
         </li>
 
         <!-- Divider -->
@@ -58,21 +64,22 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Interface
+            <fmt:message key="interface" />
         </div>
+
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
+                <span><fmt:message key="make.orders" /></span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp">Buttons</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp">Cards</a>
+                    <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp"><fmt:message key="order.medicine" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
         </li>
@@ -82,16 +89,16 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i>
-                <span>Utilities</span>
+                <span><fmt:message key="additional.functions" /></span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=update_password">Update Password</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp">Borders</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp">Animations</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp">Other</a>
+                    <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=update_password"><fmt:message key="your.orders" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts"  /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
                 </div>
             </div>
         </li>
@@ -109,16 +116,16 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Pharmacy data</span>
+                <span><fmt:message key="pharmacy.data" /></span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Data Tables:</h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users">Users</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine">Medicines</a>
+                    <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message key="table.users" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/forgot-password.jsp">Forgot Password</a>
                     <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
+                    <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/404.jsp">404 Page</a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/blank.jsp">Blank Page</a>
                 </div>
@@ -170,7 +177,7 @@
                 <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="<fmt:message key="search.for" />"
                                aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
@@ -274,7 +281,7 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"
                                          alt="...">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
@@ -286,7 +293,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg"
                                          alt="...">
                                     <div class="status-indicator"></div>
                                 </div>
@@ -298,7 +305,7 @@
                             </a>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_3.svg"
                                          alt="...">
                                     <div class="status-indicator bg-warning"></div>
                                 </div>
@@ -330,14 +337,14 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                            <img class="${pageContext.request.contextPath}/startbootstrap/img-profile rounded-circle"
-                                 src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
+                            <img class="img-profile rounded-circle"
+                                 src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg" alt="Avatar">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -386,7 +393,7 @@
                                     <th>Price($)</th>
                                     <th>Description</th>
                                     <th>Is Prescribed</th>
-                                    <th>Action</th>
+                                    <th>Manage</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -396,7 +403,7 @@
                                     <th>Price($)</th>
                                     <th>Description</th>
                                     <th>Is Prescribed</th>
-                                    <th>Action</th>
+                                    <th>Manage</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -408,11 +415,31 @@
                                         <td>${tempMedicine.description}</td>
                                         <td>${tempMedicine.withPrescription}</td>
                                         <td>
-                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                <input type="hidden" name="medicineId" value="${tempMedicine.id}">
-                                                <input type="hidden" name="command" value="delete_medicine">
-                                                <input type="submit" value="Delete" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false">
-                                            </form>
+                                            <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                                <li>
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="command" value="find_medicine_info">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle"
+                                                                name="submit" ><i class="fa fa-search-plus"></i> </button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="command" value="delete_medicine">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
+                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
+                                                    </form>
+                                                <li>
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="command" value="find_medicine_to_update">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
+                                                                name="submit" ><i class="fa fa-edit"></i> </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -432,7 +459,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2020</span>
+                    <span><fmt:message key="footer.copyright" /> &copy;</span>
                 </div>
             </div>
         </footer>

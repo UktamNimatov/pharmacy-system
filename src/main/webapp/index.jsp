@@ -76,7 +76,7 @@
                                         <a class="small" href="startbootstrap/forgot-password.jsp">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="startbootstrap/register.jsp">Create an Account!</a>
+                                        <a class="small" href="${pageContext.request.contextPath}/startbootstrap/register.jsp">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

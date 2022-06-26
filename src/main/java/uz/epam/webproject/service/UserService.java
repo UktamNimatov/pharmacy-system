@@ -12,7 +12,7 @@ public interface UserService {
 
     boolean registerUser(User user) throws ServiceException;
 
-    boolean authenticate(String login, String email) throws ServiceException;
+    boolean authenticate(String login, String password) throws ServiceException;
 
     List<User> findAll()throws ServiceException;
 
@@ -34,5 +34,7 @@ public interface UserService {
 
     boolean delete(Long id) throws ServiceException;
 
+    boolean isCertificateValid(String serialNumber) throws ServiceException;
 
+    boolean updateUser(User user) throws ServiceException;
 }

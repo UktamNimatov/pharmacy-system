@@ -29,8 +29,10 @@ public class FindMedicineByQueryCommand implements Command {
             List<Medicine> medicineList = medicineService.findMedicineByQuery(searchQuery);
             if (medicineList != null){
                 session.setAttribute(ParameterName.MEDICINE_LIST_BY_QUERY, medicineList);
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.MEDICINE_LIST_BY_QUERY_PAGE);
                 router = new Router(ParameterName.MEDICINE_LIST_BY_QUERY_PAGE, Router.Type.FORWARD);
             }else {
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.LIST_OF_MEDICINES_PAGE);
                 router = new Router(ParameterName.LIST_OF_MEDICINES_PAGE, Router.Type.REDIRECT);
             }
         } catch (ServiceException e) {
