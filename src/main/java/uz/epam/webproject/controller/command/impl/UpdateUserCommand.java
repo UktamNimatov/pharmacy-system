@@ -32,7 +32,7 @@ public class UpdateUserCommand implements Command {
         try {
             Optional<User> optionalUser = userService.findById(Long.parseLong(id));
             if (optionalUser.isEmpty()) {
-                throw new ServiceException("could not find the user with id number: " + id);
+                throw new CommandException("could not find the user with id number: " + id);
             }
             userToUpdate = optionalUser.get();
             logger.info("retrieved user from database is " + userToUpdate.toString());

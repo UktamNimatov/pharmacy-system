@@ -47,7 +47,6 @@ public enum ParameterName {
     * */
     public static final String BOOTSTRAP_REGISTRATION_PAGE = "startbootstrap/register.jsp";
     public static final String BOOTSTRAP_HOME_PAGE = "startbootstrap/home.jsp";
-//    public static final String BOOTSTRAP_MEDICINE_LIST_PAGE = "startbootstrap/medicine-list.jsp";
     public static final String REGISTRATION_CONFIRMATION_PAGE = "startbootstrap/registration-confirmation-page.jsp";
     public static final String BOOTSTRAP_USERS_LIST_TABLE = "startbootstrap/user-table.jsp";
     public static final String BOOTSTRAP_MEDICINE_LIST_TABLE = "startbootstrap/medicine-table.jsp";
@@ -55,6 +54,9 @@ public enum ParameterName {
     public static final String BOOTSTRAP_CLIENT_PROFILE_PAGE = "startbootstrap/client-profile.jsp";
     public static final String BOOTSTRAP_CLIENT_INFO_PAGE = "startbootstrap/client-info.jsp";
     public static final String BOOTSTRAP_PASSWORD_CHANGE = "startbootstrap/password-change.jsp";
+
+    public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "startbootstrap/medicine-info.jsp";
+    public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "startbootstrap/medicine-profile.jsp";
 
     /*
      * Session attributes
@@ -71,15 +73,18 @@ public enum ParameterName {
     public static final String UNAVAILABLE_EMAIL_ADDRESS = "unavailable_email_address";
     public static final String UNAVAILABLE_LOGIN = "unavailable_login";
     public static final String INVALID_CERTIFICATE_NUMBER = "invalid_certificate_number";
+    public static final String FAILED_TO_UPDATE_MEDICINE = "medicine_update_operation_failed";
 
     /*
     * operation
     * */
+    public static final String OPERATION_MESSAGE = "operation_message";
     public static final String PASSWORD_CHANGE_MESSAGE = "password_change_message";
 
     /*
     * medicine parameters
     * */
+    public static final String MEDICINE_ID = "medicine_id";
     public static final String MEDICINE_LIST = "medicine_list";
     public static final String MEDICINE_LIST_BY_QUERY = "medicine_list_by_query";
     public static final String MEDICINE_TITLE = "title";
@@ -90,9 +95,17 @@ public enum ParameterName {
     public static final String MEDICINE_SEARCH_QUERY = "medicine_search_query";
     public static final String MEDICINE_DELETED = "medicine_deleted";
     public static final String MEDICINE_NOT_DELETED = "medicine_not_deleted";
+    public static final String TEMPORARY_MEDICINE = "temp_medicine";
+    public static final String UPDATED_MEDICINE = "updated_medicine";
+
 
     /*
     * Order parameters
     * */
     public static final String ORDERS = "orders";
+
+    /*
+    * permission parameters
+    * */
+    public static final String NO_PERMISSION = "no permission";
 }

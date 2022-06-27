@@ -28,6 +28,9 @@
     <!-- Client info css -->
     <link href="${pageContext.request.contextPath}/startbootstrap/css/client-info.css" rel="stylesheet">
 
+    <!-- Profile css -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/profile.css" rel="stylesheet">
+
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -371,197 +374,111 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-                <div class="container-fluid">
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-<%--                    <section class="bg-light">--%>
-                        <h1 class="h3 mb-4 text-gray-800">User Information</h1>
+                <!-- Page Heading -->
+                <form action="${pageContext.request.contextPath}/controller" method="post" >
+                    <h1 class="h3 mb-4 text-gray-800">Medicine Information Page </h1>
                     <div class="container">
-                        <div class="main-body">
-
-                            <div class="row gutters-sm">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="d-flex flex-column align-items-center text-center">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                                                <div class="mt-3">
-                                                    <h4>${temp_user.firstName} ${temp_user.lastName}</h4>
-                                                    <p class="text-secondary mb-1">${temp_user.role}</p>
-                                                    <p class="text-muted font-size-sm">Tashkent, Uzbekistan</p>
-                                                    <ul class="list-unstyled mb-0 d-flex justify-content-center">
-                                                        <li>
-                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                                <input type="hidden" name="user_id" value="${temp_user.id}">
-                                                                <input type="hidden" name="command" value="delete_user">
-                                                                <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                        name="submit" onclick="if (!(confirm('Are you sure to delete this user'))) return false"><i class="fa fa-trash"></i> </button>
-                                                            </form>
-                                                        </li>
-                                                        <li>
-                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                                <input type="hidden" name="user_id" value="${temp_user.id}">
-                                                                <input type="hidden" name="command" value="find_user_to_update">
-                                                                <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                        name="submit" ><i class="fa fa-edit"></i> </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
+                        <div class="row gutters">
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="account-settings">
+                                            <div class="user-profile">
+                                                <div class="user-avatar">
+                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/medicine_avatar.webp" alt="Avatar">
                                                 </div>
+                                                <h5 class="user-name">${temp_medicine.title}</h5>
+                                                <hr>
+                                                <br>
+                                                <h4 class="user-email">Action</h4>
                                             </div>
+                                            <ul class="list-unstyled mb-0 d-flex justify-content-center">
+                                                <li>
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
+                                                        <input type="hidden" name="command" value="delete_medicine">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
+                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
+                                                        <input type="hidden" name="command" value="find_medicine_to_update">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
+                                                                name="submit" ><i class="fa fa-edit"></i> </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="card mt-3">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Order Number</h6>
-                                                <span class="text-secondary">Status</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github mr-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Order Number</h6>
-                                                <span class="text-secondary">Status</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Order Number</h6>
-                                                <span class="text-secondary">Status</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram mr-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Order Number</h6>
-                                                <span class="text-secondary">Status</span>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Order Number</h6>
-                                                <span class="text-secondary">Status</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Full Name</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.firstName} ${temp_user.lastName}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Email</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.email}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Login</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.login}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Role</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.role}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Id in Website</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.id}
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <c:if test="${temp_user.role.toString().equals('DOCTOR') || temp_user.role.toString().equals('PHARMACIST')}">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <h6 class="mb-0">Certificate</h6>
-                                                </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    ${temp_user.certificateSerialNumber}
-                                                </div>
-                                            </div>
-                                            </c:if>
-                                        </div>
-                                    </div>
-
-                                    <div class="row gutters-sm">
-                                        <div class="col-sm-6 mb-3">
-                                            <div class="card h-100">
-                                                <div class="card-body">
-                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Orders </h6>
-                                                    <small>Web Design</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Website Markup</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>One Page</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Mobile Template</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Backend API</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 mb-3">
-                                            <div class="card h-100">
-                                                <div class="card-body">
-                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Given Receipts</h6>
-                                                    <small>Web Design</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Website Markup</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>One Page</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Mobile Template</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Backend API</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
                                 </div>
                             </div>
-
+                            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="row gutters">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <h6 class="mb-2 text-primary">Details</h6>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" class="form-control" id="title" name="title" readonly
+                                                           placeholder="Enter medicine title" value="${temp_medicine.title}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="price">Price</label>
+                                                    <input type="text" class="form-control" id="price" name="price" readonly
+                                                           placeholder="Enter medicine price" value="${temp_medicine.price}">
+                                                </div>
+                                            </div>
+<%--                                            <input type="hidden" id="password" name="password" value="${temp_medicine.password}">--%>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="id">Id</label>
+                                                    <input type="text" class="form-control" id="id" name="id" readonly
+                                                           placeholder="Enter your email" value="${temp_medicine.id}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="with_prescription">With Prescription</label>
+                                                    <input type="text" class="form-control" id="with_prescription" name="with_prescription" readonly
+                                                           placeholder="is this medicine prescribed..." value="${temp_medicine.withPrescription}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row gutters">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+<%--                                                    <input type="text" class="form-control" id="description" name="description" readonly--%>
+<%--                                                           placeholder="Medicine description..." value="${temp_medicine.description}">--%>
+                                                    <textarea name="description" id="description" cols="88" rows="3" readonly>${temp_medicine.description}</textarea>
+                                                </div>
+                                            </div>
+                                        <div class="row gutters">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="text-right">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    </div>
+                </form>
+            </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->

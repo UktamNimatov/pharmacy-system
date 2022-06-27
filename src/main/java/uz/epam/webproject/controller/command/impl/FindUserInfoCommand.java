@@ -27,7 +27,7 @@ public class FindUserInfoCommand implements Command {
         try {
             Optional<User> optionalUser = userService.findById(id);
             if (optionalUser.isEmpty()){
-                throw new ServiceException("could not find the user with id number: " + id);
+                throw new CommandException("could not find the user with id number: " + id);
             }
             tempUserToUpdate = optionalUser.get();
             session.setAttribute(ParameterName.TEMPORARY_USER, tempUserToUpdate);

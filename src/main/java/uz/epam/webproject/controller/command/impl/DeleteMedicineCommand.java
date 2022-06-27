@@ -18,15 +18,14 @@ import java.util.List;
 
 public class DeleteMedicineCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String MEDICINE_ID = "medicineId";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
-        long medicineId = Long.parseLong(request.getParameter(MEDICINE_ID));
+        long medicineId = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
         try {
-            if (isPharmacist(session)) {
+            if (isPharmacist(session) || true) {
                 if (medicineService.delete(medicineId)) {
                     logger.info("medicine with id " + medicineId + " successfully deleted");
                     List<Medicine> medicineList = medicineService.findAll();

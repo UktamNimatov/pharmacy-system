@@ -8,12 +8,17 @@ import uz.epam.webproject.dao.impl.MedicineDaoImpl;
 import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
+import uz.epam.webproject.validator.MedicineValidator;
+import uz.epam.webproject.validator.UserValidator;
+import uz.epam.webproject.validator.impl.MedicineValidatorImpl;
+import uz.epam.webproject.validator.impl.UserValidatorImpl;
 
 import java.util.List;
 import java.util.Optional;
 
 public class MedicineServiceImpl implements MedicineService {
     private static final Logger logger = LogManager.getLogger();
+    private final MedicineValidator medicineValidator = MedicineValidatorImpl.getInstance();
 
     private final MedicineDao medicineDao = MedicineDaoImpl.getInstance();
 
@@ -96,6 +101,20 @@ public class MedicineServiceImpl implements MedicineService {
         } catch (DaoException e) {
             logger.error("error in finding all medicines without prescription (in service layer)", e);
             throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateMedicine(Medicine medicine) throws ServiceException {
+        if (medicineValidator.checkMedicine(medicine)) {
+            try {
+                return medicineDao.updateMedicine(medicine);
+            } catch (DaoException e) {
+                logger.error("error in updating medicine with id (in service layer)", e);
+                throw new ServiceException(e);
+            }
+        }else {
+            return false;
         }
     }
 }

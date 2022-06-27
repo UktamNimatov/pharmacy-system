@@ -22,4 +22,6 @@ public interface MedicineService {
     List<Medicine> findAllMedicineWithPrescription() throws ServiceException;
 
     List<Medicine> findAllMedicineWithoutPrescription() throws ServiceException;
+
+    boolean updateMedicine(Medicine medicine) throws ServiceException;
 }

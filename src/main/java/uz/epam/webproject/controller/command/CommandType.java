@@ -19,6 +19,9 @@ public enum CommandType {
     UPDATE_USER(new UpdateUserCommand()),
     FIND_USER_TO_UPDATE(new FindUserToUpdateCommand()),
     FIND_USER_INFO(new FindUserInfoCommand()),
+    FIND_MEDICINE_TO_UPDATE(new FindMedicineToUpdateCommand()),
+    FIND_MEDICINE_INFO(new FindMedicineInfoCommand()),
+    UPDATE_MEDICINE(new UpdateMedicineCommand()),
     DEFAULT(new DefaultCommand());
 
 

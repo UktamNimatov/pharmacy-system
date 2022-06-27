@@ -384,15 +384,15 @@
                                         <div class="account-settings">
                                             <div class="user-profile">
                                                 <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg" alt="Avatar">
+                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/medicine_avatar.webp" alt="Avatar">
                                                 </div>
-                                                <h5 class="user-name">${temp_user.login}</h5>
-                                                <h6 class="user-email">${temp_user.email}</h6>
+                                                <h5 class="user-name">${temp_medicine.title}</h5>
+                                                <hr>
                                             </div>
-                                            <div class="about">
-                                                <h5>About</h5>
-                                                <p>I'm ${temp_user.firstName} ${temp_user.lastName}. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                                            </div>
+<%--                                            <div class="about">--%>
+<%--                                                <h5>About</h5>--%>
+<%--                                                <p>I'm ${temp_user.firstName} ${temp_user.lastName}. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>--%>
+<%--                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -404,82 +404,83 @@
 <%--                                        <form action="${pageContext.request.contextPath}/controller">--%>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                                                <h6 class="mb-2 text-primary">Details</h6>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="first_name">First Name</label>
-                                                    <input type="text" class="form-control" id="first_name" name="first_name"
-                                                           placeholder="Enter First name" value="${temp_user.firstName}">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                           placeholder="Enter medicine title" value="${temp_medicine.title}">
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="last_Name">Last Name</label>
-                                                    <input type="text" class="form-control" id="last_Name" name="last_name"
-                                                           placeholder="Enter Last name" value="${temp_user.lastName}">
+                                                    <label for="price">Price</label>
+                                                    <input type="text" class="form-control" id="price" name="price"
+                                                           placeholder="Enter medicine price" value="${temp_medicine.price}">
                                                 </div>
                                             </div>
-                                            <input type="hidden" id="password" name="password" value="${temp_user.password}">
+                                            <%--                                            <input type="hidden" id="password" name="password" value="${temp_medicine.password}">--%>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                           placeholder="Enter your email" value="${temp_user.email}">
+                                                    <label for="medicine_id">Id</label>
+                                                    <input type="text" class="form-control" id="medicine_id" name="medicine_id" readonly
+                                                           placeholder="Enter your email" value="${temp_medicine.id}">
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="login">Login in Website</label>
-                                                    <input type="text" class="form-control" id="login" name="login"
-                                                           placeholder="Login..." value="${temp_user.login}">
+                                                    <label for="with_prescription">With Prescription</label>
+                                                    <input type="text" class="form-control" id="with_prescription" name="with_prescription" readonly
+                                                           placeholder="is this medicine prescribed..." value="${temp_medicine.withPrescription}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mt-3 mb-2 text-primary">Other information</h6>
+                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="role">Role</label>
-                                                    <input type="text" class="form-control" id="role" name="role" readonly
-                                                           placeholder="Current role..." value="${temp_user.role}">
+                                                    <label for="description">Description</label>
+                                                    <textarea name="description" id="description" cols="88" rows="3">${temp_medicine.description}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <c:if test="${temp_user.role.toString() == 'DOCTOR' || temp_user.role.toString() == 'PHARMACIST'}">
-                                                    <label for="certificate">Certificate</label>
-                                                    <input type="text" class="form-control" id="certificate" value="${temp_user.certificateSerialNumber}"
-                                                           placeholder="Certificate..." >
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="user_id">User Id in Website</label>
-                                                    <input type="text" class="form-control" id="user_id" name="user_id" readonly
-                                                           placeholder="User Id" value="${temp_user.id}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-<%--                                            <form action="${pageContext.request.contextPath}/pages/password-update.jsp">--%>
-                                                    <label for="change_password">Password</label><br>
-                                                    <button class="btn btn-outline-primary" id="change_password"
-                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/startbootstrap/password-change.jsp'">Update Password</button>
-<%--                                            </form>--%>
-<%--                                                    <a href="${pageContext.request.contextPath}/pages/password-update.jsp">Update--%>
-<%--                                                        <button class="btn btn-outline-primary" id="change_password" type="submit">Update Password</button>--%>
-<%--                                                    </a>--%>
-                                                </div>
-                                            </div>
+<%--                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--%>
+<%--                                                <div class="form-group">--%>
+<%--                                                    <c:if test="${temp_user.role.toString() == 'DOCTOR' || temp_user.role.toString() == 'PHARMACIST'}">--%>
+<%--                                                    <label for="certificate">Certificate</label>--%>
+<%--                                                    <input type="text" class="form-control" id="certificate" value="${temp_user.certificateSerialNumber}"--%>
+<%--                                                           placeholder="Certificate..." >--%>
+<%--                                                    </c:if>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--%>
+<%--                                                <div class="form-group">--%>
+<%--                                                    <label for="user_id">User Id in Website</label>--%>
+<%--                                                    <input type="text" class="form-control" id="user_id" name="user_id" readonly--%>
+<%--                                                           placeholder="User Id" value="${temp_user.id}">--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--%>
+<%--                                                <div class="form-group">--%>
+<%--&lt;%&ndash;                                            <form action="${pageContext.request.contextPath}/pages/password-update.jsp">&ndash;%&gt;--%>
+<%--                                                    <label for="change_password">Password</label><br>--%>
+<%--                                                    <button class="btn btn-outline-primary" id="change_password"--%>
+<%--                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/startbootstrap/password-change.jsp'">Update Password</button>--%>
+<%--&lt;%&ndash;                                            </form>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                    <a href="${pageContext.request.contextPath}/pages/password-update.jsp">Update&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                        <button class="btn btn-outline-primary" id="change_password" type="submit">Update Password</button>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                                    </a>&ndash;%&gt;--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
                                         </div>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="text-right">
-                                                    <input type="hidden" value="update_user" name="command">
+                                                    <input type="hidden" value="update_medicine" name="command">
+                                                    <button class="btn btn-outline-primary" id="back_to_medicine_list"
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
 <%--                                                    <input type="submit" name="Update">--%>
 <%--                                                    <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>--%>
                                                     <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>

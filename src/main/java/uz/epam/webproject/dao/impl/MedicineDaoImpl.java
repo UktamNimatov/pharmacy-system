@@ -26,6 +26,7 @@ public class MedicineDaoImpl implements MedicineDao {
     private static final String DELETE_MEDICINE = "DELETE FROM medicine WHERE medicine.id = ?";
     private static final String MEDICINE_SEARCH_QUERY = "SELECT medicine.id, medicine.title, medicine.price, medicine.description, medicine.with_prescription FROM medicine WHERE medicine.title LIKE CONCAT ('%', ?, '%') OR medicine.description LIKE CONCAT ('%', ?, '%')";
     private static final String MEDICINE_PRESCRIPTION = "SELECT medicine.id, medicine.title, medicine.price, medicine.description, medicine.with_prescription FROM medicine WHERE medicine.with_prescription = ?";
+    private static final String UPDATE_MEDICINE = "UPDATE medicine SET medicine.title = ?, medicine.price = ?, medicine.description = ? WHERE medicine.id = ?";
 
     private static MedicineDaoImpl instance;
     public static MedicineDaoImpl getInstance(){
@@ -130,6 +131,22 @@ public class MedicineDaoImpl implements MedicineDao {
             return getMedicinesFromResultSet(preparedStatement);
         } catch (SQLException sqlException) {
             logger.error("error in finding all medicine with prescription", sqlException);
+            throw new DaoException(sqlException);
+        }
+    }
+
+    @Override
+    public boolean updateMedicine(Medicine medicine) throws DaoException {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_MEDICINE)){
+            preparedStatement.setString(1, medicine.getTitle());
+            preparedStatement.setDouble(2, medicine.getPrice());
+            preparedStatement.setString(3, medicine.getDescription());
+            preparedStatement.setLong(4, medicine.getId());
+            int count = preparedStatement.executeUpdate();
+            return count == 1;
+        } catch (SQLException sqlException) {
+            logger.error("error in updating medicine info with id " + medicine.getId(), sqlException);
             throw new DaoException(sqlException);
         }
     }

@@ -28,4 +28,6 @@ public interface MedicineDao extends EntityDao<Medicine>{
 
     List<Medicine> findAllMedicineWithoutPrescription() throws DaoException;
 
+    boolean updateMedicine(Medicine medicine) throws DaoException;
+
 }

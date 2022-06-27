@@ -418,7 +418,7 @@
                                             <ul class="list-unstyled mb-0 d-flex justify-content-end">
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
                                                         <input type="hidden" name="command" value="find_medicine_info">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle"
                                                                 name="submit" ><i class="fa fa-search-plus"></i> </button>
@@ -426,14 +426,14 @@
                                                 </li>
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
                                                         <input type="hidden" name="command" value="delete_medicine">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
                                                                 name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
                                                     </form>
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicineId" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
                                                         <input type="hidden" name="command" value="find_medicine_to_update">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
                                                                 name="submit" ><i class="fa fa-edit"></i> </button>

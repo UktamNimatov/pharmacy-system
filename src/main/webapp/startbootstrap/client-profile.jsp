@@ -480,6 +480,8 @@
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="text-right">
                                                     <input type="hidden" value="update_user" name="command">
+                                                    <button class="btn btn-outline-primary" id="back_to_users_list"
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_users'">Users List</button>
 <%--                                                    <input type="submit" name="Update">--%>
 <%--                                                    <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>--%>
                                                     <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
