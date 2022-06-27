@@ -57,6 +57,7 @@ public enum ParameterName {
 
     public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "startbootstrap/medicine-info.jsp";
     public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "startbootstrap/medicine-profile.jsp";
+    public static final String BOOTSTRAP_ORDER_MEDICINE_PAGE = "startbootstrap/order-medicine.jsp";
 
     /*
      * Session attributes
@@ -97,6 +98,7 @@ public enum ParameterName {
     public static final String MEDICINE_NOT_DELETED = "medicine_not_deleted";
     public static final String TEMPORARY_MEDICINE = "temp_medicine";
     public static final String UPDATED_MEDICINE = "updated_medicine";
+    public static final String MEDICINE_BASKET = "medicine_basket";
 
 
     /*

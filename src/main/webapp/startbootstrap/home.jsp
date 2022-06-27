@@ -76,7 +76,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp"><fmt:message key="order.medicine" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
                     </div>
                 </div>

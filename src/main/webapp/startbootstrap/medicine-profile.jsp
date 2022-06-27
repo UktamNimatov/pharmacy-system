@@ -480,7 +480,7 @@
                                                 <div class="text-right">
                                                     <input type="hidden" value="update_medicine" name="command">
                                                     <button class="btn btn-outline-primary" id="back_to_medicine_list"
-                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine    '">Medicine List</button>
 <%--                                                    <input type="submit" name="Update">--%>
 <%--                                                    <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>--%>
                                                     <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>

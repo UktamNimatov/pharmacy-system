@@ -22,6 +22,7 @@ public enum CommandType {
     FIND_MEDICINE_TO_UPDATE(new FindMedicineToUpdateCommand()),
     FIND_MEDICINE_INFO(new FindMedicineInfoCommand()),
     UPDATE_MEDICINE(new UpdateMedicineCommand()),
+    ADD_MEDICINE_TO_BASKET(new AddMedicineToBasketCommand()),
     DEFAULT(new DefaultCommand());
 
 

@@ -6,14 +6,18 @@ import uz.epam.webproject.controller.command.Command;
 import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
+import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
+import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.UserService;
 import uz.epam.webproject.service.exception.ServiceException;
+import uz.epam.webproject.service.impl.MedicineServiceImpl;
 import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -32,11 +36,14 @@ public class LoginCommand implements Command {
         session.setAttribute(ParameterName.LOCALE, defaultLocale);
         Router router;
         UserService userService = UserServiceImpl.getInstance();
+        MedicineService medicineService = MedicineServiceImpl.getInstance();
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
         logger.info("request.contextPath is " + request.getContextPath());
         logger.info("request.servletPath is " + request.getServletPath());
         try {
+            List<Medicine> medicineList = medicineService.findAll();
+            session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
             if(userService.authenticate(userName, password)){
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
