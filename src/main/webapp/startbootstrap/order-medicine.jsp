@@ -29,8 +29,11 @@
     <%--Flag icon--%>
     <link href="${pageContext.request.contextPath}/startbootstrap/css/flag-icon.css" rel="stylesheet">
 
-    <%--Order medicine csss--%>
+    <%--Order medicine css--%>
     <link href="${pageContext.request.contextPath}/startbootstrap/css/ordermedicine.css" rel="stylesheet">
+
+    <%--Basket css--%>
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/shoppingbasket1.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css"
@@ -435,7 +438,7 @@
                                     <div class="col-md-10">
                                                 <c:forEach var="temp_medicine" items="${medicine_list}">
                                         <div class="row p-2 bg-white border rounded">
-                                            <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="${pageContext.request.contextPath}/startbootstrap/img/medicine_avatar.webp"></div>
+                                            <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp"></div>
                                             <div class="col-md-6 mt-1">
                                                 <h5>${temp_medicine.title}</h5>
                                                 <div class="d-flex flex-row">
@@ -479,54 +482,102 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Medicine Shopping Cart</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Medicine Shopping Cart <h6 class="mb-1">${already_in_basket}</h6></h6>
                             </div>
-                            <!-- Card Body -->
+                                <div class="col">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Medicine Item</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <c:forEach var="temp_medicine" items="${medicine_basket}">
+                                                <th scope="row">
+                                                    <div class="d-flex align-items-center">
+<%--                                                        <img src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp" class="img-fluid rounded-3"--%>
+<%--                                                             style="width: 120px;" alt="Book">--%>
+                                                        <div class="flex-column ms-4">
+<%--                                                            <p class="mb-2">Thinking, Fast and Slow</p>--%>
+                                                            <p class="mb-1">${temp_medicine.title}</p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td class="align-middle">
+                                                    <div class="d-flex flex-row">
+                                                        <button class="btn btn-link px-2"
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
 
+                                                        <input id="quantity" min="0" name="quantity" value="1" type="number"
+                                                               class="form-control form-control-sm" style="width: 45px;" />
 
-                            <div class="card rounded-3 mb-4">
-                                <div class="card-body p-4">
-                                    <div class="row d-flex justify-content-between align-items-center">
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                                            <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
+                                                        <button class="btn btn-link px-2"
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <p class="mb-0" style="font-weight: 500;">&dollar;${temp_medicine.price}</p>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <form action="${pageContext.request.contextPath}/controller">
+                                                    <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
+                                                        <input type="hidden" name="command" value="remove_medicine_from_basket">
+                                                        <button type="submit" class="btn btn-outline-info btn-circle <%--btn-lg--%> btn-circle ml-2 text-danger"><i class="fas fa-trash fa-lg"></i></button>
+                                                     <%--<a href="${pageContext.request.contextPath}/controller?command=remove_medicine_from_basket" class="text-danger">--%><%--</a>--%>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                            <input id="form1" min="0" name="quantity" value="2" type="number"
-                                                   class="form-control form-control-sm" />
+                                    <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
+                                        <div class="card-body p-4">
 
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h5 class="mb-0">$499.00</h5>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                                            <div class="row">
+                                                <div class=" col-lg-8 col-xl-7">
+                                                    <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                                        <p class="mb-1">Subtotal</p>
+                                                        <p class="mb-1">$23.49</p>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-between" style="font-weight: 500;">
+                                                        <p class="mb-0">Shipping</p>
+                                                        <p class="mb-0">$2.99</p>
+                                                    </div>
+
+                                                    <hr class="my-1">
+
+                                                    <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                                                        <p class="mb-1">Total </p>
+                                                        <p class="mb-1">$26.48</p>
+                                                    </div>
+
+                                                    <button type="button" class="btn btn-primary btn-block">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Checkout </span>
+                                                        </div>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <c:forEach var="temp_medicine" items="${medicine_basket}">
-                                <h4 class="small font-weight-bold">${temp_medicine.title}
-                                    <span class="float-center">${temp_medicine.price} </span>
-                                    <span class="float-right">Quantity </span></h4>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">${temp_medicine.title}</div>
                                 </div>
-                                <hr>
-                            </c:forEach>
-                        </div>
-                    </div>
+                            </div>
+                    <%--{}{}{}{}{}{}{}--%>
                 </div>
 
             </div>

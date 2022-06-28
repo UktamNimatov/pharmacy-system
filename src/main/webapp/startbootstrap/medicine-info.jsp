@@ -412,6 +412,17 @@
                                                     </form>
                                                 </li>
                                             </ul>
+                                            <hr>
+                                            <div class="card mt-3">
+                                                <div class="row gutters">
+                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                        <div class="text-center">
+                                                            <button class="btn btn-outline-primary" id="back_to_medicine_list"
+                                                                    type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -462,7 +473,7 @@
                                                     <label for="description">Description</label>
 <%--                                                    <input type="text" class="form-control" id="description" name="description" readonly--%>
 <%--                                                           placeholder="Medicine description..." value="${temp_medicine.description}">--%>
-                                                    <textarea name="description" id="description" cols="88" rows="3" readonly>${temp_medicine.description}</textarea>
+                                                    <textarea name="description" id="description" cols="88" rows="5" readonly>${temp_medicine.description}</textarea>
                                                 </div>
                                             </div>
                                         <div class="row gutters">

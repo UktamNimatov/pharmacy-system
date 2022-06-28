@@ -17,6 +17,7 @@ import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -43,7 +44,9 @@ public class LoginCommand implements Command {
         logger.info("request.servletPath is " + request.getServletPath());
         try {
             List<Medicine> medicineList = medicineService.findAll();
+            List<Medicine> medicineBasket = new ArrayList<>();
             session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
+            session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
             if(userService.authenticate(userName, password)){
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
