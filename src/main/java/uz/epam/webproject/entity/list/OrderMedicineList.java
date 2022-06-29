@@ -15,6 +15,16 @@ public class OrderMedicineList implements AbstractEntity {
     private int medicine_quantity;
     private double medicine_price;
 
+    public OrderMedicineList() {
+    }
+
+    public OrderMedicineList(long order_id, long medicine_id, int medicine_quantity, double medicine_price) {
+        this.order_id = order_id;
+        this.medicine_id = medicine_id;
+        this.medicine_quantity = medicine_quantity;
+        this.medicine_price = medicine_price;
+    }
+
     public long getId() {
         return id;
     }

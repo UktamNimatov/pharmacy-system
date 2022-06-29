@@ -21,6 +21,15 @@ public class Order implements AbstractEntity{
     private Timestamp completedTime;
     private Timestamp canceledTime;
 
+    public Order() {
+    }
+
+    public Order(long userId, OrderStatus status, Timestamp orderedTime) {
+        this.userId = userId;
+        this.status = status;
+        this.orderedTime = orderedTime;
+    }
+
     public long getId() {
         return id;
     }

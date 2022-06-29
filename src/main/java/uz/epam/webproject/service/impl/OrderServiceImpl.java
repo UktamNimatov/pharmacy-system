@@ -12,6 +12,7 @@ import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.validator.OrderValidator;
 import uz.epam.webproject.validator.impl.OrderValidatorImpl;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +89,16 @@ public class OrderServiceImpl implements OrderService {
             return orderDao.findOrdersByUserId(userId);
         } catch (DaoException e) {
             logger.error("error in finding list of all orders ", e);
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Optional<Order> findOrderByOrderedTime(Timestamp orderedTime) throws ServiceException {
+        try {
+            return orderDao.findOrderByOrderedTime(orderedTime);
+        } catch (DaoException e) {
+            logger.error("error in finding order by ordered time ", e);
             throw new ServiceException(e);
         }
     }

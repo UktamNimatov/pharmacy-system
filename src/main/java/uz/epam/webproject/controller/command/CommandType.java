@@ -24,6 +24,8 @@ public enum CommandType {
     UPDATE_MEDICINE(new UpdateMedicineCommand()),
     ADD_MEDICINE_TO_BASKET(new AddMedicineToBasketCommand()),
     REMOVE_MEDICINE_FROM_BASKET(new RemoveMedicineFromBasketCommand()),
+    CHANGE_MEDICINE_QUANTITY(new ChangeMedicineQuantityCommand()),
+    ORDER_MEDICINE(new OrderMedicineCommand()),
     DEFAULT(new DefaultCommand());
 
 

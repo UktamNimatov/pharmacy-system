@@ -18,6 +18,7 @@ import uz.epam.webproject.service.impl.OrderMedicineListServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +27,21 @@ public class AddMedicineToBasketCommand implements Command {
     private static final String ALREADY_IN_BASKET = "already_in_basket";
     private static final String ALREADY_IN_BASKET_MESSAGE = "item already in basket";
     private static final String QUANTITY = "quantity";
+    protected static Double SUM = 0d;
+    protected static Double TRANSACTION_COST = 0d;
+    protected static Double TOTAL_COST = 0d;
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
         long medicineId = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
+
+        String quantity = "1";
+
+        logger.info(quantity + " is the value of quantity");
+        HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute("medicine_quantity_map");
+
         Medicine medicineToAdd;
         List<Medicine> medicineBasket = (List<Medicine>) session.getAttribute(ParameterName.MEDICINE_BASKET);
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE);
@@ -41,12 +51,36 @@ public class AddMedicineToBasketCommand implements Command {
                throw new ServiceException("could not find the medicine with id number: " + medicineId);
            }
            medicineToAdd = optionalMedicine.get();
-           if (medicineBasket.contains(medicineToAdd)) {
+
+//           if (medicineBasket.contains(medicineToAdd)) {
+//           }else {
+//              medicineBasket.add(medicineToAdd);
+//              logger.info(medicineToAdd.toString() + " is being added " + " and the quantity is " + quantity);
+//               medicineQuantityMap.putIfAbsent(medicineToAdd, quantity);
+//           }
+
+            if (medicineQuantityMap.containsKey(medicineToAdd)) {
+                logger.info("this medicine already exists ");
                request.setAttribute(ALREADY_IN_BASKET, ALREADY_IN_BASKET_MESSAGE);
-           }else {
-              medicineBasket.add(medicineToAdd);
-           }
+//                medicineQuantityMap.replace(medicineToAdd, quantity);
+            }else {
+                logger.info("new medicine is being added with the new quantity");
+                medicineQuantityMap.put(medicineToAdd, quantity);
+            }
+            session.setAttribute("medicine_quantity_map", medicineQuantityMap);
            session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
+
+            double interval;
+            SUM = 0d;
+            for (Medicine medicine1 : medicineQuantityMap.keySet()){
+                interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
+                SUM = SUM + interval;
+            }
+            TRANSACTION_COST = SUM / 100;
+            TOTAL_COST = TRANSACTION_COST + SUM;
+            session.setAttribute("sum", String.format("%.2f", SUM));
+            session.setAttribute("transaction_cost", String.format("%.2f", TRANSACTION_COST));
+            session.setAttribute("total_cost", String.format("%.2f", TOTAL_COST));
         } catch (ServiceException e) {
             logger.error("error in adding a medicine to basket", e);
             throw new CommandException(e);

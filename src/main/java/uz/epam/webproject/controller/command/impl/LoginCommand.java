@@ -17,10 +17,7 @@ import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 public class LoginCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
@@ -36,8 +33,10 @@ public class LoginCommand implements Command {
         HttpSession session = request.getSession();
         session.setAttribute(ParameterName.LOCALE, defaultLocale);
         Router router;
+
         UserService userService = UserServiceImpl.getInstance();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
+
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
         logger.info("request.contextPath is " + request.getContextPath());
@@ -45,8 +44,13 @@ public class LoginCommand implements Command {
         try {
             List<Medicine> medicineList = medicineService.findAll();
             List<Medicine> medicineBasket = new ArrayList<>();
+
+            HashMap<Medicine, String> medicineQuantityMap = new HashMap<>();
+            session.setAttribute("medicine_quantity_map", medicineQuantityMap);
+
             session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
             session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
+
             if(userService.authenticate(userName, password)){
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
