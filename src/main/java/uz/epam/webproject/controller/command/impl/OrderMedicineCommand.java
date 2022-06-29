@@ -42,8 +42,10 @@ public class OrderMedicineCommand implements Command {
 
         User user = (User) session.getAttribute(ParameterName.USER);
 
-        Timestamp now = new Timestamp(System.currentTimeMillis()/1000);
+        Timestamp now = new Timestamp(System.currentTimeMillis());
 
+
+        session.setAttribute(ParameterName.TEMPORARY_USER, user);
 
         Order order = new Order(user.getId(), OrderStatus.NEW, now);
         OrderMedicineList orderMedicineList;
@@ -61,13 +63,14 @@ public class OrderMedicineCommand implements Command {
                 if (optionalOrder.isEmpty()){
                     throw new CommandException("error in find order by ordered time");
                 }
-                HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute("medicine_quantity_map");
+                HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
                 for (Medicine medicine : medicineQuantityMap.keySet()) {
                     logger.info("currently this medicine is being added: " + medicine.toString());
                     orderMedicineList = new OrderMedicineList(optionalOrder.get().getId(), medicine.getId(), Integer.parseInt(medicineQuantityMap.get(medicine)), medicine.getPrice());
                     orderMedicineListService.addOrderMedicineList(orderMedicineList);
                 }
             }
+
         } catch (ServiceException e) {
             logger.error("error in adding a new order: ");
             throw new CommandException(e);

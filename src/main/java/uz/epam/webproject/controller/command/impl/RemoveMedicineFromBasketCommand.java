@@ -28,7 +28,7 @@ public class RemoveMedicineFromBasketCommand implements Command {
         long medicineId = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
         Medicine medicineToRemove;
         List<Medicine> medicineBasket = (List<Medicine>) session.getAttribute(ParameterName.MEDICINE_BASKET);
-        HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute("medicine_quantity_map");
+        HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
 
         try {
             Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
@@ -37,20 +37,22 @@ public class RemoveMedicineFromBasketCommand implements Command {
             }
             medicineToRemove = optionalMedicine.get();
             medicineQuantityMap.remove(medicineToRemove);
-            session.setAttribute("medicine_quantity_map", medicineQuantityMap);
+            session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
             session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
 
-            double interval;
-            AddMedicineToBasketCommand.SUM = 0d;
-            for (Medicine medicine1 : medicineQuantityMap.keySet()){
-                interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
-                AddMedicineToBasketCommand.SUM = AddMedicineToBasketCommand.SUM + interval;
-            }
-            AddMedicineToBasketCommand.TRANSACTION_COST = AddMedicineToBasketCommand.SUM / 100;
-            AddMedicineToBasketCommand.TOTAL_COST = AddMedicineToBasketCommand.TRANSACTION_COST + AddMedicineToBasketCommand.SUM;
-            session.setAttribute("sum", String.format("%.2f", AddMedicineToBasketCommand.SUM));
-            session.setAttribute("transaction_cost", String.format("%.2f", AddMedicineToBasketCommand.TRANSACTION_COST));
-            session.setAttribute("total_cost", String.format("%.2f", AddMedicineToBasketCommand.TOTAL_COST));
+            AddMedicineToBasketCommand.getStatistics(request);
+
+//            double interval;
+//            AddMedicineToBasketCommand.SUM = 0d;
+//            for (Medicine medicine1 : medicineQuantityMap.keySet()){
+//                interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
+//                AddMedicineToBasketCommand.SUM = AddMedicineToBasketCommand.SUM + interval;
+//            }
+//            AddMedicineToBasketCommand.TRANSACTION_COST = AddMedicineToBasketCommand.SUM / 100;
+//            AddMedicineToBasketCommand.TOTAL_COST = AddMedicineToBasketCommand.TRANSACTION_COST + AddMedicineToBasketCommand.SUM;
+//            session.setAttribute("sum", String.format("%.2f", AddMedicineToBasketCommand.SUM));
+//            session.setAttribute("transaction_cost", String.format("%.2f", AddMedicineToBasketCommand.TRANSACTION_COST));
+//            session.setAttribute("total_cost", String.format("%.2f", AddMedicineToBasketCommand.TOTAL_COST));
         } catch (ServiceException e) {
             logger.error("error in adding a medicine to basket", e);
             throw new CommandException(e);

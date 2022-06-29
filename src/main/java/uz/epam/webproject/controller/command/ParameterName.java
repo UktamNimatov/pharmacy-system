@@ -100,11 +100,17 @@ public enum ParameterName {
     public static final String UPDATED_MEDICINE = "updated_medicine";
     public static final String MEDICINE_BASKET = "medicine_basket";
 
+    public static final String MEDICINE_QUANTITY_MAP = "medicine_quantity_map";
+
 
     /*
     * Order parameters
     * */
     public static final String ORDERS = "orders";
+    public static final String ORDERS_BY_USER = "orders_by_user";
+    public static final String SUM = "sum";
+    public static final String TRANSACTION_COST = "transaction_cost";
+    public static final String TOTAL_COST = "total_cost";
 
     /*
     * permission parameters

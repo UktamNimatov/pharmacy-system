@@ -1,5 +1,6 @@
 package uz.epam.webproject.controller.command.impl;
 
+import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uz.epam.webproject.controller.command.Command;
@@ -7,12 +8,15 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
+import uz.epam.webproject.service.OrderService;
 import uz.epam.webproject.service.UserService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
+import uz.epam.webproject.service.impl.OrderServiceImpl;
 import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,7 @@ public class LoginCommand implements Command {
 
         UserService userService = UserServiceImpl.getInstance();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
+        OrderService orderService = OrderServiceImpl.getInstance();
 
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
@@ -46,7 +51,8 @@ public class LoginCommand implements Command {
             List<Medicine> medicineBasket = new ArrayList<>();
 
             HashMap<Medicine, String> medicineQuantityMap = new HashMap<>();
-            session.setAttribute("medicine_quantity_map", medicineQuantityMap);
+            session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
+
 
             session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
             session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
@@ -56,12 +62,19 @@ public class LoginCommand implements Command {
                 logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
                 UserRole userRole = userService.findUserRole(userName);
                 Optional<User> optionalUser = userService.findByLogin(userName);
-                optionalUser.ifPresent(user -> session.setAttribute(ParameterName.USER, user));
+
+                User user ;
+
+                if (optionalUser.isPresent()) {
+                    user = optionalUser.get();
+                    session.setAttribute(ParameterName.USER, user);
+                }
+
                 request.setAttribute(ParameterName.USERNAME, userName);
                 session.setAttribute(ParameterName.USERNAME, userName);
                 session.setAttribute(ParameterName.PASSWORD, password);
                 session.setAttribute(ParameterName.ROLE, userRole.toString());
-                router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE /*ParameterName.HOME_PAGE*/, Router.Type.FORWARD);
+                router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
             }else {
                 request.setAttribute(ParameterName.ERROR_MESSAGE_SIGN_IN, ERROR_MESSAGE);
                 router = new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
