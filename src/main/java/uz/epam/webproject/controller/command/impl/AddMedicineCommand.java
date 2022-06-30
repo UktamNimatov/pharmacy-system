@@ -31,7 +31,7 @@ public class AddMedicineCommand implements Command {
 
         Medicine medicine = new Medicine(title, price, description, withPrescription);
         try {
-            if (isPharmacist(session)) {
+            if (isPharmacist(session) || isAdmin(session)) {
                 if (medicineService.addEntity(medicine)) {
                     session.setAttribute(ParameterName.MEDICINE_CREATED, medicine);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.MEDICINE_CREATED_PAGE);
@@ -50,6 +50,11 @@ public class AddMedicineCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
+    }
+
+    @Override
+    public boolean isAdmin(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

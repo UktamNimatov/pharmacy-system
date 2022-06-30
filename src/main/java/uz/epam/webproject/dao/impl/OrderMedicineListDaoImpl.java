@@ -23,7 +23,7 @@ public class OrderMedicineListDaoImpl implements OrderMedicineListDao {
 
     private static final String SELECT_ALL = "SELECT order_medicine_list.id, order_medicine_list.order_id, order_medicine_list.medicine_id, order_medicine_list.medicine_quantity, order_medicine_list.medicine_price FROM order_medicine_list";
     private static final String ADD_ORDER_MEDICINE_LIST = "INSERT INTO order_medicine_list (order_id, medicine_id, medicine_quantity, medicine_price) values (?, ?, ?, ?)";
-    private static final String SELECT_ALL_MEDICINE_OF_ONE_ORDER = "SELECT order_medicine_list.id, order_medicine_list.order_id, order_medicine_list.medicine_id, order_medicine_list.medicine_quantity, order_medicine_list.medicine_price FROM order_medicine_list WHERE order_medicine_list.order_id = ?";
+    private static final String FIND_ALL_MEDICINE_OF_ONE_ORDER = "SELECT order_medicine_list.id, order_medicine_list.order_id, order_medicine_list.medicine_id, order_medicine_list.medicine_quantity, order_medicine_list.medicine_price FROM order_medicine_list WHERE order_medicine_list.order_id = ?";
     private static final String DELETE_MEDICINE_LIST = "DELETE FROM order_medicine_list WHERE order_medicine_list.id = ?";
     private static final String DELETE_MEDICINE_LIST_BY_ORDER_ID = "DELETE FROM order_medicine_list WHERE order_medicine_list.order_id = ?";
 
@@ -86,7 +86,7 @@ public class OrderMedicineListDaoImpl implements OrderMedicineListDao {
     @Override
     public List<OrderMedicineList> findAllMedicineOfOneOrder(Long orderId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_MEDICINE_OF_ONE_ORDER)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_MEDICINE_OF_ONE_ORDER)){
             preparedStatement.setLong(1, orderId);
             return getOrderMedicineListByResultSet(preparedStatement);
         } catch (SQLException sqlException) {

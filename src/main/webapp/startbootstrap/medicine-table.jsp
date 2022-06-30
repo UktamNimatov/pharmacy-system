@@ -78,7 +78,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp"><fmt:message key="order.medicine" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
@@ -136,7 +136,7 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span><fmt:message key="add.medicine"/> </span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -382,6 +382,22 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">List of Medicines</h6>
+                        <c:if test="${medicine_not_deleted != null}">
+                            <a href="#" class="btn btn-warning btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                                <span class="text">${medicine_not_deleted}</span>
+                            </a>
+                        </c:if>
+                        <c:if test="${medicine_deleted != null}">
+                            <a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                <span class="text">${medicine_deleted}</span>
+                            </a>
+                        </c:if>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

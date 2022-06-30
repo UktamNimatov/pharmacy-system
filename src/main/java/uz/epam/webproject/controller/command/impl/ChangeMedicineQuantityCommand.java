@@ -7,6 +7,7 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -32,6 +33,11 @@ public class ChangeMedicineQuantityCommand implements Command {
         HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
         Medicine medicine;
         try {
+
+            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
+                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
+            }
+
             Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
             if (optionalMedicine.isEmpty()){
                 throw new CommandException("could not find the medicine with id number: " + medicineId);
@@ -44,22 +50,13 @@ public class ChangeMedicineQuantityCommand implements Command {
                 logger.info("new medicine is being added with the new quantity");
                 medicineQuantityMap.put(medicine, quantity);
             }
+
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE);
             session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
             logger.info("medicine_quantity_map is " + medicineQuantityMap.toString());
 
             AddMedicineToBasketCommand.getStatistics(request);
 
-//            double interval;
-//            AddMedicineToBasketCommand.SUM = 0d;
-//            for (Medicine medicine1 : medicineQuantityMap.keySet()){
-//                interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
-//                AddMedicineToBasketCommand.SUM = AddMedicineToBasketCommand.SUM + interval;
-//            }
-//            AddMedicineToBasketCommand.TRANSACTION_COST = AddMedicineToBasketCommand.SUM / 100;
-//            AddMedicineToBasketCommand.TOTAL_COST = AddMedicineToBasketCommand.TRANSACTION_COST + AddMedicineToBasketCommand.SUM;
-//            session.setAttribute("sum", String.format("%.2f", AddMedicineToBasketCommand.SUM));
-//            session.setAttribute("transaction_cost", String.format("%.2f", AddMedicineToBasketCommand.TRANSACTION_COST));
-//            session.setAttribute("total_cost", String.format("%.2f", AddMedicineToBasketCommand.TOTAL_COST));
         } catch (ServiceException e) {
             logger.error("error in adding a medicine to basket", e);
             throw new CommandException(e);
@@ -67,18 +64,4 @@ public class ChangeMedicineQuantityCommand implements Command {
         return new Router(ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE, Router.Type.FORWARD);
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }

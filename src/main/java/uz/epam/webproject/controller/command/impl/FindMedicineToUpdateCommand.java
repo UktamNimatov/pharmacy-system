@@ -8,6 +8,7 @@ import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.entity.user.User;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -29,7 +30,7 @@ public class FindMedicineToUpdateCommand implements Command {
         Medicine medicineInfo;
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
         try {
-            if (isPharmacist(session) || true) {
+            if (isPharmacist(session) || isAdmin(session)) {
                 Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
                 if (optionalMedicine.isEmpty()) {
                     throw new ServiceException("could not find the medicine with id number: " + medicineId);
@@ -39,7 +40,7 @@ public class FindMedicineToUpdateCommand implements Command {
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE);
                 return new Router(ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE , Router.Type.FORWARD);
             }
-            session.setAttribute(ParameterName.NO_PERMISSION, NO_PERMISSION);
+            request.setAttribute(ParameterName.NO_PERMISSION, NO_PERMISSION);
             return new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
         } catch (ServiceException e) {
             logger.error("error in deleting the medicine by id ", e);
@@ -49,17 +50,12 @@ public class FindMedicineToUpdateCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
     }
 
 
     @Override
     public boolean isAdmin(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

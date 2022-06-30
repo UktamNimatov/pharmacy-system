@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +31,7 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block <%--bg-register-image--%>"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
@@ -62,16 +63,6 @@
                                     <input type="email" class="form-control form-control-user" id="email" name="email"
                                         placeholder="Email Address">
                                 </div>
-<%--                                <div class="form-group row">--%>
-<%--                                    <div class="col-sm-6 mb-3 mb-sm-0">--%>
-<%--                                        <input type="password" class="form-control form-control-user"--%>
-<%--                                            id="exampleInputPassword" placeholder="Password">--%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-sm-6">--%>
-<%--                                        <input type="password" class="form-control form-control-user"--%>
-<%--                                            id="exampleRepeatPassword" placeholder="Repeat Password">--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input type="radio" class="custom-control-input" value="DOCTOR"
@@ -107,17 +98,7 @@
                                         }else document.getElementById('ifDoctorOrPharmacist').style.visibility = 'hidden';
                                     }
                                 </script>
-<%--                                <a href="../login.jsp" class="btn btn-primary btn-user btn-block">--%>
                                 <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block">
-<%--                                    Register Account--%>
-<%--                                </a>--%>
-                                <hr>
-                                <a href="index.jsp" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.jsp" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
                             </form>
                             <hr>
                             <div class="text-center">
@@ -127,6 +108,14 @@
                                 <a class="small" href="${pageContext.request.contextPath}/index.jsp">Already have an account? Login!</a>
                             </div>
                         </div>
+                        <c:if test="${not empty unsuccessful_registration}">
+                            <a href="#" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                                <span class="text">${unsuccessful_registration}</span>
+                            </a>
+                        </c:if>
                     </div>
                 </div>
             </div>

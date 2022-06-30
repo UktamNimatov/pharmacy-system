@@ -27,7 +27,7 @@ public class FindAllOrdersByUserCommand implements Command {
 
         User user = (User) session.getAttribute(ParameterName.USER);
 
-        List<Order> orderList = null;
+        List<Order> orderList;
         try {
             orderList = orderService.findOrdersByUserId(user.getId());
             if (orderList != null && Objects.requireNonNull(orderList).size() != 0) {

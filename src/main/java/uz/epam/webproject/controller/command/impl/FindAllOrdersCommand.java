@@ -27,7 +27,7 @@ public class FindAllOrdersCommand implements Command {
         HttpSession session = request.getSession();
         Router router;
         try {
-            if (isPharmacist(session) || isDoctor(session) ) {
+            if (isPharmacist(session) || isDoctor(session) || isAdmin(session)) {
                 List<Order> orders = orderService.findAll();
                 if (orders != null) {
                     session.setAttribute(ParameterName.ORDERS, orders);
@@ -49,16 +49,16 @@ public class FindAllOrdersCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
     }
 
     @Override
     public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 
     @Override
     public boolean isAdmin(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

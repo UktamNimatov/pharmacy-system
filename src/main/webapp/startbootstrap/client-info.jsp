@@ -79,7 +79,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp"><fmt:message key="order.medicine" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
@@ -137,7 +137,7 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span><fmt:message key="add.medicine"/> </span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -488,26 +488,20 @@
                                             <div class="card h-100">
                                                 <div class="card-body">
                                                     <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Orders </h6>
-                                                    <small>Web Design</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Website Markup</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>One Page</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Mobile Template</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Backend API</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
+                                                    <c:if test="${not empty orders_by_user}">
+                                                        <c:forEach var="temp_order" items="${orders_by_user}">
+                                                    <small>Order ID: ${temp_order.id}</small><br>
+                                                    <small>Order STATUS: ${temp_order.status}</small> <br>
+                                                    <small>Ordered TIME: ${temp_order.orderedTime}</small>
+                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                                <input type="hidden" name="order_id" value="${temp_order.id}">
+                                                                <input type="hidden" name="command" value="find_all_medicine_of_one_order">
+                                                                <button type="submit" class="btn btn-outline-primary"
+                                                                        name="submit" >Order Medicine List</button>
+                                                            </form>
+                                                            <hr>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>
@@ -515,26 +509,12 @@
                                             <div class="card h-100">
                                                 <div class="card-body">
                                                     <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Given Receipts</h6>
-                                                    <small>Web Design</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Website Markup</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>One Page</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Mobile Template</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <small>Backend API</small>
-                                                    <div class="progress mb-3" style="height: 5px">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
+                                                    <c:forEach var="temp" items="${medicines_of_one_order}">
+                                                    <small>${temp.medicine_id}</small><br>
+                                                    <small>${temp.medicine_quantity}</small><br>
+                                                    <small>${temp.medicine_price}</small>
+                                                        <hr>
+                                                    </c:forEach>
                                                 </div>
                                             </div>
                                         </div>

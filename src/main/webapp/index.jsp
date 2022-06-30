@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,17 +60,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-<%--                                        <a href="startbootstrap/index.jsp" class="btn btn-primary btn-user btn-block">--%>
                                             <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
-<%--                                            Login--%>
-<%--                                        </a>--%>
-                                        <hr>
-                                        <a href="startbootstrap/index.jsp" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="startbootstrap/index.jsp" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -79,6 +70,14 @@
                                         <a class="small" href="${pageContext.request.contextPath}/startbootstrap/register.jsp">Create an Account!</a>
                                     </div>
                                 </div>
+                                <c:if test="${not empty successful_registration}">
+                                    <a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">${successful_registration}</span>
+                                    </a>
+                                </c:if>
                             </div>
                         </div>
                     </div>

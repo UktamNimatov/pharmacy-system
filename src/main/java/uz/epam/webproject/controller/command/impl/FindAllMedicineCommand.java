@@ -30,9 +30,9 @@ public class FindAllMedicineCommand implements Command {
             if (medicineList != null){
                 session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
-                router = new Router(/*ParameterName.NEW_LIST_OF_MEDICINES_PAGE*/ ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
+                router = new Router( ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
             }else{
-                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
             }
         } catch (ServiceException e) {

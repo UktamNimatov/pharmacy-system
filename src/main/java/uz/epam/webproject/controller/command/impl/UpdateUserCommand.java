@@ -103,17 +103,8 @@ public class UpdateUserCommand implements Command {
     }
 
     @Override
-    public boolean isPharmacist(HttpSession session) {
-        return false;
-    }
-
-    @Override
     public boolean isAdmin(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }

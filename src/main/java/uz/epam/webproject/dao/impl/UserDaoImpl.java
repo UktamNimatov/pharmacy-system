@@ -60,8 +60,8 @@ public class UserDaoImpl implements UserDao {
                 preparedStatement.setString(3, user.getFirstName());
                 preparedStatement.setString(4, user.getLastName());
                 preparedStatement.setString(5, user.getEmail());
-                preparedStatement.setString(6, user.getRole().name().toLowerCase());
-                if (user.getRole().name().toLowerCase().equalsIgnoreCase(UserRole.CLIENT.toString()) || user.getRole().name().toLowerCase().equalsIgnoreCase(UserRole.GUEST.toString())){
+                preparedStatement.setString(6, user.getRole().name().toLowerCase() );
+                if (user.getRole().name().equalsIgnoreCase(UserRole.CLIENT.toString()) || user.getRole().name().equalsIgnoreCase(UserRole.GUEST.toString())){
                     preparedStatement.setString(7, null);
                 }else {
                     preparedStatement.setString(7, user.getCertificateSerialNumber());

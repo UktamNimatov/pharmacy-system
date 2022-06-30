@@ -22,9 +22,9 @@ public class OrderMapper implements EntityMapper<Order> {
             order.setUserId(resultSet.getLong(ColumnName.USER_ID));
             order.setStatus(OrderStatus.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
             order.setOrderedTime(resultSet.getTimestamp(ColumnName.ORDERED_TIME));
-            order.setConfirmedTime(resultSet.getTimestamp(ColumnName.CONFIRMED_TIME));
-            order.setCompletedTime(resultSet.getTimestamp(ColumnName.COMPLETED_TIME));
-            order.setCanceledTime(resultSet.getTimestamp(ColumnName.CANCELED_TIME));
+//            order.setConfirmedTime(resultSet.getTimestamp(ColumnName.CONFIRMED_TIME));
+//            order.setCompletedTime(resultSet.getTimestamp(ColumnName.COMPLETED_TIME));
+//            order.setCanceledTime(resultSet.getTimestamp(ColumnName.CANCELED_TIME));
             return Optional.of(order);
         } catch (SQLException sqlException) {
             logger.error("error in mapping resultSet into an object", sqlException);

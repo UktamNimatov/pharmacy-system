@@ -65,7 +65,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span><fmt:message key="dashboard"/></span></a>
+                <span><fmt:message key="dashboard" /></span></a>
         </li>
 
         <!-- Divider -->
@@ -163,7 +163,7 @@
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span><fmt:message key="add.medicine"/> </span></a>
         </li>
 
         <!-- Nav Item - Tables -->
@@ -199,14 +199,15 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form
+                <form action="${pageContext.request.contextPath}/controller" method="post"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
+                        <input type="text" class="form-control bg-light border-0 small" name="medicine_search_query"
                                placeholder="<fmt:message key="search.for" />"
                                aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="hidden" name="command" value="find_medicine_by_query">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -420,7 +421,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Dashboard   ${no_medicine_with_this_name}</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
@@ -589,7 +590,7 @@
                                                     <p class="mb-1">Total </p>
                                                     <p class="mb-1">&dollar; ${total_cost}</p>
                                                 </div>
-                                                <form action="${pageContext.request.contextPath}/controller">
+                                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="order_medicine">
                                                 <button type="submit" class="btn btn-primary btn-block">
                                                     <div class="d-flex justify-content-between">

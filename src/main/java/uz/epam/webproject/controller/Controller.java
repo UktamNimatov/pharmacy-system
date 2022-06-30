@@ -34,7 +34,6 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//        response.setContentType("text/html");
         String strCommand = request.getParameter(ParameterName.COMMAND);
         logger.info("command is: " + strCommand);
         Command command = CommandType.of(strCommand);

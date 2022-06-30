@@ -134,8 +134,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
+                    <span><fmt:message key="add.medicine"/> </span></a>
+            </li
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

@@ -35,7 +35,6 @@ public class UpdatePasswordCommand implements Command {
             router = new Router(ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
             return router;
         }
-//        String login = request.getParameter(ParameterName.USERNAME);
         logger.info("retrieved login is " + username);
         logger.info("retrieved newPassword is " + newPassword);
         try {

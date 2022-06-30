@@ -34,7 +34,7 @@ public class DeleteUserCommand implements Command {
             if (optionalUser.isPresent()){
                 userToString =  optionalUser.get().toString();
             }
-            if (isAdmin(session) || true) {
+            if (isAdmin(session)) {
                 if (userService.delete(userId)) {
                     logger.info("User with id " + userId + " successfully deleted");
                     List<User> userList = userService.findAll();
@@ -56,11 +56,7 @@ public class DeleteUserCommand implements Command {
 
     @Override
     public boolean isAdmin(HttpSession session) {
-        return  session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 
-    @Override
-    public User getAuthUser(HttpSession session) {
-        return null;
-    }
 }

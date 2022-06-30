@@ -7,6 +7,7 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.medicine.Medicine;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -35,12 +36,15 @@ public class AddMedicineToBasketCommand implements Command {
         long medicineId = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
 
         logger.info(DEFAULT_QUANTITY + " is the value of quantity");
-        HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute("medicine_quantity_map");
+        HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
 
         Medicine medicineToAdd;
-        List<Medicine> medicineBasket = (List<Medicine>) session.getAttribute(ParameterName.MEDICINE_BASKET);
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE);
         try {
+            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
+                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
+            }
+
            Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
            if (optionalMedicine.isEmpty()){
                throw new ServiceException("could not find the medicine with id number: " + medicineId);
@@ -55,20 +59,8 @@ public class AddMedicineToBasketCommand implements Command {
                 medicineQuantityMap.put(medicineToAdd, DEFAULT_QUANTITY);
             }
             session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
-           session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
 
            getStatistics(request);
-//            double interval;
-//            SUM = 0d;
-//            for (Medicine medicine1 : medicineQuantityMap.keySet()){
-//                interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
-//                SUM = SUM + interval;
-//            }
-//            TRANSACTION_COST = SUM / 100;
-//            TOTAL_COST = TRANSACTION_COST + SUM;
-//            session.setAttribute("sum", String.format("%.2f", SUM));
-//            session.setAttribute("transaction_cost", String.format("%.2f", TRANSACTION_COST));
-//            session.setAttribute("total_cost", String.format("%.2f", TOTAL_COST));
         } catch (ServiceException e) {
             logger.error("error in adding a medicine to basket", e);
             throw new CommandException(e);
@@ -76,21 +68,6 @@ public class AddMedicineToBasketCommand implements Command {
         return new Router(ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE, Router.Type.FORWARD);
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return false;
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 
     public static void getStatistics(HttpServletRequest request){
         HttpSession session = request.getSession();

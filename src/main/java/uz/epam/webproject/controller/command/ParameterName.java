@@ -45,19 +45,19 @@ public enum ParameterName {
     /*
     * bootstrap pages
     * */
-    public static final String BOOTSTRAP_REGISTRATION_PAGE = "startbootstrap/register.jsp";
-    public static final String BOOTSTRAP_HOME_PAGE = "startbootstrap/home.jsp";
-    public static final String REGISTRATION_CONFIRMATION_PAGE = "startbootstrap/registration-confirmation-page.jsp";
-    public static final String BOOTSTRAP_USERS_LIST_TABLE = "startbootstrap/user-table.jsp";
-    public static final String BOOTSTRAP_MEDICINE_LIST_TABLE = "startbootstrap/medicine-table.jsp";
-    public static final String BOOTSTRAP_PROFILE_PAGE = "startbootstrap/profile.jsp";
-    public static final String BOOTSTRAP_CLIENT_PROFILE_PAGE = "startbootstrap/client-profile.jsp";
-    public static final String BOOTSTRAP_CLIENT_INFO_PAGE = "startbootstrap/client-info.jsp";
-    public static final String BOOTSTRAP_PASSWORD_CHANGE = "startbootstrap/password-change.jsp";
+    public static final String BOOTSTRAP_REGISTRATION_PAGE = "/startbootstrap/register.jsp";
+    public static final String BOOTSTRAP_HOME_PAGE = "/startbootstrap/home.jsp";
+    public static final String REGISTRATION_CONFIRMATION_PAGE = "/startbootstrap/registration-confirmation-page.jsp";
+    public static final String BOOTSTRAP_USERS_LIST_TABLE = "/startbootstrap/user-table.jsp";
+    public static final String BOOTSTRAP_MEDICINE_LIST_TABLE = "/startbootstrap/medicine-table.jsp";
+    public static final String BOOTSTRAP_PROFILE_PAGE = "/startbootstrap/profile.jsp";
+    public static final String BOOTSTRAP_CLIENT_PROFILE_PAGE = "/startbootstrap/client-profile.jsp";
+    public static final String BOOTSTRAP_CLIENT_INFO_PAGE = "/startbootstrap/client-info.jsp";
+    public static final String BOOTSTRAP_PASSWORD_CHANGE = "/startbootstrap/password-change.jsp";
 
-    public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "startbootstrap/medicine-info.jsp";
-    public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "startbootstrap/medicine-profile.jsp";
-    public static final String BOOTSTRAP_ORDER_MEDICINE_PAGE = "startbootstrap/order-medicine.jsp";
+    public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "/startbootstrap/medicine-info.jsp";
+    public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "/startbootstrap/medicine-profile.jsp";
+    public static final String BOOTSTRAP_ORDER_MEDICINE_PAGE = "/startbootstrap/order-medicine.jsp";
 
     /*
      * Session attributes
@@ -107,10 +107,14 @@ public enum ParameterName {
     * Order parameters
     * */
     public static final String ORDERS = "orders";
+    public static final String ORDER_ID = "order_id";
     public static final String ORDERS_BY_USER = "orders_by_user";
     public static final String SUM = "sum";
     public static final String TRANSACTION_COST = "transaction_cost";
     public static final String TOTAL_COST = "total_cost";
+
+
+    public static final String MEDICINES_OF_ONE_ORDER = "medicines_of_one_order";
 
     /*
     * permission parameters

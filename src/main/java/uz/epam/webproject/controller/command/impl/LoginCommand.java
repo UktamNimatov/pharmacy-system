@@ -34,13 +34,13 @@ public class LoginCommand implements Command {
         String userName = request.getParameter(ParameterName.USERNAME);
         String password = request.getParameter(ParameterName.PASSWORD);
         String defaultLocale = request.getParameter(ParameterName.LOCALE);
+
         HttpSession session = request.getSession();
         session.setAttribute(ParameterName.LOCALE, defaultLocale);
         Router router;
 
         UserService userService = UserServiceImpl.getInstance();
         MedicineService medicineService = MedicineServiceImpl.getInstance();
-        OrderService orderService = OrderServiceImpl.getInstance();
 
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.INDEX_PAGE);
         logger.info("current page now ::::: " + session.getAttribute(ParameterName.CURRENT_PAGE));
@@ -48,14 +48,11 @@ public class LoginCommand implements Command {
         logger.info("request.servletPath is " + request.getServletPath());
         try {
             List<Medicine> medicineList = medicineService.findAll();
-            List<Medicine> medicineBasket = new ArrayList<>();
 
             HashMap<Medicine, String> medicineQuantityMap = new HashMap<>();
             session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
 
-
             session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
-            session.setAttribute(ParameterName.MEDICINE_BASKET, medicineBasket);
 
             if(userService.authenticate(userName, password)){
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
@@ -70,10 +67,8 @@ public class LoginCommand implements Command {
                     session.setAttribute(ParameterName.USER, user);
                 }
 
-                request.setAttribute(ParameterName.USERNAME, userName);
                 session.setAttribute(ParameterName.USERNAME, userName);
-                session.setAttribute(ParameterName.PASSWORD, password);
-                session.setAttribute(ParameterName.ROLE, userRole.toString());
+                session.setAttribute(ParameterName.ROLE, userRole);
                 router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
             }else {
                 request.setAttribute(ParameterName.ERROR_MESSAGE_SIGN_IN, ERROR_MESSAGE);

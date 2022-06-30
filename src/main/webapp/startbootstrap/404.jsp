@@ -42,11 +42,10 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.jsp">
+            <li class="nav-item active">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
+                    <span><fmt:message key="dashboard" /></span></a>
             </li>
 
             <!-- Divider -->

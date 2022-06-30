@@ -21,11 +21,12 @@ public class RegistrationCommand implements Command {
     private static final String ALREADY_EXISTING_LOGIN = " - already existing login";
     private static final String ALREADY_EXISTING_EMAIL = " - already existing email";
     private static final String INVALID_CERTIFICATE_NUMBER = " - invalid certificate number";
+    private static final String SUCCESSFUL_REGISTRATION = "successful_registration";
+    private static final String UNSUCCESSFUL_REGISTRATION = "unsuccessful_registration";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         UserService userService = UserServiceImpl.getInstance();
-        Router router;
         String login = request.getParameter(ColumnName.LOGIN);
         String password = request.getParameter(ColumnName.PASSWORD);
         String firstName = request.getParameter(ColumnName.FIRST_NAME);
@@ -41,6 +42,7 @@ public class RegistrationCommand implements Command {
         logger.info("retrieved password is: " + password);
         logger.info("retrieved firstName is: " + firstName);
         logger.info("retrieved lastName is: " + lastName);
+        logger.info("retrieved role is: " + role);
 
         User user = new User();
 
@@ -48,22 +50,25 @@ public class RegistrationCommand implements Command {
             if (userService.isLoginAvailable(login)) {
                 user.setLogin(login);
             } else {
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
                 request.setAttribute(ParameterName.UNAVAILABLE_LOGIN, login + ALREADY_EXISTING_LOGIN);
-                return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+                return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             if (userService.isEmailAvailable(email)) {
                 logger.info("service level : " + email + " is available");
                 user.setEmail(email);
             } else {
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
-                return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+                return new Router( ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             if (!certificate_serial_number.isBlank()){
                 if (userService.isCertificateValid(certificate_serial_number)){
                     user.setCertificateSerialNumber(certificate_serial_number);
                 }else {
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
                     request.setAttribute(ParameterName.INVALID_CERTIFICATE_NUMBER, certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
-                    return new Router(/*ParameterName.REGISTRATION_PAGE*/ ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+                    return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
                 }
             }else {
                 user.setCertificateSerialNumber(certificate_serial_number);
@@ -76,14 +81,15 @@ public class RegistrationCommand implements Command {
 
             request.setAttribute(ParameterName.USER, user);
             if (userService.registerUser(user)) {
-                return new Router(ParameterName.USERS_PAGE /*ParameterName.REGISTRATION_CONFIRMATION_PAGE*/, Router.Type.FORWARD);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, SUCCESSFUL_REGISTRATION);
+                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
             } else {
-                return new Router(ParameterName.REGISTRATION_PAGE, Router.Type.FORWARD);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
+                return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.REDIRECT);
             }
         } catch (ServiceException e) {
             logger.error("error in registering a new user", e);
             throw new CommandException(e);
         }
-//        return router;
     }
 }

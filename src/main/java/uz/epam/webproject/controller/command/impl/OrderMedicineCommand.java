@@ -12,6 +12,7 @@ import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.order.OrderStatus;
 import uz.epam.webproject.entity.user.User;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.OrderMedicineListService;
 import uz.epam.webproject.service.OrderService;
@@ -54,6 +55,10 @@ public class OrderMedicineCommand implements Command {
         logger.info("now ordered time: " + now);
 
         try {
+            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
+                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
+            }
+
             if (orderService.addOrder(order)){
                 logger.info("order added");
 
@@ -79,19 +84,4 @@ public class OrderMedicineCommand implements Command {
         return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return false;
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }

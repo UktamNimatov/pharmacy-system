@@ -9,6 +9,7 @@ import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.dao.mapper.ColumnName;
 import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.entity.user.User;
+import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.MedicineServiceImpl;
@@ -33,31 +34,35 @@ public class UpdateMedicineCommand implements Command {
             }
             medicineToUpdate = optionalMedicine.get();
 
-            String title = request.getParameter(ColumnName.TITLE);
-            double price = Double.parseDouble(request.getParameter(ColumnName.PRICE));
-            String description = request.getParameter(ColumnName.DESCRIPTION);
+            if (isAdmin(session) || isPharmacist(session)) {
 
-            if (!title.equals(medicineToUpdate.getTitle())){
-                medicineToUpdate.setTitle(title);
-            }
+                String title = request.getParameter(ColumnName.TITLE);
+                double price = Double.parseDouble(request.getParameter(ColumnName.PRICE));
+                String description = request.getParameter(ColumnName.DESCRIPTION);
 
-            if (price != medicineToUpdate.getPrice()){
-                medicineToUpdate.setPrice(price);
-            }
+                if (!title.equals(medicineToUpdate.getTitle())) {
+                    medicineToUpdate.setTitle(title);
+                }
 
-            if (!description.equals(medicineToUpdate.getDescription())){
-                medicineToUpdate.setDescription(description);
-            }
+                if (price != medicineToUpdate.getPrice()) {
+                    medicineToUpdate.setPrice(price);
+                }
 
-            if (medicineService.updateMedicine(medicineToUpdate)){
-                logger.info("update operation is successful " + medicineToUpdate.toString());
-                session.setAttribute(ParameterName.UPDATED_MEDICINE, medicineToUpdate);
-                session.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineToUpdate);
-                return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE, Router.Type.FORWARD);
-            }
+                if (!description.equals(medicineToUpdate.getDescription())) {
+                    medicineToUpdate.setDescription(description);
+                }
+
+                if (medicineService.updateMedicine(medicineToUpdate)) {
+                    logger.info("update operation is successful " + medicineToUpdate.toString());
+                    session.setAttribute(ParameterName.UPDATED_MEDICINE, medicineToUpdate);
+                    session.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineToUpdate);
+                    return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE, Router.Type.FORWARD);
+                }
                 session.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.FAILED_TO_UPDATE_MEDICINE);
                 return new Router(ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE);
 
+            }
+            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
         }catch (ServiceException e){
             logger.error("error in updating the medicine ", e);
             throw new CommandException(e);
@@ -66,17 +71,13 @@ public class UpdateMedicineCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
     }
 
 
     @Override
     public boolean isAdmin(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }

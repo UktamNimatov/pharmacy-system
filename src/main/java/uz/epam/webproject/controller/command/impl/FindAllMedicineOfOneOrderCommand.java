@@ -2,52 +2,50 @@ package uz.epam.webproject.controller.command.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.appender.rolling.action.IfFileName;
 import uz.epam.webproject.controller.command.Command;
 import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
+import uz.epam.webproject.entity.list.OrderMedicineList;
+import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
-import uz.epam.webproject.service.UserService;
+import uz.epam.webproject.service.OrderMedicineListService;
 import uz.epam.webproject.service.exception.ServiceException;
-import uz.epam.webproject.service.impl.UserServiceImpl;
+import uz.epam.webproject.service.impl.OrderMedicineListServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class FindAllUsersCommand implements Command {
+public class FindAllMedicineOfOneOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
-        UserService userService = UserServiceImpl.getInstance();
         HttpSession session = request.getSession();
-        logger.info("session current page parameter is " + session.getAttribute(ParameterName.CURRENT_PAGE));
-        Router router;
+        OrderMedicineListService orderMedicineListService = OrderMedicineListServiceImpl.getInstance();
+
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE);
+        List<OrderMedicineList> orderMedicineListList;
         try {
             if (isAdmin(session)) {
-                List<User> users = userService.findAll();
-                if (users != null) {
-                    request.setAttribute(ParameterName.USERS, users);
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
-                    router = new Router(ParameterName.BOOTSTRAP_USERS_LIST_TABLE, Router.Type.FORWARD);
-                    return router;
+                long orderId = Long.parseLong(request.getParameter(ParameterName.ORDER_ID));
+                orderMedicineListList = orderMedicineListService.findAllMedicineOfOneOrder(orderId);
+                if (orderMedicineListList != null) {
+                    request.setAttribute(ParameterName.MEDICINES_OF_ONE_ORDER, orderMedicineListList);
                 }
             }
-            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
-            router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
-
         } catch (ServiceException e) {
-            logger.error("error in getting all users from database", e);
+            logger.error("error in finding medicines of one order with order id ");
             throw new CommandException(e);
         }
-        return router;
+        return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
     }
 
     @Override
     public boolean isAdmin(HttpSession session) {
         return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
-
 }

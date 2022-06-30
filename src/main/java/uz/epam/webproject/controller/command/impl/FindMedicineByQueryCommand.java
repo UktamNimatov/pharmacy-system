@@ -17,24 +17,23 @@ import java.util.List;
 
 public class FindMedicineByQueryCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String NO_MEDICINE = "no_medicine_with_this_name";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         MedicineService medicineService = MedicineServiceImpl.getInstance();
         HttpSession session = request.getSession();
-        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE);
         Router router;
         String searchQuery = request.getParameter(ParameterName.MEDICINE_SEARCH_QUERY);
         try {
             List<Medicine> medicineList = medicineService.findMedicineByQuery(searchQuery);
             if (medicineList != null){
-                session.setAttribute(ParameterName.MEDICINE_LIST_BY_QUERY, medicineList);
-                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.MEDICINE_LIST_BY_QUERY_PAGE);
-                router = new Router(ParameterName.MEDICINE_LIST_BY_QUERY_PAGE, Router.Type.FORWARD);
+                request.setAttribute(ParameterName.MEDICINE_LIST_BY_QUERY, medicineList);
             }else {
-                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.LIST_OF_MEDICINES_PAGE);
-                router = new Router(ParameterName.LIST_OF_MEDICINES_PAGE, Router.Type.REDIRECT);
+                request.setAttribute(NO_MEDICINE, NO_MEDICINE);
             }
+                router = new Router(ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE, Router.Type.FORWARD);
         } catch (ServiceException e) {
             logger.error("error in finding medicine by search query", e);
             throw new CommandException(e);

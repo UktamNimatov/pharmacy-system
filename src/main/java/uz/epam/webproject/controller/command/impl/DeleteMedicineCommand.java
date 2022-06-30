@@ -25,7 +25,7 @@ public class DeleteMedicineCommand implements Command {
         MedicineService medicineService = MedicineServiceImpl.getInstance();
         long medicineId = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
         try {
-            if (isPharmacist(session) || true) {
+            if (isPharmacist(session) || isAdmin(session)) {
                 if (medicineService.delete(medicineId)) {
                     logger.info("medicine with id " + medicineId + " successfully deleted");
                     List<Medicine> medicineList = medicineService.findAll();
@@ -37,7 +37,7 @@ public class DeleteMedicineCommand implements Command {
                 }
             }
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
-                return new Router(/*ParameterName.NEW_LIST_OF_MEDICINES_PAGE*/ ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
+                return new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
 
         } catch (ServiceException e) {
             logger.error("error in deleting the medicine by id ", e);
@@ -47,16 +47,12 @@ public class DeleteMedicineCommand implements Command {
 
     @Override
     public boolean isPharmacist(HttpSession session) {
-        return  session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST.toString());
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
     }
 
     @Override
     public boolean isAdmin(HttpSession session) {
-        return false;
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }
