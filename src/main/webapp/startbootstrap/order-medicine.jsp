@@ -161,7 +161,7 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span><fmt:message key="add.medicine"/> </span></a>
         </li>
@@ -314,7 +314,7 @@
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="messagesDropdown">
                             <h6 class="dropdown-header">
-                                Message Center
+                                <fmt:message key="message.center"/>
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
@@ -392,21 +392,21 @@
                             <a class="dropdown-item"
                                href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                <fmt:message key="edit.profile" />
                             </a>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
+                                <fmt:message key="settings" />
                             </a>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                                <fmt:message key="activity.log" />
                             </a>
                             <div class="dropdown-divider"></div>
                             <form action="${pageContext.request.contextPath}/controller">
                                 <input type="hidden" name="command" value="logout">
                                 <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
-                                       type="submit" value="Logout">
+                                       type="submit" value="<fmt:message key="logout" />">
                             </form>
                         </div>
                     </li>
@@ -459,8 +459,8 @@
                                                 </div>
                                                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <h4 class="mr-1">$${temp_medicine.price}</h4><span
-                                                            class="strike-text">$20.99</span>
+                                                        <h4 class="mr-1">$${temp_medicine.price}</h4><%--<span
+                                                            class="strike-text">$20.99</span>--%>
                                                     </div>
                                                     <h6 class="text-success"><fmt:message key="free.delivery"/></h6>
 
@@ -530,7 +530,7 @@
                                             </th>
                                             <td class="align-middle">
                                                 <div class="d-flex flex-row">
-                                                    <form action="${pageContext.request.contextPath}/controller">
+                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
                                                         <input type="hidden" name="medicine_id" value="${entry.key.id}">
                                                         <input type="hidden" name="command"
                                                                value="change_medicine_quantity">
@@ -553,7 +553,7 @@
                                                 <p class="mb-0" style="font-weight: 500;">&dollar;${entry.key.price}</p>
                                             </td>
                                             <td class="align-middle">
-                                                <form action="${pageContext.request.contextPath}/controller">
+                                                <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="medicine_id" value="${entry.key.id}">
                                                     <input type="hidden" name="command"
                                                            value="remove_medicine_from_basket">

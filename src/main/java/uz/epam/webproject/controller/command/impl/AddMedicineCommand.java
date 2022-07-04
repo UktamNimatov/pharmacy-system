@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 public class AddMedicineCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String MEDICINE_NOT_CREATED_MESSAGE = "medicine could not be created";
+    private static final String MEDICINE_CREATED_MESSAGE = "medicine_created with title: ";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -33,12 +35,13 @@ public class AddMedicineCommand implements Command {
         try {
             if (isPharmacist(session) || isAdmin(session)) {
                 if (medicineService.addEntity(medicine)) {
-                    session.setAttribute(ParameterName.MEDICINE_CREATED, medicine);
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.MEDICINE_CREATED_PAGE);
-                    router = new Router(ParameterName.MEDICINE_CREATED_PAGE, Router.Type.FORWARD);
+                    request.setAttribute(ParameterName.MEDICINE_CREATED, MEDICINE_CREATED_MESSAGE+medicine.getTitle());
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
+                    router = new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
                 } else {
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
-                    router = new Router(ParameterName.HOME_PAGE, Router.Type.REDIRECT);
+                    request.setAttribute(ParameterName.MEDICINE_NOT_CREATED, MEDICINE_NOT_CREATED_MESSAGE);
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
+                    router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
                 }
             }
         } catch (ServiceException e) {

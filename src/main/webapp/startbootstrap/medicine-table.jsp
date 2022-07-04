@@ -134,7 +134,7 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span><fmt:message key="add.medicine"/> </span></a>
         </li>
@@ -213,6 +213,9 @@
                             </form>
                         </div>
                     </li>
+                            <c:if test="${not empty medicine_created}">
+                                <strong>${medicine_created}</strong>
+                            </c:if>
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
@@ -277,7 +280,7 @@
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="messagesDropdown">
                             <h6 class="dropdown-header">
-                                Message Center
+                                <fmt:message key="message.center"/>
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image mr-3">
@@ -344,22 +347,24 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
+                            <a class="dropdown-item"
+                               href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                <fmt:message key="edit.profile" />
                             </a>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
+                                <fmt:message key="settings" />
                             </a>
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                                <fmt:message key="activity.log" />
                             </a>
                             <div class="dropdown-divider"></div>
                             <form action="${pageContext.request.contextPath}/controller">
                                 <input type="hidden" name="command" value="logout">
-                                <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal" type="submit" value="Logout">
+                                <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                       type="submit" value="<fmt:message key="logout" />">
                             </form>
                         </div>
                     </li>
@@ -373,10 +378,10 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Medicine Table</h1>
+                <h1 class="h3 mb-2 text-gray-800"><fmt:message key="medicine.table"/> </h1>
                 <p class="mb-4">This table represents the list of medications that the online pharmacy site makes use of.
-                    For more information about users of the site, please visit the <a target="_blank"
-                                                                                      href="https://datatables.net">Pharmacy Medication documentation</a>.</p>
+                    For more information about users of the site, please visit the
+                    <a target="_blank" href="https://datatables.net"><fmt:message key="pharmacy.medicine.documentation" /></a>.</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -404,22 +409,22 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Title </th>
-                                    <th>Price($)</th>
-                                    <th>Description</th>
-                                    <th>Is Prescribed</th>
-                                    <th>Manage</th>
+                                    <th><fmt:message key="id" /></th>
+                                    <th><fmt:message key="title" /></th>
+                                    <th><fmt:message key="price" />($)</th>
+                                    <th><fmt:message key="description" /></th>
+                                    <th><fmt:message key="is.prescribed" /></th>
+                                    <th><fmt:message key="manage" /></th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Title </th>
-                                    <th>Price($)</th>
-                                    <th>Description</th>
-                                    <th>Is Prescribed</th>
-                                    <th>Manage</th>
+                                    <th><fmt:message key="id" /></th>
+                                    <th><fmt:message key="title" /></th>
+                                    <th><fmt:message key="price" />($)</th>
+                                    <th><fmt:message key="description" /></th>
+                                    <th><fmt:message key="is.prescribed" /></th>
+                                    <th><fmt:message key="manage" /></th>
                                 </tr>
                                 </tfoot>
                                 <tbody>

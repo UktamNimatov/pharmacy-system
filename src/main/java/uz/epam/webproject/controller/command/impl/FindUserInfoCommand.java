@@ -7,6 +7,7 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.list.OrderMedicineList;
+import uz.epam.webproject.entity.medicine.Medicine;
 import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
@@ -22,6 +23,7 @@ import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,12 @@ public class FindUserInfoCommand implements Command {
 
         UserService userService = UserServiceImpl.getInstance();
         OrderService orderService = OrderServiceImpl.getInstance();
+        OrderMedicineListService orderMedicineListService = OrderMedicineListServiceImpl.getInstance();
+        MedicineService medicineService = MedicineServiceImpl.getInstance();
+
+        List<OrderMedicineList> orderMedicineListList;
+
+        HashMap<String, Integer> medicineNameQuantityMap = new HashMap<>();
 
         User tempUserToUpdate;
         long id = Long.parseLong(request.getParameter(ParameterName.USER_ID));
@@ -49,6 +57,18 @@ public class FindUserInfoCommand implements Command {
 
                 if (orderList != null) {
                     request.setAttribute(ParameterName.ORDERS_BY_USER, orderList);
+
+                    for (Order order : orderList) {
+                        orderMedicineListList = orderMedicineListService.findAllMedicineOfOneOrder(order.getId());
+                        for (OrderMedicineList orderMedicineList : orderMedicineListList) {
+                            Optional<Medicine> optionalMedicine = medicineService.findById(orderMedicineList.getMedicine_id());
+                            if (optionalMedicine.isPresent()) {
+                                Medicine medicine = optionalMedicine.get();
+                                medicineNameQuantityMap.put(medicine.getTitle(), orderMedicineList.getMedicine_quantity());
+                                request.setAttribute("medicine_name_quantity_map", medicineNameQuantityMap);
+                            }
+                        }
+                    }
                 }
 
                 request.setAttribute(ParameterName.TEMPORARY_USER, tempUserToUpdate);

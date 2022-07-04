@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
@@ -82,6 +83,7 @@
                 </div>
             </li>
 
+
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -132,10 +134,10 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span><fmt:message key="add.medicine"/> </span></a>
-            </li
+            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -209,6 +211,9 @@
                                 </form>
                             </div>
                         </li>
+                        <c:if test="${not empty medicine_not_created}">
+                            <strong>${medicine_not_created}</strong>
+                        </c:if>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -294,7 +299,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
-                                    Message Center
+                                    <fmt:message key="message.center"/>
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
@@ -361,26 +366,24 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    <fmt:message key="edit.profile" />
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    <fmt:message key="settings" />
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    <fmt:message key="activity.log" />
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <form action="${pageContext.request.contextPath}/controller">
-<%--                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">--%>
-<%--                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>--%>
-<%--                                    Logout--%>
-<%--                                </a>--%>
                                     <input type="hidden" name="command" value="logout">
-                                    <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal" type="submit" value="Logout">
+                                    <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                           type="submit" value="<fmt:message key="logout" />">
                                 </form>
                             </div>
                         </li>

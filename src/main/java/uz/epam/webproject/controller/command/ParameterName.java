@@ -93,6 +93,7 @@ public enum ParameterName {
     public static final String MEDICINE_DESCRIPTION = "description";
     public static final String WITH_PRESCRIPTION = "with_prescription";
     public static final String MEDICINE_CREATED = "medicine_created";
+    public static final String MEDICINE_NOT_CREATED = "medicine_not_created";
     public static final String MEDICINE_SEARCH_QUERY = "medicine_search_query";
     public static final String MEDICINE_DELETED = "medicine_deleted";
     public static final String MEDICINE_NOT_DELETED = "medicine_not_deleted";

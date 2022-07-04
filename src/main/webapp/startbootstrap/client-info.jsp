@@ -135,7 +135,7 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/charts.jsp">
+            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span><fmt:message key="add.medicine"/> </span></a>
         </li>
@@ -278,7 +278,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
-                                    Message Center
+                                    <fmt:message key="message.center"/>
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
@@ -345,22 +345,24 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    <fmt:message key="edit.profile" />
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    <fmt:message key="settings" />
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    <fmt:message key="activity.log" />
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <form action="${pageContext.request.contextPath}/controller">
                                     <input type="hidden" name="command" value="logout">
-                                    <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal" type="submit" value="Logout">
+                                    <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                           type="submit" value="<fmt:message key="logout" />">
                                 </form>
                             </div>
                         </li>
@@ -427,7 +429,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Full Name</h6>
+                                                    <h6 class="mb-0"><fmt:message key="full.name" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.firstName} ${temp_user.lastName}
@@ -436,7 +438,7 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Email</h6>
+                                                    <h6 class="mb-0"><fmt:message key="email" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.email}
@@ -445,7 +447,7 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Login</h6>
+                                                    <h6 class="mb-0"><fmt:message key="login" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.login}
@@ -454,7 +456,7 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Role</h6>
+                                                    <h6 class="mb-0"><fmt:message key="role" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.role}
@@ -463,7 +465,7 @@
                                             <hr>
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Id in Website</h6>
+                                                    <h6 class="mb-0"><fmt:message key="id.in.website" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.id}
@@ -473,7 +475,7 @@
                                             <c:if test="${temp_user.role.toString().equals('DOCTOR') || temp_user.role.toString().equals('PHARMACIST')}">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <h6 class="mb-0">Certificate</h6>
+                                                    <h6 class="mb-0"><fmt:message key="certificate" /></h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     ${temp_user.certificateSerialNumber}
@@ -487,18 +489,12 @@
                                         <div class="col-sm-6 mb-3">
                                             <div class="card h-100">
                                                 <div class="card-body">
-                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Orders </h6>
+                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i><fmt:message key="your.orders" /> </h6>
                                                     <c:if test="${not empty orders_by_user}">
                                                         <c:forEach var="temp_order" items="${orders_by_user}">
                                                     <small>Order ID: ${temp_order.id}</small><br>
                                                     <small>Order STATUS: ${temp_order.status}</small> <br>
                                                     <small>Ordered TIME: ${temp_order.orderedTime}</small>
-                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                                <input type="hidden" name="order_id" value="${temp_order.id}">
-                                                                <input type="hidden" name="command" value="find_all_medicine_of_one_order">
-                                                                <button type="submit" class="btn btn-outline-primary"
-                                                                        name="submit" >Order Medicine List</button>
-                                                            </form>
                                                             <hr>
                                                         </c:forEach>
                                                     </c:if>
@@ -508,11 +504,10 @@
                                         <div class="col-sm-6 mb-3">
                                             <div class="card h-100">
                                                 <div class="card-body">
-                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Given Receipts</h6>
-                                                    <c:forEach var="temp" items="${medicines_of_one_order}">
-                                                    <small>${temp.medicine_id}</small><br>
-                                                    <small>${temp.medicine_quantity}</small><br>
-                                                    <small>${temp.medicine_price}</small>
+                                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"><fmt:message key="assignment"/></i><fmt:message key="purchased.medicines" /></h6>
+                                                    <c:forEach var="temp" items="${medicine_name_quantity_map}">
+                                                        <small><fmt:message key="medicine.title"/>: ${temp.key}</small><br>
+                                                        <small><fmt:message key="medicine.quantity"/>: ${temp.value}</small><br>
                                                         <hr>
                                                     </c:forEach>
                                                 </div>
