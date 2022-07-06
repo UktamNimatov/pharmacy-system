@@ -1,6 +1,5 @@
 package uz.epam.webproject.controller.command.impl;
 
-import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uz.epam.webproject.controller.command.Command;
@@ -13,22 +12,16 @@ import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.order.OrderStatus;
 import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
-import uz.epam.webproject.service.MedicineService;
 import uz.epam.webproject.service.OrderMedicineListService;
 import uz.epam.webproject.service.OrderService;
-import uz.epam.webproject.service.UserService;
 import uz.epam.webproject.service.exception.ServiceException;
-import uz.epam.webproject.service.impl.MedicineServiceImpl;
 import uz.epam.webproject.service.impl.OrderMedicineListServiceImpl;
 import uz.epam.webproject.service.impl.OrderServiceImpl;
-import uz.epam.webproject.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 public class OrderMedicineCommand implements Command {

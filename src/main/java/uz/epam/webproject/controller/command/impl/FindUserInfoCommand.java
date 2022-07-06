@@ -65,7 +65,7 @@ public class FindUserInfoCommand implements Command {
                             if (optionalMedicine.isPresent()) {
                                 Medicine medicine = optionalMedicine.get();
                                 medicineNameQuantityMap.put(medicine.getTitle(), orderMedicineList.getMedicine_quantity());
-                                request.setAttribute("medicine_name_quantity_map", medicineNameQuantityMap);
+                                request.setAttribute(ParameterName.MEDICINE_NAME_QUANTITY_MAP, medicineNameQuantityMap);
                             }
                         }
                     }

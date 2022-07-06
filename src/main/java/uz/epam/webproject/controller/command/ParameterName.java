@@ -102,6 +102,7 @@ public enum ParameterName {
     public static final String MEDICINE_BASKET = "medicine_basket";
 
     public static final String MEDICINE_QUANTITY_MAP = "medicine_quantity_map";
+    public static final String MEDICINE_NAME_QUANTITY_MAP = "medicine_name_quantity_map";
 
 
     /*
@@ -113,6 +114,8 @@ public enum ParameterName {
     public static final String SUM = "sum";
     public static final String TRANSACTION_COST = "transaction_cost";
     public static final String TOTAL_COST = "total_cost";
+    public static final String ORDER_AND_COST = "order_and_cost";
+    public static final String ORDERS_TOTAL_COST = "orders_total_cost";
 
 
     public static final String MEDICINES_OF_ONE_ORDER = "medicines_of_one_order";

@@ -242,6 +242,18 @@
                     </li>
 
                     <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown font-weight-bolder">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Language
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=uz_UZ">O'zbek tilida</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=ru_RU">На русском</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=en_US">In English</a>
+                        </div>
+                    </li>
+
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -292,16 +304,6 @@
                         </div>
                     </li>
 
-
-                    <%--                        <li>--%>
-                    <div class="d-lg-block d-none dropdown">
-                        <li><a href="${pageContext.request.contextPath}/controller?command=change_locale&locale=uz_UZ">
-                            Oʻzbek tilida</a></li>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=change_locale&locale=ru_RU">
-                            На русском</a></li>
-                        <li><a href="${pageContext.request.contextPath}/controller?command=change_locale&locale=en_US">
-                            In English</a></li>
-                    </div>
                     <!-- Nav Item - Messages -->
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
