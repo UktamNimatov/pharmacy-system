@@ -27,6 +27,7 @@ public enum CommandType {
     CHANGE_MEDICINE_QUANTITY(new ChangeMedicineQuantityCommand()),
     ORDER_MEDICINE(new OrderMedicineCommand()),
     FIND_ALL_MEDICINE_OF_ONE_ORDER(new FindAllMedicineOfOneOrderCommand()),
+    DELETE_ORDER(new DeleteOrderCommand()),
     DEFAULT(new DefaultCommand());
 
 

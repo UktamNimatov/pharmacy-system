@@ -108,7 +108,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="user.services"/></h6>
                     <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/controller?command=update_password"><fmt:message
+                       href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message
                             key="your.orders"/></a>
                     <a class="collapse-item"
                        href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message

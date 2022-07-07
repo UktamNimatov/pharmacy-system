@@ -58,6 +58,7 @@ public enum ParameterName {
     public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "/startbootstrap/medicine-info.jsp";
     public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "/startbootstrap/medicine-profile.jsp";
     public static final String BOOTSTRAP_ORDER_MEDICINE_PAGE = "/startbootstrap/order-medicine.jsp";
+    public static final String BOOTSTRAP_ALL_ORDERS_PAGE = "/startbootstrap/all-orders-table.jsp";
 
     /*
      * Session attributes
@@ -116,6 +117,9 @@ public enum ParameterName {
     public static final String TOTAL_COST = "total_cost";
     public static final String ORDER_AND_COST = "order_and_cost";
     public static final String ORDERS_TOTAL_COST = "orders_total_cost";
+    public static final String ORDER_LIST = "order_list";
+    public static final String ORDER_DELETED = "order_deleted";
+    public static final String ORDER_NOT_DELETED = "order_not_deleted";
 
 
     public static final String MEDICINES_OF_ONE_ORDER = "medicines_of_one_order";

@@ -24,8 +24,8 @@ public class MedicineServiceImpl implements MedicineService {
 
     private static MedicineServiceImpl instance;
 
-    public static MedicineServiceImpl getInstance(){
-        if (instance == null){
+    public static MedicineServiceImpl getInstance() {
+        if (instance == null) {
             instance = new MedicineServiceImpl();
         }
         return instance;
@@ -46,11 +46,15 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public boolean addEntity(Medicine medicine) throws ServiceException {
-        try {
-            return medicineDao.addEntity(medicine);
-        } catch (DaoException e) {
-            logger.error("error in adding a new medicine (in service layer)", e);
-            throw new ServiceException(e);
+        if (medicineValidator.checkMedicine(medicine)) {
+            try {
+                return medicineDao.addEntity(medicine);
+            } catch (DaoException e) {
+                logger.error("error in adding a new medicine (in service layer)", e);
+                throw new ServiceException(e);
+            }
+        }else {
+            return false;
         }
     }
 
@@ -113,7 +117,7 @@ public class MedicineServiceImpl implements MedicineService {
                 logger.error("error in updating medicine with id (in service layer)", e);
                 throw new ServiceException(e);
             }
-        }else {
+        } else {
             return false;
         }
     }

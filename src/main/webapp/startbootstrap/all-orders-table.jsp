@@ -95,7 +95,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=update_password"><fmt:message key="your.orders" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts"  /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
@@ -390,28 +390,28 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800"><fmt:message key="medicine.table"/> </h1>
+                <h1 class="h3 mb-2 text-gray-800"><fmt:message key="order.table"/> </h1>
                 <p class="mb-4"><fmt:message key="medicine.table.description"/>
                     <a target="_blank" href="https://clincalc.com/DrugStats/Top300Drugs.aspx"><fmt:message key="pharmacy.medicine.documentation" /></a>.</p>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><fmt:message key="medicines.list"/> </h6>
-                        <c:if test="${medicine_not_deleted != null}">
+                        <h6 class="m-0 font-weight-bold text-primary"><fmt:message key="orders.list"/> </h6>
+                        <c:if test="${order_not_deleted != null}">
                             <a href="#" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </span>
-                                <span class="text">${medicine_not_deleted}</span>
+                                <span class="text">${order_not_deleted}</span>
                             </a>
                         </c:if>
-                        <c:if test="${medicine_deleted != null}">
+                        <c:if test="${order_deleted != null}">
                             <a href="#" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                <span class="text">${medicine_deleted}</span>
+                                <span class="text">${order_deleted}</span>
                             </a>
                         </c:if>
                     </div>
@@ -421,36 +421,33 @@
                                 <thead>
                                 <tr>
                                     <th><fmt:message key="id" /></th>
-                                    <th><fmt:message key="title" /></th>
-                                    <th><fmt:message key="price" />(&dollar;)</th>
-                                    <th><fmt:message key="description" /></th>
-                                    <th><fmt:message key="is.prescribed" /></th>
+                                    <th><fmt:message key="user.id" /></th>
+                                    <th><fmt:message key="order.status" /></th>
+                                    <th><fmt:message key="ordered.time" /></th>
                                     <th><fmt:message key="manage" /></th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th><fmt:message key="id" /></th>
-                                    <th><fmt:message key="title" /></th>
-                                    <th><fmt:message key="price" />(&dollar;)</th>
-                                    <th><fmt:message key="description" /></th>
-                                    <th><fmt:message key="is.prescribed" /></th>
+                                    <th><fmt:message key="user.id" /></th>
+                                    <th><fmt:message key="order.status" /></th>
+                                    <th><fmt:message key="ordered.time" /></th>
                                     <th><fmt:message key="manage" /></th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <c:forEach var="tempMedicine" items="${medicine_list}">
+                                <c:forEach var="temp_order" items="${orders}">
                                     <tr>
-                                        <<td>${tempMedicine.id}</td>
-                                        <td>${tempMedicine.title}</td>
-                                        <td>${tempMedicine.price}</td>
-                                        <td>${tempMedicine.description}</td>
-                                        <td>${tempMedicine.withPrescription}</td>
+                                        <<td>${temp_order.id}</td>
+                                        <td>${temp_order.userId}</td>
+                                        <td>${temp_order.status}</td>
+                                        <td>${temp_order.orderedTime}</td>
                                         <td>
-                                            <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                            <ul class="list-unstyled mb-0 d-flex justify-content-center">
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="medicine_id" value="${temp_order.id}">
                                                         <input type="hidden" name="command" value="find_medicine_info">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle"
                                                                 name="submit" ><i class="fa fa-search-plus"></i> </button>
@@ -458,14 +455,14 @@
                                                 </li>
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
-                                                        <input type="hidden" name="command" value="delete_medicine">
+                                                        <input type="hidden" name="order_id" value="${temp_order.id}">
+                                                        <input type="hidden" name="command" value="delete_order">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
+                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this order'))) return false"><i class="fa fa-trash"></i> </button>
                                                     </form>
                                                 <li>
                                                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${tempMedicine.id}">
+                                                        <input type="hidden" name="order_id" value="${temp_order.id}">
                                                         <input type="hidden" name="command" value="find_medicine_to_update">
                                                         <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
                                                                 name="submit" ><i class="fa fa-edit"></i> </button>

@@ -29,14 +29,14 @@ public class FindAllUsersCommand implements Command {
             if (isAdmin(session)) {
                 List<User> users = userService.findAll();
                 if (users != null) {
-                    request.setAttribute(ParameterName.USERS, users);
+                    session.setAttribute(ParameterName.USERS, users);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
                     router = new Router(ParameterName.BOOTSTRAP_USERS_LIST_TABLE, Router.Type.FORWARD);
                     return router;
                 }
             }
             session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
-            router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
+            router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
 
         } catch (ServiceException e) {
             logger.error("error in getting all users from database", e);

@@ -94,7 +94,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=update_password"><fmt:message key="your.orders" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
@@ -387,9 +387,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800"><fmt:message key="user.table" /></h1>
-                    <p class="mb-4">This table represents the list of online pharmacy site users.
-                        For more information about users of the site, please visit the <a target="_blank"
-                            href="https://datatables.net"></a><fmt:message key="pharmacy.users.documentation" /></p>
+                    <p class="mb-4"><fmt:message key="user.table.description"/> </p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -414,7 +412,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" >
                                     <thead>
                                         <tr>
                                             <th><fmt:message key="login" /></th>
@@ -447,14 +445,10 @@
                                             <td>${tempUser.role}</td>
                                             <c:if test="${tempUser.role.toString().equals('DOCTOR') || tempUser.role.toString().equals('PHARMACIST')}">
                                             <td>${tempUser.certificateSerialNumber}</td>
-<%--&lt;%&ndash;                                            <c:if test="${empty tempUser.certificate}">&ndash;%&gt;--%>
                                             </c:if>
-                                            <c:if test="${tempUser.role.toString().equals('CLIENT') || tempUser.role.toString().equals('GUEST')}">
+                                            <c:if test="${tempUser.role.toString().equals('CLIENT') || tempUser.role.toString().equals('GUEST') || tempUser.role.toString().equals('ADMIN')}">
                                                 <td> </td>
-<%--                                                &lt;%&ndash;                                            <c:if test="${empty tempUser.certificate}">&ndash;%&gt;--%>
                                             </c:if>
-<%--&lt;%&ndash;                                            <c:if test="${not empty tempUser.certificate}">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                                            </c:if>&ndash;%&gt;--%>
                                             <td>
                                                 <ul class="list-unstyled mb-0 d-flex justify-content-end">
                                                     <li>
@@ -463,8 +457,6 @@
                                                     <input type="hidden" name="command" value="find_user_info">
                                                     <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle"
                                                             name="submit" ><i class="fa fa-search-plus"></i> </button>
-<%--                                                    <a class="btn btn-outline-info btn-circle btn-lg btn-circle"--%>
-<%--                                                       href="${pageContext.request.contextPath}/controller?command=find_user_info"><i class="fa fa-search-plus"></i> </a>--%>
                                                 </form>
                                                     </li>
                                                     <li>

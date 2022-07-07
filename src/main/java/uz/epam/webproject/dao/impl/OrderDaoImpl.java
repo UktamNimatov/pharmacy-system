@@ -22,7 +22,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final String ADD_ORDER = "INSERT INTO web_project.order (order.user_id, order.status, order.ordered_time) values (?, ?, ?)";
     private static final String SELECT_ALL_ORDERS = "SELECT order.id, order.user_id, order.status, order.ordered_time, order.confirmed_time, order.completed_time, order.canceled_time FROM web_project.order";
     private static final String FIND_BY_ID = "SELECT order.id, order.user_id, order.status, order.ordered_time, order.confirmed_time, order.completed_time, order.canceled_time FROM web_project.order WHERE web_project.order.id = ?";
-    private static final String DELETE_ORDER = "DELETE FROM order WHERE order.id = ?";
+    private static final String DELETE_ORDER = "DELETE FROM web_project.order WHERE web_project.order.id = ?";
     private static final String ORDERS_BY_STATUS = "SELECT order.id, order.user_id, order.status, order.ordered_time, order.confirmed_time, order.completed_time, order.canceled_time FROM web_project.order WHERE web_project.order.status = ?";
     private static final String ORDERS_BY_USER = "SELECT order.id, order.user_id, order.status, order.ordered_time FROM web_project.order WHERE web_project.order.user_id = ?";
 //    private static final String ORDERS_BY_USER = "SELECT order.id, order.user_id, order.status, order.ordered_time, order.confirmed_time, order.completed_time, order.canceled_time FROM web_project.order WHERE web_project.order.user_id = ?";

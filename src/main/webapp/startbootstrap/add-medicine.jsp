@@ -96,7 +96,7 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=update_password"><fmt:message key="your.orders" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts"  /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>

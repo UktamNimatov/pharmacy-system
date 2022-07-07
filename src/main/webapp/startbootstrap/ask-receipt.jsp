@@ -80,7 +80,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/ask-receipt.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
         </li>
@@ -352,7 +352,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
                                 <img class="img-profile rounded-circle"
-                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg">
+                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg" alt="asd">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -389,125 +389,84 @@
 
                     <!-- Page Heading -->
                     <form action="${pageContext.request.contextPath}/controller" method="post" >
-                    <h1 class="h3 mb-4 text-gray-800">Personal Page</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Ask for Receipt</h1>
                     <div class="container">
                         <div class="row gutters">
-                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <div class="account-settings">
-                                            <div class="user-profile">
-                                                <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg" alt="Avatar">
-                                                </div>
-                                                <h5 class="user-name">${temp_user.login}</h5>
-                                                <h6 class="user-email">${temp_user.email}</h6>
-                                            </div>
-                                            <div class="about">
-                                                <h5>About</h5>
-                                                <p>I'm ${temp_user.firstName} ${temp_user.lastName}. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-<%--                            <form action="${pageContext.request.contextPath}/controller" method="post" >--%>
                             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                                 <div class="card h-100">
                                     <div class="card-body">
-<%--                                        <form action="${pageContext.request.contextPath}/controller">--%>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                                                <h6 class="mb-2 text-primary">Details</h6>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="first_name">First Name</label>
-                                                    <input type="text" class="form-control" id="first_name" name="first_name"
-                                                           placeholder="Enter First name" value="${temp_user.firstName}">
+                                                    <label for="title">Title</label>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                           placeholder="Enter medicine title" >
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="last_Name">Last Name</label>
-                                                    <input type="text" class="form-control" id="last_Name" name="last_name"
-                                                           placeholder="Enter Last name" value="${temp_user.lastName}">
-                                                </div>
-                                            </div>
-                                            <input type="hidden" id="password" name="password" value="${temp_user.password}">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                           placeholder="Enter your email" value="${temp_user.email}">
+                                                    <label for="price">Price</label>
+                                                    <input type="text" class="form-control" id="price" name="price"
+                                                           placeholder="Enter medicine price" >
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="login">Login in Website</label>
-                                                    <input type="text" class="form-control" id="login" name="login"
-                                                           placeholder="Login..." value="${temp_user.login}">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="radio" class="custom-control-input" value="true"
+                                                               id="with_prescription" name="with_prescription" >
+                                                        <label class="custom-control-label" for="with_prescription">With Prescription</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox small">
+<%--                                                        <input type="radio" class="custom-control-input" value="false"--%>
+<%--                                                               id="without_prescription" name="with_prescription" >--%>
+<%--                                                        <label class="custom-control-label" for="without_prescription">Without Prescription</label>--%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="radio" class="custom-control-input" value="false"
+                                                               id="without_prescription" name="with_prescription" >
+                                                        <label class="custom-control-label" for="without_prescription">Without Prescription</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mt-3 mb-2 text-primary">Other information</h6>
+                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="role">Role</label>
-                                                    <input type="text" class="form-control" id="role" name="role" readonly
-                                                           placeholder="Current role..." value="${temp_user.role}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <c:if test="${temp_user.role.toString() == 'DOCTOR' || temp_user.role.toString() == 'PHARMACIST'}">
-                                                    <label for="certificate">Certificate</label>
-                                                    <input type="text" class="form-control" id="certificate" value="${temp_user.certificateSerialNumber}"
-                                                           placeholder="Certificate..." >
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="user_id">User Id in Website</label>
-                                                    <input type="text" class="form-control" id="user_id" name="user_id" readonly
-                                                           placeholder="User Id" value="${temp_user.id}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-<%--                                            <form action="${pageContext.request.contextPath}/pages/password-update.jsp">--%>
-                                                    <label for="change_password">Password</label><br>
-                                                    <button class="btn btn-outline-primary" id="change_password"
-                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/startbootstrap/password-change.jsp'">Update Password</button>
-<%--                                            </form>--%>
-<%--                                                    <a href="${pageContext.request.contextPath}/pages/password-update.jsp">Update--%>
-<%--                                                        <button class="btn btn-outline-primary" id="change_password" type="submit">Update Password</button>--%>
-<%--                                                    </a>--%>
+                                                    <label for="description">Description</label>
+                                                    <textarea name="description" id="description" cols="88" rows="5"
+                                                              placeholder="Please, enter medicine description here... "></textarea>
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="hidden" value="add_medicine" name="command">
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="text-right">
-                                                    <input type="hidden" value="update_user" name="command">
-                                                    <button class="btn btn-outline-primary" id="back_to_users_list"
-                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_users'">Users List</button>
-<%--                                                    <input type="submit" name="Update">--%>
-<%--                                                    <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>--%>
-                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
-<%--                                                    <input type="submit" value="Update" name="submit" class="btn-primary">--%>
+                                                    <input type="hidden" value="update_medicine" name="command">
+                                                    <button class="btn btn-outline-primary" id="back_to_medicine_list"
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
+                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Add Medicine</button>
                                                 </div>
                                             </div>
                                         </div>
-<%--                                        </form>--%>
                                     </div>
                                 </div>
                             </div>
-<%--            </form>--%>
                         </div>
                     </div>
                     </form>

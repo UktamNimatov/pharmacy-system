@@ -99,7 +99,7 @@ public class LoginCommand implements Command {
                             orderTotalCost = orderTotalCost + interval;
                         }
                         orderTotalCostList.add(orderTotalCost);
-                        orderAndCost.put(order, orderTotalCost);
+                        orderAndCost.put(order, Double.parseDouble(String.format("%.2f", orderTotalCost)));
                     }
 
                     session.setAttribute(ParameterName.MEDICINE_NAME_QUANTITY_MAP, medicineNameQuantityMap);
@@ -109,7 +109,7 @@ public class LoginCommand implements Command {
                     sumTotal = sumTotal + oneOrderCost;
                 }
 
-                session.setAttribute(ParameterName.ORDERS_TOTAL_COST, sumTotal);
+                session.setAttribute(ParameterName.ORDERS_TOTAL_COST, String.format("%.2f", sumTotal));
 
 
                 session.setAttribute(ParameterName.USERNAME, userName);

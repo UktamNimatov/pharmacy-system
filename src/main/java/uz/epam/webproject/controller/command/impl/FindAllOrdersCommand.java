@@ -30,15 +30,15 @@ public class FindAllOrdersCommand implements Command {
             if (isPharmacist(session) || isDoctor(session) || isAdmin(session)) {
                 List<Order> orders = orderService.findAll();
                 if (orders != null) {
-                    session.setAttribute(ParameterName.ORDERS, orders);
+//                    session.setAttribute(ParameterName.ORDERS, orders);
                     request.setAttribute(ParameterName.ORDERS, orders);
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.LIST_OF_ORDERS_PAGE);
-                    router = new Router(ParameterName.LIST_OF_ORDERS_PAGE, Router.Type.FORWARD);
+                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ALL_ORDERS_PAGE);
+                    router = new Router(ParameterName.BOOTSTRAP_ALL_ORDERS_PAGE, Router.Type.FORWARD);
                     return router;
                 }
             }
-            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.SIDEBAR_PAGE);
-            router = new Router(ParameterName.SIDEBAR_PAGE, Router.Type.FORWARD);
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
+            router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
 
         } catch (ServiceException e) {
             logger.info("error in finding all orders ", e);
