@@ -456,7 +456,7 @@
                                                     <p class="text-justify text-truncate para mb-0">${temp_medicine.description}<br><br>
                                                     </p>
                                                     <c:if test="${temp_medicine.withPrescription}">
-                                                        <span class="dot"></span>Only with Prescription
+                                                        <span class="dot"></span><fmt:message key="only.with.prescription"/>
                                                     </c:if>
                                                 </div>
                                                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
@@ -474,7 +474,7 @@
                                                             <input type="hidden" name="command"
                                                                    value="find_medicine_info">
                                                             <button class="btn btn-primary btn-sm" type="submit">
-                                                                Details
+                                                                <fmt:message key="details"/>
                                                             </button>
                                                         </form>
                                                         <form action="${pageContext.request.contextPath}/controller"
@@ -484,7 +484,7 @@
                                                             <input type="hidden" name="command"
                                                                    value="add_medicine_to_basket">
                                                             <button class="btn btn-outline-primary btn-sm mt-2"
-                                                                    type="submit">Add to wishlist
+                                                                    type="submit"><fmt:message key="add.to.wishlist"/>
                                                             </button>
                                                         </form>
                                                     </div>
