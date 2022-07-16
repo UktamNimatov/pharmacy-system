@@ -1,6 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="message"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.language}">
 
 <head>
 
@@ -10,16 +14,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login Page</title>
+    <title><fmt:message key="login" /></title>
 
-    <!-- Custom fonts for this template-->
-    <link href="startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <%--Flag icon--%>
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/flag-icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -70,12 +80,17 @@
                                         <a class="small" href="${pageContext.request.contextPath}/startbootstrap/register.jsp">Create an Account!</a>
                                     </div>
                                 </div>
-                                <c:if test="${not empty successful_registration}">
+                                <c:if test="${not empty error_message}">
+                                    <div class="alert alert-danger col-xs-offset-1 col-xs-10">
+                                            ${error_message}
+                                    </div>
+                                </c:if>
+                                <c:if test="${not empty operation_message}">
                                     <a href="#" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                        <span class="text">${successful_registration}</span>
+                                        ${operation_message}
                                     </a>
                                 </c:if>
                             </div>
@@ -90,14 +105,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="startbootstrap/vendor/jquery/jquery.min.js"></script>
-    <script src="startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="startbootstrap/js/sb-admin-2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="${pageContext.request.contextPath}/startbootstrap/js/demo/chart-area-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

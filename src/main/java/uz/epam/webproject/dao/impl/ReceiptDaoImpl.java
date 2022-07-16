@@ -21,7 +21,7 @@ public class ReceiptDaoImpl implements ReceiptDao {
     private static final Logger logger = LogManager.getLogger();
     private final ReceiptMapper receiptMapper = new ReceiptMapper();
 
-    private static final String ADD_RECEIPT = "INSERT INTO receipt (doctor_user_id, client_user_id, usage, assigned_time) values (?, ?, ?, ?)";
+    private static final String ADD_RECEIPT = "INSERT INTO receipt (receipt.doctor_user_id, receipt.client_user_id, receipt.usage, receipt.assigned_time) values (?, ?, ?, ?)";
     private static final String SELECT_ALL_RECEIPTS = "SELECT receipt.id, receipt.doctor_user_id, receipt.client_user_id, receipt.usage, receipt.assigned_time FROM receipt";
     private static final String FIND_BY_ID = "SELECT receipt.id, receipt.doctor_user_id, receipt.client_user_id, receipt.usage, receipt.assigned_time FROM receipt WHERE receipt.id = ?";
     private static final String DELETE_RECEIPT = "DELETE FROM receipt WHERE receipt.id = ?";

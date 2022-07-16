@@ -123,10 +123,10 @@
                         <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message key="table.users" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/forgot-password.jsp">Forgot Password</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_request_receipts">Find All Requests</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/404.jsp">404 Page</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_receipts">Find All Receipts</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/blank.jsp">Blank Page</a>
                     </div>
                 </div>
@@ -213,6 +213,14 @@
                         </li>
                         <c:if test="${not empty medicine_not_created}">
                             <strong>${medicine_not_created}</strong>
+                        </c:if>
+                        <c:if test="${not empty operation_message}">
+                            <a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                    ${operation_message}
+                            </a>
                         </c:if>
 
                         <!-- Nav Item - Alerts -->

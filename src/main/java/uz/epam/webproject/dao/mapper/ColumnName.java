@@ -46,4 +46,10 @@ public enum ColumnName {
     public static final String ASSIGNED_TIME = "assigned_time";
     public static final String RECEIPT_ID = "receipt_id";
 
+    /*
+    * request receipt
+    * */
+    public static final String ILLNESS_DESCRIPTION = "illness_description";
+    public static final String RESPONDED_TIME = "responded_time";
+
 }

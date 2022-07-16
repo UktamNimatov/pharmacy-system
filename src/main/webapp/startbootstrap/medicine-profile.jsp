@@ -398,7 +398,7 @@
                                         <div class="account-settings">
                                             <div class="user-profile">
                                                 <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/medicine_avatar.webp" alt="Avatar">
+                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp" alt="Avatar">
                                                 </div>
                                                 <h5 class="user-name">${temp_medicine.title}</h5>
                                                 <hr>

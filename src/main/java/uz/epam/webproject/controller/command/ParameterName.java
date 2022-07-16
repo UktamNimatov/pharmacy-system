@@ -54,6 +54,9 @@ public enum ParameterName {
     public static final String BOOTSTRAP_CLIENT_PROFILE_PAGE = "/startbootstrap/client-profile.jsp";
     public static final String BOOTSTRAP_CLIENT_INFO_PAGE = "/startbootstrap/client-info.jsp";
     public static final String BOOTSTRAP_PASSWORD_CHANGE = "/startbootstrap/password-change.jsp";
+    public static final String BOOTSTRAP_REQUEST_RECEIPT_TABLE = "/startbootstrap/request-receipt-table.jsp";
+    public static final String BOOTSTRAP_MAKE_RECEIPT_PAGE = "/startbootstrap/make-receipt.jsp";
+    public static final String BOOTSTRAP_RECEIPT_LIST_TABLE = "/startbootstrap/receipt-table.jsp";
 
     public static final String BOOTSTRAP_MEDICINE_INFO_PAGE = "/startbootstrap/medicine-info.jsp";
     public static final String BOOTSTRAP_MEDICINE_PROFILE_PAGE = "/startbootstrap/medicine-profile.jsp";
@@ -105,6 +108,11 @@ public enum ParameterName {
     public static final String MEDICINE_QUANTITY_MAP = "medicine_quantity_map";
     public static final String MEDICINE_NAME_QUANTITY_MAP = "medicine_name_quantity_map";
 
+    /*
+    * receipt parameters
+    * */
+    public static final String RECEIPT_USAGE = "receipt_usage";
+    public static final String RECEIPTS_LIST = "receipts_list";
 
     /*
     * Order parameters
@@ -128,4 +136,14 @@ public enum ParameterName {
     * permission parameters
     * */
     public static final String NO_PERMISSION = "no permission";
+
+
+    /*
+    * request receipts
+    * */
+    public static final String REQUEST_RECEIPTS = "request_receipts";
+    public static final String REQUEST_RECEIPT_ID = "request_receipt_id";
+    public static final String TEMP_REQUEST_RECEIPT = "temp_request_receipt";
+    public static final String TEMP_REQUEST_RECEIPT_ID = "temp_request_receipt_id";
+
 }

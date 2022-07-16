@@ -503,7 +503,7 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Medicine Shopping Cart <h6
+                                <h6 class="m-0 font-weight-bold text-primary"><fmt:message key="medicine.shopping.cart"/> <h6
                                         class="mb-1">${already_in_basket}</h6></h6>
                             </div>
                             <div class="col">
@@ -511,9 +511,9 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Medicine Item</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col"><fmt:message key="medicine.item" /></th>
+                                            <th scope="col"><fmt:message key="quantity"/> </th>
+                                            <th scope="col"><fmt:message key="price"/> </th>
                                             <th scope="col"></th>
                                         </tr>
                                         </thead>
@@ -576,12 +576,12 @@
                                         <div class="row">
                                             <div class=" col-lg-8 col-xl-7">
                                                 <div class="d-flex justify-content-between" style="font-weight: 500;">
-                                                    <p class="mb-1">Subtotal</p>
+                                                    <p class="mb-1"><fmt:message key="subtotal" /></p>
                                                     <p class="mb-1">&dollar; ${sum}</p>
                                                 </div>
 
                                                 <div class="d-flex justify-content-between" style="font-weight: 500;">
-                                                    <p class="mb-0">Transaction Cost</p>
+                                                    <p class="mb-0"><fmt:message key="transaction.cost" /></p>
                                                     <p class="mb-0">&dollar; ${transaction_cost}</p>
                                                 </div>
 
@@ -589,14 +589,14 @@
 
                                                 <div class="d-flex justify-content-between mb-4"
                                                      style="font-weight: 500;">
-                                                    <p class="mb-1">Total </p>
+                                                    <p class="mb-1"><fmt:message key="total.cost" /> </p>
                                                     <p class="mb-1">&dollar; ${total_cost}</p>
                                                 </div>
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="order_medicine">
                                                 <button type="submit" class="btn btn-primary btn-block">
                                                     <div class="d-flex justify-content-between">
-                                                        <span>Order </span>
+                                                        <span><fmt:message key="order"/> </span>
                                                     </div>
                                                 </button>
                                                 </form>

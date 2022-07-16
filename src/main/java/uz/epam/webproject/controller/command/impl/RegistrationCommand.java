@@ -21,8 +21,8 @@ public class RegistrationCommand implements Command {
     private static final String ALREADY_EXISTING_LOGIN = " - already existing login";
     private static final String ALREADY_EXISTING_EMAIL = " - already existing email";
     private static final String INVALID_CERTIFICATE_NUMBER = " - invalid certificate number";
-    private static final String SUCCESSFUL_REGISTRATION = "successful_registration";
-    private static final String UNSUCCESSFUL_REGISTRATION = "unsuccessful_registration";
+    private static final String SUCCESSFUL_REGISTRATION = " successful_registration: Login with new user ";
+    private static final String UNSUCCESSFUL_REGISTRATION = " unsuccessful_registration ";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -50,7 +50,7 @@ public class RegistrationCommand implements Command {
             if (userService.isLoginAvailable(login)) {
                 user.setLogin(login);
             } else {
-                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION + login + ALREADY_EXISTING_LOGIN);
                 request.setAttribute(ParameterName.UNAVAILABLE_LOGIN, login + ALREADY_EXISTING_LOGIN);
                 return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
@@ -58,15 +58,15 @@ public class RegistrationCommand implements Command {
                 logger.info("service level : " + email + " is available");
                 user.setEmail(email);
             } else {
-                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION + email + ALREADY_EXISTING_EMAIL);
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
-                return new Router( ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
+                return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
             if (!certificate_serial_number.isBlank()){
                 if (userService.isCertificateValid(certificate_serial_number)){
                     user.setCertificateSerialNumber(certificate_serial_number);
                 }else {
-                    request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION + certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
                     request.setAttribute(ParameterName.INVALID_CERTIFICATE_NUMBER, certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
                     return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
                 }
@@ -85,7 +85,7 @@ public class RegistrationCommand implements Command {
                 return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
             } else {
                 request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION);
-                return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.REDIRECT);
+                return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE);
             }
         } catch (ServiceException e) {
             logger.error("error in registering a new user", e);

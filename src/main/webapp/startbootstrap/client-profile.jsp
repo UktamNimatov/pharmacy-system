@@ -294,7 +294,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"
                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
@@ -398,7 +398,7 @@
                                         <div class="account-settings">
                                             <div class="user-profile">
                                                 <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg" alt="Avatar">
+                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/user_avatar.png" alt="Avatar">
                                                 </div>
                                                 <h5 class="user-name">${temp_user.login}</h5>
                                                 <h6 class="user-email">${temp_user.email}</h6>

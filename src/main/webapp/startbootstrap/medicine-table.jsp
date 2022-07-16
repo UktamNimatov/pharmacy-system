@@ -441,7 +441,7 @@
                                 <tbody>
                                 <c:forEach var="tempMedicine" items="${medicine_list}">
                                     <tr>
-                                        <<td>${tempMedicine.id}</td>
+                                        <td>${tempMedicine.id}</td>
                                         <td>${tempMedicine.title}</td>
                                         <td>${tempMedicine.price}</td>
                                         <td>${tempMedicine.description}</td>

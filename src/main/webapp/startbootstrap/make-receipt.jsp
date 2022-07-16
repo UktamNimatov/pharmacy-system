@@ -22,14 +22,11 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Client info css -->
-    <link href="${pageContext.request.contextPath}/startbootstrap/css/client-info.css" rel="stylesheet">
-
     <!-- Profile css -->
     <link href="${pageContext.request.contextPath}/startbootstrap/css/profile.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -83,7 +80,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
                     <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/ask-receipt.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
         </li>
@@ -355,7 +352,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
                                 <img class="img-profile rounded-circle"
-                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg">
+                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg" alt="asd">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -388,59 +385,13 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <form action="${pageContext.request.contextPath}/controller" method="post" >
-                    <h1 class="h3 mb-4 text-gray-800">Medicine Information Page </h1>
+                    <!-- Page Heading -->
+                    <form action="${pageContext.request.contextPath}/controller" method="post" >
+                    <h1 class="h3 mb-4 text-gray-800">Write A Prescription</h1>
                     <div class="container">
                         <div class="row gutters">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <div class="account-settings">
-                                            <div class="user-profile">
-                                                <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp" alt="Avatar">
-                                                </div>
-                                                <h5 class="user-name">${temp_medicine.title}</h5>
-                                                <hr>
-                                                <br>
-                                                <h4 class="user-email">Action</h4>
-                                            </div>
-                                            <ul class="list-unstyled mb-0 d-flex justify-content-center">
-                                                <li>
-                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
-                                                        <input type="hidden" name="command" value="delete_medicine">
-                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
-                                                    </form>
-                                                </li>
-                                                <li>
-                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
-                                                        <input type="hidden" name="command" value="find_medicine_to_update">
-                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                name="submit" ><i class="fa fa-edit"></i> </button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                            <hr>
-                                            <div class="card mt-3">
-                                                <div class="row gutters">
-                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                        <div class="text-center">
-                                                            <button class="btn btn-outline-primary" id="back_to_medicine_list"
-                                                                    type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                                 <div class="card h-100">
                                     <div class="card-body">
@@ -448,51 +399,47 @@
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <h6 class="mb-2 text-primary">Details</h6>
                                             </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title" readonly
-                                                           placeholder="Enter medicine title" value="${temp_medicine.title}">
-                                                </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label for="posted_time">Posted Time</label>
+                                                <input type="datetime-local" class="form-control" id="posted_time" name="posted_time" readonly
+                                                       placeholder="Enter medicine title" value="${temp_request_receipt.orderedTime}" >
                                             </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="price">Price</label>
-                                                    <input type="text" class="form-control" id="price" name="price" readonly
-                                                           placeholder="Enter medicine price" value="${temp_medicine.price}">
-                                                </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label for="user_id">User Id</label>
+                                                <input type="hidden" value="${temp_request_receipt.id}" name="temp_request_receipt_id">
+                                                <input type="text" class="form-control" id="user_id" name="user_id" readonly
+                                                       value="${temp_request_receipt.userId}">
                                             </div>
-<%--                                            <input type="hidden" id="password" name="password" value="${temp_medicine.password}">--%>
+                                        </div>
+                                        <div class="row gutters">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="id">Id</label>
-                                                    <input type="text" class="form-control" id="id" name="id" readonly
-                                                           placeholder="Enter your email" value="${temp_medicine.id}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="with_prescription">With Prescription</label>
-                                                    <input type="text" class="form-control" id="with_prescription" name="with_prescription" readonly
-                                                           placeholder="is this medicine prescribed..." value="${temp_medicine.withPrescription}">
+                                                    <label for="illness_description">Illness Description</label>
+                                                    <textarea name="illness_description" cols="88" readonly id="illness_description"
+                                                              rows="10">${temp_request_receipt.illnessDescription}</textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gutters">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
-                                            </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="description">Description</label>
-<%--                                                    <input type="text" class="form-control" id="description" name="description" readonly--%>
-<%--                                                           placeholder="Medicine description..." value="${temp_medicine.description}">--%>
-                                                    <textarea name="description" id="description" cols="88" rows="5" readonly>${temp_medicine.description}</textarea>
+                                                    <label for="receipt_usage">Usage and what to do</label>
+                                                    <textarea name="receipt_usage" id="receipt_usage" cols="88" rows="10"
+                                                              placeholder="Please, enter your prescription here... "></textarea>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <input type="hidden" value="post_receipt" name="command">
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="text-right">
+                                                    <button class="btn btn-outline-primary" id="back_home"
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/startbootstrap/home.jsp'">Home Page</button>
+                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Post Prescription</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -501,10 +448,10 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
 
@@ -543,7 +490,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/index.jsp">Logout</a>
+                    <a class="btn btn-primary" href="../login.jsp">Logout</a>
                 </div>
             </div>
         </div>

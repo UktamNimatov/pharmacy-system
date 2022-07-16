@@ -82,7 +82,7 @@
             <a href="${pageContext.request.contextPath}/login.jsp" class="btn btn-primary" role="button" aria-pressed="true">Go to new Login Page</a>
         </div>
 
-        <c:if test="${error_message != ''}">
+        <c:if test="${not empty error_message}">
         <div class="alert alert-danger col-xs-offset-1 col-xs-10">
             ${error_message}
         </div>

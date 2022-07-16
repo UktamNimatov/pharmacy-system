@@ -425,9 +425,6 @@
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
                                                     <div class="custom-control custom-checkbox small">
-<%--                                                        <input type="radio" class="custom-control-input" value="false"--%>
-<%--                                                               id="without_prescription" name="with_prescription" >--%>
-<%--                                                        <label class="custom-control-label" for="without_prescription">Without Prescription</label>--%>
                                                     </div>
                                                 </div>
                                             </div>

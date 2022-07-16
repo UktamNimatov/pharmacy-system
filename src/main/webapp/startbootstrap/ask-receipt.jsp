@@ -399,68 +399,27 @@
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <h6 class="mb-2 text-primary">Details</h6>
                                             </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title"
-                                                           placeholder="Enter medicine title" >
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="price">Price</label>
-                                                    <input type="text" class="form-control" id="price" name="price"
-                                                           placeholder="Enter medicine price" >
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox small">
-                                                        <input type="radio" class="custom-control-input" value="true"
-                                                               id="with_prescription" name="with_prescription" >
-                                                        <label class="custom-control-label" for="with_prescription">With Prescription</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox small">
-<%--                                                        <input type="radio" class="custom-control-input" value="false"--%>
-<%--                                                               id="without_prescription" name="with_prescription" >--%>
-<%--                                                        <label class="custom-control-label" for="without_prescription">Without Prescription</label>--%>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox small">
-                                                        <input type="radio" class="custom-control-input" value="false"
-                                                               id="without_prescription" name="with_prescription" >
-                                                        <label class="custom-control-label" for="without_prescription">Without Prescription</label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
+                                                <h6 class="mt-3 mb-2 text-primary">Illness Description</h6>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
                                                     <label for="description">Description</label>
-                                                    <textarea name="description" id="description" cols="88" rows="5"
-                                                              placeholder="Please, enter medicine description here... "></textarea>
+                                                    <textarea name="illness_description" id="description" cols="88" rows="10"
+                                                              placeholder="Please, enter illness description here... "></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" value="add_medicine" name="command">
+                                        <input type="hidden" value="add_request_receipt" name="command">
                                         <div class="row gutters">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="text-right">
-                                                    <input type="hidden" value="update_medicine" name="command">
-                                                    <button class="btn btn-outline-primary" id="back_to_medicine_list"
-                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
-                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Add Medicine</button>
+<%--                                                    <input type="hidden" value="add_request_receipt" name="command">--%>
+                                                    <button class="btn btn-outline-primary" id="back_home"
+                                                            type="button" onclick="window.location.href='${pageContext.request.contextPath}/startbootstrap/home.jsp'">Home Page</button>
+                                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Post Request</button>
                                                 </div>
                                             </div>
                                         </div>

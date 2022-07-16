@@ -25,4 +25,5 @@ public interface ReceiptMedicineListDao extends EntityDao<ReceiptMedicineList> {
 
     boolean deleteByReceiptId(Long receiptId) throws DaoException;
 
+
 }

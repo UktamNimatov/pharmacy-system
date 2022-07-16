@@ -17,9 +17,18 @@ public class Receipt implements AbstractEntity {
     private long id;
     private long fromUserId;
     private long toUserId;
-//    private LinkedHashMap<Medicine, Integer> medicineList;
-    private Timestamp assignedTime;
     private String usage;
+    private Timestamp assignedTime;
+
+    public Receipt() {
+    }
+
+    public Receipt(long fromUserId, long toUserId, String usage, Timestamp assignedTime) {
+        this.fromUserId = fromUserId;
+        this.toUserId = toUserId;
+        this.usage = usage;
+        this.assignedTime = assignedTime;
+    }
 
     public long getId() {
         return id;
@@ -45,13 +54,6 @@ public class Receipt implements AbstractEntity {
         this.toUserId = toUserId;
     }
 
-//    public LinkedHashMap<Medicine, Integer> getMedicineList() {
-//        return medicineList;
-//    }
-
-//    public void setMedicineList(LinkedHashMap<Medicine, Integer> medicineList) {
-//        this.medicineList = medicineList;
-//    }
 
     public Timestamp getAssignedTime() {
         return assignedTime;
@@ -78,14 +80,13 @@ public class Receipt implements AbstractEntity {
         return id == receipt.id &&
                 fromUserId == receipt.fromUserId &&
                 toUserId == receipt.toUserId &&
-//                Objects.equals(medicineList, receipt.medicineList) &&
                 Objects.equals(assignedTime, receipt.assignedTime) &&
                 Objects.equals(usage, receipt.usage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fromUserId, toUserId/*, medicine_list*/, assignedTime, usage);
+        return Objects.hash(id, fromUserId, toUserId, assignedTime, usage);
     }
 
     @Override

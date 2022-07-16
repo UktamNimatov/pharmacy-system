@@ -28,6 +28,11 @@ public enum CommandType {
     ORDER_MEDICINE(new OrderMedicineCommand()),
     FIND_ALL_MEDICINE_OF_ONE_ORDER(new FindAllMedicineOfOneOrderCommand()),
     DELETE_ORDER(new DeleteOrderCommand()),
+    ADD_REQUEST_RECEIPT(new AddRequestReceiptCommand()),
+    FIND_ALL_REQUEST_RECEIPTS(new FindAllRequestReceiptsCommand()),
+    FIND_REQUEST_RECEIPT_INFO(new FindRequestReceiptInfo()),
+    POST_RECEIPT(new PostReceiptCommand()),
+    FIND_ALL_RECEIPTS(new FindAllReceiptsCommand()),
     DEFAULT(new DefaultCommand());
 
 

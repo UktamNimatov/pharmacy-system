@@ -1,6 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="message"/>
 <!DOCTYPE html>
@@ -8,13 +8,13 @@
 
 <head>
 
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><fmt:message key="profilepage.title" /></title>
+    <title><fmt:message key="500.page" /></title>
 
     <!-- Custom fonts for this template -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -25,11 +25,8 @@
     <!-- Custom styles for this template -->
     <link href="${pageContext.request.contextPath}/startbootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Client info css -->
-    <link href="${pageContext.request.contextPath}/startbootstrap/css/client-info.css" rel="stylesheet">
-
-    <!-- Profile css -->
-    <link href="${pageContext.request.contextPath}/startbootstrap/css/profile.css" rel="stylesheet">
+    <%--Flag icon--%>
+    <link href="${pageContext.request.contextPath}/startbootstrap/css/flag-icon.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -38,82 +35,82 @@
 
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar -->
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome" /> ${username}</div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span><fmt:message key="dashboard" /></span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            <fmt:message key="interface" />
-        </div>
-
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span><fmt:message key="make.orders" /></span>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome" /> ${username}</div>
             </a>
 
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message key="illness.complaint" /></a>
-                </div>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span><fmt:message key="dashboard" /></span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                <fmt:message key="interface" />
             </div>
-        </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span><fmt:message key="additional.functions" /></span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts"  /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span><fmt:message key="make.orders" /></span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/ask-receipt.jsp"><fmt:message key="illness.complaint" /></a>
+                    </div>
                 </div>
+            </li>
+
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span><fmt:message key="additional.functions" /></span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
             </div>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -136,62 +133,60 @@
                 </div>
             </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span><fmt:message key="add.medicine"/> </span></a>
-        </li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span><fmt:message key="add.medicine"/> </span></a>
+            </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item active">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/user-table.jsp">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/user-table.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
 
-    </ul>
-    <!-- End of Sidebar -->
+        </ul>
+        <!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Main Content -->
-        <div id="content">
+            <!-- Main Content -->
+            <div id="content">
 
-            <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <form class="form-inline">
+                    <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                </form>
 
-                <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="<fmt:message key="search.for" />"
-                               aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
+                    <!-- Topbar Search -->
+                    <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="<fmt:message key="search.for" />"
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
-                <!-- Topbar Navbar -->
+                    <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -293,12 +288,12 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
-                                    <fmt:message key="message.center"/>
+                                    Message Center
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"
+                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -334,7 +329,7 @@
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                             alt="...">
+                                            alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div>
@@ -355,7 +350,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
                                 <img class="img-profile rounded-circle"
-                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg">
+                                     src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg" alt="Avatar">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -384,127 +379,23 @@
 
                     </ul>
 
-            </nav>
-            <!-- End of Topbar -->
+                </nav>
+                <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <form action="${pageContext.request.contextPath}/controller" method="post" >
-                    <h1 class="h3 mb-4 text-gray-800">Medicine Information Page </h1>
-                    <div class="container">
-                        <div class="row gutters">
-                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <div class="account-settings">
-                                            <div class="user-profile">
-                                                <div class="user-avatar">
-                                                    <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp" alt="Avatar">
-                                                </div>
-                                                <h5 class="user-name">${temp_medicine.title}</h5>
-                                                <hr>
-                                                <br>
-                                                <h4 class="user-email">Action</h4>
-                                            </div>
-                                            <ul class="list-unstyled mb-0 d-flex justify-content-center">
-                                                <li>
-                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
-                                                        <input type="hidden" name="command" value="delete_medicine">
-                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                name="submit" onclick="if (!(confirm('Are you sure to delete this medicine'))) return false"><i class="fa fa-trash"></i> </button>
-                                                    </form>
-                                                </li>
-                                                <li>
-                                                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                        <input type="hidden" name="medicine_id" value="${temp_medicine.id}">
-                                                        <input type="hidden" name="command" value="find_medicine_to_update">
-                                                        <button type="submit" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"
-                                                                name="submit" ><i class="fa fa-edit"></i> </button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                            <hr>
-                                            <div class="card mt-3">
-                                                <div class="row gutters">
-                                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                        <div class="text-center">
-                                                            <button class="btn btn-outline-primary" id="back_to_medicine_list"
-                                                                    type="button" onclick="window.location.href='${pageContext.request.contextPath}/controller?command=find_all_medicine'">Medicine List</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <div class="row gutters">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mb-2 text-primary">Details</h6>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="title">Title</label>
-                                                    <input type="text" class="form-control" id="title" name="title" readonly
-                                                           placeholder="Enter medicine title" value="${temp_medicine.title}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="price">Price</label>
-                                                    <input type="text" class="form-control" id="price" name="price" readonly
-                                                           placeholder="Enter medicine price" value="${temp_medicine.price}">
-                                                </div>
-                                            </div>
-<%--                                            <input type="hidden" id="password" name="password" value="${temp_medicine.password}">--%>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="id">Id</label>
-                                                    <input type="text" class="form-control" id="id" name="id" readonly
-                                                           placeholder="Enter your email" value="${temp_medicine.id}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="with_prescription">With Prescription</label>
-                                                    <input type="text" class="form-control" id="with_prescription" name="with_prescription" readonly
-                                                           placeholder="is this medicine prescribed..." value="${temp_medicine.withPrescription}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row gutters">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mt-3 mb-2 text-primary">Medicine Description</h6>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="description">Description</label>
-<%--                                                    <input type="text" class="form-control" id="description" name="description" readonly--%>
-<%--                                                           placeholder="Medicine description..." value="${temp_medicine.description}">--%>
-                                                    <textarea name="description" id="description" cols="88" rows="5" readonly>${temp_medicine.description}</textarea>
-                                                </div>
-                                            </div>
-                                        <div class="row gutters">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="text-right">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- 404 Error Text -->
+                    <div class="text-center">
+                        <div class="error mx-auto" data-text="404">500</div>
+                        <p class="lead text-gray-800 mb-5"><fmt:message key="internal.server.error"/> </p>
+                        <p class="text-gray-500 mb-0"><fmt:message key="glitch.matrix" /></p>
+                        <a href="${pageContext.request.contextPath}/startbootstrap/home.jsp">&larr; <fmt:message key="back.to.dashboard" /></a>
                     </div>
-                    </div>
-                </form>
-            </div>
+
+                </div>
                 <!-- /.container-fluid -->
+
             </div>
             <!-- End of Main Content -->
 
@@ -530,24 +421,29 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/index.jsp">Logout</a>
+    <form action="${pageContext.request.contextPath}/controller">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+                        <input type="hidden" name="command" value="logout">
+                        <input class="btn btn-primary" type="submit" value="Logout">
+                        <%--                        <a class="btn btn-primary" href="../login.jsp">Logout</a>--%>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/startbootstrap/vendor/jquery/jquery.min.js"></script>
@@ -560,11 +456,11 @@
     <script src="${pageContext.request.contextPath}/startbootstrap/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="${pageContext.request.contextPath}/startbootstrap/js/demo/datatables-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/js/demo/chart-area-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/startbootstrap/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
