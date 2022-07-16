@@ -96,7 +96,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message key="given.receipts" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_receipts"><fmt:message key="given.receipts" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message key="medicine.with.prescription" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message key="medicine.without.prescription" /></a>
                     </div>
@@ -123,11 +123,11 @@
                         <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message key="table.users" /></a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_request_receipts">Find All Requests</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_request_receipts"><fmt:message key="find.all.complaints"/> </a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_receipts">Find All Receipts</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/blank.jsp">Blank Page</a>
+<%--                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_receipts">Find All Receipts</a>--%>
+<%--                        <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/blank.jsp">Blank Page</a>--%>
                     </div>
                 </div>
             </li>
@@ -140,11 +140,11 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/user-table.jsp">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/user-table.jsp">--%>
+<%--                    <i class="fas fa-fw fa-table"></i>--%>
+<%--                    <span>Tables</span></a>--%>
+<%--            </li>--%>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -236,121 +236,121 @@
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Change Locale Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+<%--                        <li class="nav-item dropdown no-arrow mx-1">--%>
+<%--                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"--%>
+<%--                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+<%--                                <i class="fas fa-bell fa-fw"></i>--%>
+<%--                                <!-- Counter - Alerts -->--%>
+<%--                                <span class="badge badge-danger badge-counter">3+</span>--%>
+<%--                            </a>--%>
+<%--                            <!-- Dropdown - Alerts -->--%>
+<%--                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"--%>
+<%--                                aria-labelledby="alertsDropdown">--%>
+<%--                                <h6 class="dropdown-header">--%>
+<%--                                    Change Locale Center--%>
+<%--                                </h6>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="mr-3">--%>
+<%--                                        <div class="icon-circle bg-primary">--%>
+<%--                                            <i class="fas fa-file-alt text-white"></i>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="small text-gray-500">December 12, 2019</div>--%>
+<%--                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="mr-3">--%>
+<%--                                        <div class="icon-circle bg-success">--%>
+<%--                                            <i class="fas fa-donate text-white"></i>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="small text-gray-500">December 7, 2019</div>--%>
+<%--                                        $290.29 has been deposited into your account!--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="mr-3">--%>
+<%--                                        <div class="icon-circle bg-warning">--%>
+<%--                                            <i class="fas fa-exclamation-triangle text-white"></i>--%>
+<%--                                        </div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="small text-gray-500">December 2, 2019</div>--%>
+<%--                                        Spending Alert: We've noticed unusually high spending for your account.--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>--%>
+<%--                            </div>--%>
+<%--                        </li>--%>
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    <fmt:message key="message.center"/>
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
+<%--                        <li class="nav-item dropdown no-arrow mx-1">--%>
+<%--                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"--%>
+<%--                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+<%--                                <i class="fas fa-envelope fa-fw"></i>--%>
+<%--                                <!-- Counter - Messages -->--%>
+<%--                                <span class="badge badge-danger badge-counter">7</span>--%>
+<%--                            </a>--%>
+<%--                            <!-- Dropdown - Messages -->--%>
+<%--                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"--%>
+<%--                                aria-labelledby="messagesDropdown">--%>
+<%--                                <h6 class="dropdown-header">--%>
+<%--                                    <fmt:message key="message.center"/>--%>
+<%--                                </h6>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="dropdown-list-image mr-3">--%>
+<%--                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"--%>
+<%--                                            alt="...">--%>
+<%--                                        <div class="status-indicator bg-success"></div>--%>
+<%--                                    </div>--%>
+<%--                                    <div class="font-weight-bold">--%>
+<%--                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a--%>
+<%--                                            problem I've been having.</div>--%>
+<%--                                        <div class="small text-gray-500">Emily Fowler · 58m</div>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="dropdown-list-image mr-3">--%>
+<%--                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg"--%>
+<%--                                            alt="...">--%>
+<%--                                        <div class="status-indicator"></div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="text-truncate">I have the photos that you ordered last month, how--%>
+<%--                                            would you like them sent to you?</div>--%>
+<%--                                        <div class="small text-gray-500">Jae Chun · 1d</div>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="dropdown-list-image mr-3">--%>
+<%--                                        <img class="rounded-circle" src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_3.svg"--%>
+<%--                                            alt="...">--%>
+<%--                                        <div class="status-indicator bg-warning"></div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="text-truncate">Last month's report looks great, I am very happy with--%>
+<%--                                            the progress so far, keep up the good work!</div>--%>
+<%--                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item d-flex align-items-center" href="#">--%>
+<%--                                    <div class="dropdown-list-image mr-3">--%>
+<%--                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"--%>
+<%--                                            alt="...">--%>
+<%--                                        <div class="status-indicator bg-success"></div>--%>
+<%--                                    </div>--%>
+<%--                                    <div>--%>
+<%--                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone--%>
+<%--                                            told me that people say this to all dogs, even if they aren't good...</div>--%>
+<%--                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>--%>
+<%--                                    </div>--%>
+<%--                                </a>--%>
+<%--                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>--%>
+<%--                            </div>--%>
+<%--                        </li>--%>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -419,7 +419,7 @@
                                                 <fmt:message key="order.status"/>: ${temp.key.status}</div>
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 <fmt:message key="ordered.time"/>: ${temp.key.orderedTime}</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Total cost: &dollar;${temp.value}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:message key="total.cost" />: &dollar;${temp.value}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -467,7 +467,7 @@
                                     <c:forEach var="temp" items="${medicine_name_quantity_map}">
                                         <div class="h5 mb-0 font-weight-bold text-gray-800"> ${temp.value}</div>
                                             <span class="float-right">
-                                                Price: &dollar;${temp.key.medicine_price}
+                                                <fmt:message key="price"/> : &dollar;${temp.key.medicine_price}
                                             </span>
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             <fmt:message key="medicine.quantity"/>: ${temp.key.medicine_quantity}</div>
@@ -481,7 +481,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-primary text-white shadow">
                                         <div class="card-body">
-                                            Primary
+                                            <fmt:message key="primary"/>
                                             <div class="text-white-50 small">#4e73df</div>
                                         </div>
                                     </div>
@@ -489,7 +489,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-success text-white shadow">
                                         <div class="card-body">
-                                            Success
+                                            <fmt:message key="success"/>
                                             <div class="text-white-50 small">#1cc88a</div>
                                         </div>
                                     </div>
@@ -497,7 +497,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-info text-white shadow">
                                         <div class="card-body">
-                                            Info
+                                            <fmt:message key="info"/>
                                             <div class="text-white-50 small">#36b9cc</div>
                                         </div>
                                     </div>
@@ -505,7 +505,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-warning text-white shadow">
                                         <div class="card-body">
-                                            Warning
+                                            <fmt:message key="warning"/>
                                             <div class="text-white-50 small">#f6c23e</div>
                                         </div>
                                     </div>
@@ -513,7 +513,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-danger text-white shadow">
                                         <div class="card-body">
-                                            Danger
+                                            <fmt:message key="danger"/>
                                             <div class="text-white-50 small">#e74a3b</div>
                                         </div>
                                     </div>
@@ -521,7 +521,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-secondary text-white shadow">
                                         <div class="card-body">
-                                            Secondary
+                                            <fmt:message key="secondary"/>
                                             <div class="text-white-50 small">#858796</div>
                                         </div>
                                     </div>
@@ -529,7 +529,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-light text-black shadow">
                                         <div class="card-body">
-                                            Light
+                                            <fmt:message key="light"/>
                                             <div class="text-black-50 small">#f8f9fc</div>
                                         </div>
                                     </div>
@@ -537,7 +537,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-dark text-white shadow">
                                         <div class="card-body">
-                                            Dark
+                                            <fmt:message key="dark"/>
                                             <div class="text-white-50 small">#5a5c69</div>
                                         </div>
                                     </div>
@@ -551,19 +551,14 @@
                             <!-- Illustrations -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><fmt:message key="our.address"/> </h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
                                             src="${pageContext.request.contextPath}/startbootstrap/img/pharmacy-picture.jpg" alt="...">
                                     </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
+                                    <p><fmt:message key="physical.address" /></p>
                                 </div>
                             </div>
 
@@ -599,29 +594,29 @@
     </a>
 
     <!-- Logout Modal-->
-    <form action="${pageContext.request.contextPath}/controller">
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<%--    <form action="${pageContext.request.contextPath}/controller">--%>
+<%--        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"--%>
+<%--            aria-hidden="true">--%>
+<%--            <div class="modal-dialog" role="document">--%>
+<%--                <div class="modal-content">--%>
+<%--                    <div class="modal-header">--%>
+<%--                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>--%>
+<%--                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">--%>
+<%--                            <span aria-hidden="true">×</span>--%>
+<%--                        </button>--%>
+<%--                    </div>--%>
+<%--                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>--%>
+<%--                    <div class="modal-footer">--%>
+<%--                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>--%>
 
-                            <input type="hidden" name="command" value="logout">
-                            <input class="btn btn-primary" type="submit" value="Logout">
-<%--                        <a class="btn btn-primary" href="../login.jsp">Logout</a>--%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+<%--                            <input type="hidden" name="command" value="logout">--%>
+<%--                            <input class="btn btn-primary" type="submit" value="Logout">--%>
+<%--&lt;%&ndash;                        <a class="btn btn-primary" href="../login.jsp">Logout</a>&ndash;%&gt;--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </form>--%>
 
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/startbootstrap/vendor/jquery/jquery.min.js"></script>
