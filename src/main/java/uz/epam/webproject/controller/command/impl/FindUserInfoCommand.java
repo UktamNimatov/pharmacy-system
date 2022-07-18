@@ -70,20 +70,15 @@ public class FindUserInfoCommand implements Command {
                         }
                     }
                 }
-
-                request.setAttribute(ParameterName.TEMPORARY_USER, tempUserToUpdate);
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE);
+                session.setAttribute(ParameterName.TEMPORARY_USER, tempUserToUpdate);
                 return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
             }
-            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
+            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
         } catch (ServiceException e) {
             logger.error("error in finding the user by id ", e);
             throw new CommandException(e);
         }
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

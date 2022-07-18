@@ -37,22 +37,8 @@ public class FindAllOrdersByUserCommand implements Command {
             logger.error("error in finding all orders by user with id " + user.getId());
             throw new CommandException(e);
         }
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE);
         return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return false;
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return false;
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return false;
-    }
 }

@@ -23,13 +23,11 @@ import java.util.Optional;
 
 public class FindRequestReceiptInfo implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String NO_PERMISSION = "You have no access to this page";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         HttpSession session = request.getSession();
         RequestReceiptService requestReceiptService = RequestReceiptServiceImpl.getInstance();
-        Router router;
 
         RequestReceipt requestReceipt;
 
@@ -48,22 +46,10 @@ public class FindRequestReceiptInfo implements Command {
                 return new Router(ParameterName.BOOTSTRAP_MAKE_RECEIPT_PAGE);
 
             }
-            request.setAttribute(ParameterName.NO_PERMISSION, NO_PERMISSION);
-            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE);
-
+            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
         } catch (ServiceException e) {
             logger.error("error in finding the request receipt with id from database", e);
             throw new CommandException(e);
         }
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 }

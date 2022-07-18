@@ -45,14 +45,4 @@ public class DeleteMedicineCommand implements Command {
         }
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
 }

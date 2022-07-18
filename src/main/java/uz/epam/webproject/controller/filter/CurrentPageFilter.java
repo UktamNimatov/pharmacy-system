@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/startbootstrap/*")
+@WebFilter(urlPatterns = "*.jsp")
 public class CurrentPageFilter implements Filter {
     private static final Logger logger = LogManager.getLogger();
 
@@ -24,8 +24,9 @@ public class CurrentPageFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-        logger.info("{}{}{}{}{}{_+_+_+_ "+httpRequest.getContextPath() + "asdasdsad " + httpRequest.getServletPath());
+
         HttpSession session = httpRequest.getSession();
+        logger.info("current page is ==== " + httpRequest.getServletPath());
         session.setAttribute(ParameterName.CURRENT_PAGE, httpRequest.getServletPath());
         filterChain.doFilter(httpRequest, httpResponse);
     }

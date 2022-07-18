@@ -7,12 +7,10 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.order.Order;
-import uz.epam.webproject.entity.user.User;
 import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.OrderService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.OrderServiceImpl;
-import uz.epam.webproject.validator.impl.OrderValidatorImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,8 +28,7 @@ public class FindAllOrdersCommand implements Command {
             if (isPharmacist(session) || isDoctor(session) || isAdmin(session)) {
                 List<Order> orders = orderService.findAll();
                 if (orders != null) {
-//                    session.setAttribute(ParameterName.ORDERS, orders);
-                    request.setAttribute(ParameterName.ORDERS, orders);
+                    session.setAttribute(ParameterName.ORDERS, orders);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ALL_ORDERS_PAGE);
                     router = new Router(ParameterName.BOOTSTRAP_ALL_ORDERS_PAGE, Router.Type.FORWARD);
                     return router;
@@ -45,20 +42,5 @@ public class FindAllOrdersCommand implements Command {
             throw new CommandException(e);
         }
         return router;
-    }
-
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

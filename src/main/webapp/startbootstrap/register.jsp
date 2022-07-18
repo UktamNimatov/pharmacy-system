@@ -44,7 +44,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4"><fmt:message key="create.an.account"/> </h1>
                             </div>
                             <form action="${pageContext.request.contextPath}/controller" class="user" method="post">
                                 <input type="hidden" name="command" value="registration">
@@ -76,26 +76,26 @@
                                     <div class="custom-control custom-checkbox small">
                                         <input type="radio" class="custom-control-input" value="DOCTOR"
                                                name="role" id="doctor" onclick="roleCheck()">
-                                        <label class="custom-control-label" for="doctor">Doctor</label>
+                                        <label class="custom-control-label" for="doctor"><fmt:message key="doctor"/> </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input type="radio" class="custom-control-input" value="PHARMACIST"
                                                name="role" id="pharmacist" onclick="roleCheck()">
-                                        <label class="custom-control-label" for="pharmacist">Pharmacist</label>
+                                        <label class="custom-control-label" for="pharmacist"><fmt:message key="pharmacist"/></label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input type="radio" class="custom-control-input" value="CLIENT"
                                                name="role" id="client" onclick="roleCheck()">
-                                        <label class="custom-control-label" for="client">Client</label>
+                                        <label class="custom-control-label" for="client"><fmt:message key="client"/></label>
                                     </div>
                                 </div>
                                 <div id="ifDoctorOrPharmacist" style="visibility:hidden" >
                                     <div class="form-group">
-                                    <label for="certificate" >Certificate</label>
+                                    <label for="certificate" ><fmt:message key="certificate"/></label>
                                         <input type="text" id="certificate" class="form-control form-control-user"
                                                name="certificate" placeholder="Enter your certificate number... ">
                                     </div>
@@ -111,10 +111,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="${pageContext.request.contextPath}/startbootstrap/forgot-password.jsp">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="${pageContext.request.contextPath}/index.jsp">Already have an account? Login!</a>
+                                <a class="small" href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="already.have.account"/> </a>
                             </div>
                         </div>
                         <c:if test="${not empty operation_message}">

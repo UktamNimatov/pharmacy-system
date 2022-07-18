@@ -47,25 +47,15 @@ public class PostReceiptCommand implements Command {
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 requestReceiptService.changeStatus(Long.parseLong(request.getParameter(ParameterName.TEMP_REQUEST_RECEIPT_ID)));
 
-            }else {
+            } else {
                 request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESS_MESSAGE);
             }
-                router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE);
+            router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE);
 
         } catch (ServiceException e) {
             logger.error("error in posting a new receipt ", e);
             throw new CommandException(e);
         }
         return router;
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 }

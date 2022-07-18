@@ -39,7 +39,7 @@ public class AddRequestReceiptCommand implements Command {
         try {
             if (requestReceiptService.addEntity(requestReceipt)) {
                 request.setAttribute(ParameterName.OPERATION_MESSAGE, SUCCESS_MESSAGE);
-            }else {
+            } else {
                 request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESS_MESSAGE);
             }
             return new Router(ParameterName.BOOTSTRAP_HOME_PAGE);

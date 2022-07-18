@@ -50,12 +50,12 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center"
-           href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/startbootstrap/home.jsp">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome"/> ${username}</div>
+            <div class="sidebar-brand-text mx-3"><fmt:message key="label.welcome" /> ${username}</div>
         </a>
 
         <!-- Divider -->
@@ -73,7 +73,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            <fmt:message key="interface"/>
+            <fmt:message key="interface" />
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -81,54 +81,47 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span><fmt:message key="make.orders"/></span>
+                <span><fmt:message key="make.orders" /></span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><fmt:message key="available.actions"/></h6>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/buttons.jsp"><fmt:message
-                            key="order.medicine"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/cards.jsp"><fmt:message
-                            key="illness.complaint"/></a>
+                    <h6 class="collapse-header"><fmt:message key="available.actions" /></h6>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/order-medicine.jsp"><fmt:message key="order.medicine" /></a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/ask-receipt.jsp"><fmt:message key="illness.complaint" /></a>
                 </div>
             </div>
         </li>
 
+
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span><fmt:message key="additional.functions"/></span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><fmt:message key="user.services"/></h6>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message
-                            key="your.orders"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/utilities-border.jsp"><fmt:message
-                            key="given.receipts"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/utilities-animation.jsp"><fmt:message
-                            key="medicine.with.prescription"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/utilities-other.jsp"><fmt:message
-                            key="medicine.without.prescription"/></a>
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <c:if test="${role.toString().equals('ADMIN') || role.toString().equals('DOCTOR')}">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                   aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span><fmt:message key="additional.functions" /></span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"><fmt:message key="user.services" /></h6>
+                        <c:if test="${role.toString().equals('ADMIN')}">
+                            <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_orders"><fmt:message key="your.orders" /></a>
+                        </c:if>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_receipts"><fmt:message key="given.receipts" /></a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_request_receipts"><fmt:message key="find.all.complaints"/> </a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        </c:if>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Addons
+            <fmt:message key="addons"/>
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
@@ -136,44 +129,31 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span><fmt:message key="pharmacy.data"/></span>
+                <span><fmt:message key="pharmacy.data" /></span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header"><fmt:message key="data.tables"/></h6>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message
-                            key="table.users"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message
-                            key="table.medicines"/></a>
-                    <a class="collapse-item"
-                       href="${pageContext.request.contextPath}/startbootstrap/forgot-password.jsp">Forgot Password</a>
+                    <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
+                    <c:if test="${role.toString().equals('ADMIN')}">
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message key="table.users" /></a>
+                    </c:if>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
                     <div class="collapse-divider"></div>
-                    <h6 class="collapse-header"><fmt:message key="other.pages"/></h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/404.jsp">404
-                        Page</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/startbootstrap/blank.jsp">Blank
-                        Page</a>
+                    <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
                 </div>
             </div>
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span><fmt:message key="add.medicine"/> </span></a>
-        </li>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/user-table.jsp">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        <c:if test="${role.toString().equals('ADMIN') || role.toString().equals('PHARMACIST')}">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/startbootstrap/add-medicine.jsp">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span><fmt:message key="add.medicine"/> </span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+        </c:if>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -199,15 +179,12 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form action="${pageContext.request.contextPath}/controller" method="post"
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" name="medicine_search_query"
-                               placeholder="<fmt:message key="search.for" />"
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="<fmt:message key="search.for" />"
                                aria-label="Search" aria-describedby="basic-addon2">
-                        <input type="hidden" name="command" value="find_medicine_by_query">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -240,140 +217,43 @@
                             </form>
                         </div>
                     </li>
+                    <c:if test="${not empty medicine_not_created}">
+                        <strong>${medicine_not_created}</strong>
+                    </c:if>
+                    <c:if test="${not empty operation_message}">
+                        <a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                ${operation_message}
+                        </a>
+                    </c:if>
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown font-weight-bolder">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Language
+                            <fmt:message key="language"/>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=uz_UZ">O'zbek tilida</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=ru_RU">На русском</a>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=change_locale&locale=en_US">In English</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
-                        <!-- Dropdown - Alerts -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">
-                                Change Locale Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
-
-                    <!-- Nav Item - Messages -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-envelope fa-fw"></i>
-                            <!-- Counter - Messages -->
-                            <span class="badge badge-danger badge-counter">7</span>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="messagesDropdown">
-                            <h6 class="dropdown-header">
-                                <fmt:message key="message.center"/>
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle"
-                                         src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_1.svg"
-                                         alt="...">
-                                    <div class="status-indicator bg-success"></div>
-                                </div>
-                                <div class="font-weight-bold">
-                                    <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                        problem I've been having.
-                                    </div>
-                                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle"
-                                         src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_2.svg"
-                                         alt="...">
-                                    <div class="status-indicator"></div>
-                                </div>
-                                <div>
-                                    <div class="text-truncate">I have the photos that you ordered last month, how
-                                        would you like them sent to you?
-                                    </div>
-                                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle"
-                                         src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile_3.svg"
-                                         alt="...">
-                                    <div class="status-indicator bg-warning"></div>
-                                </div>
-                                <div>
-                                    <div class="text-truncate">Last month's report looks great, I am very happy with
-                                        the progress so far, keep up the good work!
-                                    </div>
-                                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3">
-                                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                         alt="...">
-                                    <div class="status-indicator bg-success"></div>
-                                </div>
-                                <div>
-                                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                        told me that people say this to all dogs, even if they aren't good...
-                                    </div>
-                                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="change_locale">
+                                <input type="hidden" name="locale" value="uz_UZ">
+                                <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                       type="submit" value="O'zbek tilida">
+                            </form>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="change_locale">
+                                <input type="hidden" name="locale" value="ru_RU">
+                                <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                       type="submit" value="На русском">
+                            </form>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="change_locale">
+                                <input type="hidden" name="locale" value="en_US">
+                                <input class="dropdown-item" data-toggle="modal" data-target="#logoutModal"
+                                       type="submit" value="In English">
+                            </form>
                         </div>
                     </li>
 
@@ -385,8 +265,7 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">${username}</span>
                             <img class="img-profile rounded-circle"
-                                 src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg"
-                                 alt="Avatar">
+                                 src="${pageContext.request.contextPath}/startbootstrap/img/undraw_profile.svg" alt="Avatar">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -395,14 +274,6 @@
                                href="${pageContext.request.contextPath}/startbootstrap/profile.jsp">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 <fmt:message key="edit.profile" />
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                <fmt:message key="settings" />
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                <fmt:message key="activity.log" />
                             </a>
                             <div class="dropdown-divider"></div>
                             <form action="${pageContext.request.contextPath}/controller">
@@ -423,9 +294,9 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard   ${no_medicine_with_this_name}</h1>
+                    <h1 class="h3 mb-0 text-gray-800"><fmt:message key="make.orders"/>   ${no_medicine_with_this_name}</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                            class="fas fa-download fa-sm text-white-50"></i><fmt:message key="generate.report"/></a>
                 </div>
 
                 <!-- Content Row -->
@@ -442,7 +313,7 @@
                                         <c:forEach var="temp_medicine" items="${medicine_list}">
                                             <div class="row p-2 bg-white border rounded">
                                                 <div class="col-md-3 mt-1"><img
-                                                        class="img-fluid img-responsive rounded product-image"
+                                                        class="img-fluid img-responsive rounded product-image" alt="Avator"
                                                         src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp">
                                                 </div>
                                                 <div class="col-md-6 mt-1">
@@ -451,7 +322,7 @@
                                                         <div class="ratings mr-2"><i class="fa fa-star"></i><i
                                                                 class="fa fa-star"></i><i class="fa fa-star"></i><i
                                                                 class="fa fa-star"></i></div>
-                                                        <span>310</span>
+                                                        <span></span>
                                                     </div>
                                                     <p class="text-justify text-truncate para mb-0">${temp_medicine.description}<br><br>
                                                     </p>
@@ -461,8 +332,7 @@
                                                 </div>
                                                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <h4 class="mr-1">$${temp_medicine.price}</h4><%--<span
-                                                            class="strike-text">$20.99</span>--%>
+                                                        <h4 class="mr-1">$${temp_medicine.price}</h4>
                                                     </div>
                                                     <h6 class="text-success"><fmt:message key="free.delivery"/></h6>
 
@@ -522,10 +392,7 @@
                                             <c:forEach var="entry" items="${medicine_quantity_map}">
                                             <th scope="row">
                                                 <div class="d-flex align-items-center">
-                                                        <%--                                                        <img src="${pageContext.request.contextPath}/startbootstrap/img/shop-medicine-avatar.webp" class="img-fluid rounded-3"--%>
-                                                        <%--                                                             style="width: 120px;" alt="Book">--%>
                                                     <div class="flex-column ms-4">
-                                                            <%--                                                            <p class="mb-2">Thinking, Fast and Slow</p>--%>
                                                         <p class="mb-1">${entry.key.title}</p>
                                                     </div>
                                                 </div>
@@ -562,7 +429,6 @@
                                                     <button type="submit"
                                                             class="btn btn-outline-info btn-circle <%--btn-lg--%> btn-circle ml-2 text-danger">
                                                         <i class="fas fa-trash fa-lg"></i></button>
-                                                        <%--<a href="${pageContext.request.contextPath}/controller?command=remove_medicine_from_basket" class="text-danger">--%><%--</a>--%>
                                                 </form>
                                             </td>
                                         </tr>
@@ -607,7 +473,6 @@
                             </div>
                         </div>
                     </div>
-                    <%--{}{}{}{}{}{}{}--%>
                 </div>
 
             </div>
@@ -637,30 +502,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<form action="${pageContext.request.contextPath}/controller">
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
-                    <input type="hidden" name="command" value="logout">
-                    <input class="btn btn-primary" type="submit" value="Logout">
-                    <%--                        <a class="btn btn-primary" href="../login.jsp">Logout</a>--%>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
 <!-- Bootstrap core JavaScript-->
 <script src="${pageContext.request.contextPath}/startbootstrap/vendor/jquery/jquery.min.js"></script>

@@ -19,7 +19,6 @@ import java.util.Optional;
 
 public class FindMedicineInfoCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String NO_PERMISSION = "You have no permission to this action";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -29,14 +28,14 @@ public class FindMedicineInfoCommand implements Command {
         Medicine medicineInfo;
         session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
         try {
-                Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
-                if (optionalMedicine.isEmpty()) {
-                    throw new ServiceException("could not find the medicine with id number: " + medicineId);
-                }
-                medicineInfo = optionalMedicine.get();
-                request.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineInfo);
-                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE);
-                return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE, Router.Type.FORWARD);
+            Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
+            if (optionalMedicine.isEmpty()) {
+                throw new ServiceException("could not find the medicine with id number: " + medicineId);
+            }
+            medicineInfo = optionalMedicine.get();
+            session.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineInfo);
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE);
+            return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE);
         } catch (ServiceException e) {
             logger.error("error in deleting the medicine by id ", e);
             throw new CommandException(e);

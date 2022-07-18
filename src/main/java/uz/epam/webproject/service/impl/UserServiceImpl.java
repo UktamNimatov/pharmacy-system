@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao = UserDaoImpl.getInstance();
 
     public static UserServiceImpl getInstance() {
-        if (instance == null){
+        if (instance == null) {
             return instance = new UserServiceImpl();
         }
         return instance;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(User user) throws ServiceException {
-        if (userValidator.checkUser(user)){
+        if (userValidator.checkUser(user)) {
             user.setPassword(PasswordEncoder.hashPassword(user.getPassword()));
             try {
                 return userDao.addEntity(user);
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
                 logger.error("error in adding user in service layer", e);
                 throw new ServiceException(e);
             }
-        }else {
+        } else {
             return false;
         }
     }
@@ -118,7 +118,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public boolean updatePassword(String login, String newPassword) throws ServiceException {
         if (userValidator.checkPassword(newPassword)) {
@@ -132,7 +131,7 @@ public class UserServiceImpl implements UserService {
                 logger.error("error in updating the password", e);
                 throw new ServiceException(e);
             }
-        }else {
+        } else {
             logger.info(newPassword);
             logger.info("not passing user validator password");
             return false;
@@ -192,14 +191,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(User user) throws ServiceException {
         if (userValidator.checkFirstName(user.getFirstName()) && userValidator.checkLastName(user.getLastName())
-        && userValidator.checkLogin(user.getLogin()) && userValidator.checkEmail(user.getEmail())) {
+                && userValidator.checkLogin(user.getLogin()) && userValidator.checkEmail(user.getEmail())) {
             try {
                 return userDao.updateUser(user);
             } catch (DaoException e) {
                 logger.error("error in updating the user by id", e);
                 throw new ServiceException(e);
             }
-        }else {
+        } else {
             return false;
         }
     }

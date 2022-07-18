@@ -22,6 +22,8 @@ public class UpdateUserCommand implements Command {
     private static final String ALREADY_EXISTING_LOGIN = " - already existing login";
     private static final String ALREADY_EXISTING_EMAIL = " - already existing email";
     private static final String INVALID_CERTIFICATE_NUMBER = " - invalid certificate number";
+    private static final String SUCCESS_MESSAGE = " update operation is successful ";
+    private static final String UNSUCCESS_MESSAGE = " failed to update the user";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -29,6 +31,7 @@ public class UpdateUserCommand implements Command {
         UserService userService = UserServiceImpl.getInstance();
         User userToUpdate;
         String id = request.getParameter(ParameterName.USER_ID);
+        session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_CLIENT_PROFILE_PAGE);
         try {
             Optional<User> optionalUser = userService.findById(Long.parseLong(id));
             if (optionalUser.isEmpty()) {
@@ -55,8 +58,8 @@ public class UpdateUserCommand implements Command {
                 if (userService.isLoginAvailable(login)) {
                     userToUpdate.setLogin(login);
                 } else {
-                    request.setAttribute(ParameterName.UNAVAILABLE_LOGIN, login + ALREADY_EXISTING_LOGIN);
-                    return new Router(ParameterName.BOOTSTRAP_PROFILE_PAGE, Router.Type.FORWARD);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, login + ALREADY_EXISTING_LOGIN);
+                    return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
                 }
             }
 
@@ -67,8 +70,8 @@ public class UpdateUserCommand implements Command {
                 if (userService.isEmailAvailable(email)) {
                     userToUpdate.setEmail(email);
                 } else {
-                    request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
-                    return new Router(ParameterName.BOOTSTRAP_PROFILE_PAGE, Router.Type.FORWARD);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, email + ALREADY_EXISTING_EMAIL);
+                    return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
                 }
             }
 
@@ -76,8 +79,8 @@ public class UpdateUserCommand implements Command {
                 if (userService.isCertificateValid(certificate)) {
                     userToUpdate.setCertificateSerialNumber(certificate);
                 } else {
-                    request.setAttribute(ParameterName.INVALID_CERTIFICATE_NUMBER, certificate + INVALID_CERTIFICATE_NUMBER);
-                    return new Router(ParameterName.BOOTSTRAP_PROFILE_PAGE, Router.Type.FORWARD);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, certificate + INVALID_CERTIFICATE_NUMBER);
+                    return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
                 }
             }
 
@@ -88,12 +91,14 @@ public class UpdateUserCommand implements Command {
 
             if (userService.updateUser(userToUpdate)) {
                 logger.info("update operation is successful " + userToUpdate.toString());
-                session.setAttribute(ParameterName.UPDATED_USER, userToUpdate);
-                return new Router(ParameterName.USERS_PAGE, Router.Type.FORWARD);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, SUCCESS_MESSAGE);
+                request.setAttribute(ParameterName.TEMPORARY_USER, userToUpdate);
             } else {
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESS_MESSAGE);
                 logger.info("unsuccessful update operation " + userToUpdate.toString());
-                return new Router(ParameterName.BOOTSTRAP_PROFILE_PAGE, Router.Type.FORWARD);
             }
+            session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE);
+            return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
 
         } catch (ServiceException e) {
             logger.error("error in updating the user ", e);
@@ -101,10 +106,4 @@ public class UpdateUserCommand implements Command {
         }
 
     }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
 }

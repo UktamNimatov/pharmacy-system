@@ -43,9 +43,4 @@ public class FindAllMedicineOfOneOrderCommand implements Command {
         }
         return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
     }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
 }

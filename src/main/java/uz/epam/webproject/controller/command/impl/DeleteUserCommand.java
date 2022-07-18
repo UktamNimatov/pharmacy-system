@@ -31,18 +31,18 @@ public class DeleteUserCommand implements Command {
         try {
             Optional<User> optionalUser = userService.findById(userId);
             String userToString = "";
-            if (optionalUser.isPresent()){
-                userToString =  optionalUser.get().toString();
+            if (optionalUser.isPresent()) {
+                userToString = optionalUser.get().getFirstName() + optionalUser.get().getLastName();
             }
             if (isAdmin(session)) {
                 if (userService.delete(userId)) {
                     logger.info("User with id " + userId + " successfully deleted");
                     List<User> userList = userService.findAll();
                     request.setAttribute(ParameterName.USERS, userList);
-                    request.setAttribute(ParameterName.USER_DELETED, userToString);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.USER_DELETED + userToString);
                 } else {
                     logger.info("User with id " + userId + " not deleted");
-                    request.setAttribute(ParameterName.USER_NOT_DELETED, ParameterName.USER_NOT_DELETED);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.USER_NOT_DELETED);
                 }
             }
             session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
@@ -53,10 +53,4 @@ public class DeleteUserCommand implements Command {
             throw new CommandException(e);
         }
     }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
 }

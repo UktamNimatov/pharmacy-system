@@ -7,8 +7,6 @@ import uz.epam.webproject.controller.command.ParameterName;
 import uz.epam.webproject.controller.command.Router;
 import uz.epam.webproject.controller.command.exception.CommandException;
 import uz.epam.webproject.entity.receipt.Receipt;
-import uz.epam.webproject.entity.user.User;
-import uz.epam.webproject.entity.user.UserRole;
 import uz.epam.webproject.service.ReceiptService;
 import uz.epam.webproject.service.exception.ServiceException;
 import uz.epam.webproject.service.impl.ReceiptServiceImpl;
@@ -45,15 +43,5 @@ public class FindAllReceiptsCommand implements Command {
             throw new CommandException(e);
         }
         return router;
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 }

@@ -69,7 +69,7 @@ public enum ConnectionPool {
              return;
          }
         try {
-            if (connection instanceof ProxyConnection /*connection1*/ && (busyConnections.remove(connection))) {
+            if (connection instanceof ProxyConnection && (busyConnections.remove(connection))) {
                 freeConnections.put((ProxyConnection) connection);
             }
         } catch (InterruptedException interruptedException) {

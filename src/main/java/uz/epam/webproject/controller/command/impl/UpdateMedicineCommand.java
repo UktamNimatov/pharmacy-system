@@ -20,6 +20,7 @@ import java.util.Optional;
 
 public class UpdateMedicineCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String SUCCESSFULLY_UPDATED = " medicine successfully updated ";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -29,7 +30,7 @@ public class UpdateMedicineCommand implements Command {
         long id = Long.parseLong(request.getParameter(ParameterName.MEDICINE_ID));
         try {
             Optional<Medicine> optionalMedicine = medicineService.findById(id);
-            if (optionalMedicine.isEmpty()){
+            if (optionalMedicine.isEmpty()) {
                 throw new CommandException("could not find the medicine with id number: " + id);
             }
             medicineToUpdate = optionalMedicine.get();
@@ -54,30 +55,19 @@ public class UpdateMedicineCommand implements Command {
 
                 if (medicineService.updateMedicine(medicineToUpdate)) {
                     logger.info("update operation is successful " + medicineToUpdate.toString());
-                    session.setAttribute(ParameterName.UPDATED_MEDICINE, medicineToUpdate);
-                    session.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineToUpdate);
+                    request.setAttribute(ParameterName.UPDATED_MEDICINE, medicineToUpdate);
+                    request.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineToUpdate);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, SUCCESSFULLY_UPDATED);
                     return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE, Router.Type.FORWARD);
                 }
-                session.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.FAILED_TO_UPDATE_MEDICINE);
-                return new Router(ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.FAILED_TO_UPDATE_MEDICINE);
+                return new Router(ParameterName.BOOTSTRAP_MEDICINE_INFO_PAGE);
 
             }
-            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
-        }catch (ServiceException e){
+            return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
+        } catch (ServiceException e) {
             logger.error("error in updating the medicine ", e);
             throw new CommandException(e);
         }
     }
-
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
 }

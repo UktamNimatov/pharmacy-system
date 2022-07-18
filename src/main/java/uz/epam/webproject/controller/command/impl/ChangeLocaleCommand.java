@@ -13,12 +13,6 @@ import java.util.concurrent.ForkJoinPool;
 
 public class ChangeLocaleCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String LANGUAGE_ENGLISH = "EN";
-    private static final String LANGUAGE_RUSSIAN = "RU";
-    private static final String LANGUAGE_UZBEK = "UZ";
-    private static final String LOCALE_ENGLISH = "en_US";
-    private static final String LOCALE_RUSSIAN = "ru_RU";
-    private static final String LOCALE_UZBEK = "uz_UZ";
 
     @Override
     public Router execute(HttpServletRequest request) {

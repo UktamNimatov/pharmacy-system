@@ -8,15 +8,12 @@ import uz.epam.webproject.dao.impl.ReceiptDaoImpl;
 import uz.epam.webproject.entity.receipt.Receipt;
 import uz.epam.webproject.service.ReceiptService;
 import uz.epam.webproject.service.exception.ServiceException;
-import uz.epam.webproject.validator.ReceiptValidator;
-import uz.epam.webproject.validator.impl.ReceiptValidatorImpl;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ReceiptServiceImpl implements ReceiptService {
     private static final Logger logger = LogManager.getLogger();
-    private final ReceiptValidator receiptValidator = ReceiptValidatorImpl.getInstance();
 
     private static ReceiptServiceImpl instance;
     private final ReceiptDao receiptDao = ReceiptDaoImpl.getInstance();

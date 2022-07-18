@@ -27,16 +27,16 @@ public class FindAllMedicineCommand implements Command {
         HttpSession session = request.getSession();
         try {
             List<Medicine> medicineList = medicineService.findAll();
-            if (medicineList != null){
+            if (medicineList != null) {
                 session.setAttribute(ParameterName.MEDICINE_LIST, medicineList);
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
                 router = new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
-            }else{
+            } else {
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                 router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
             }
         } catch (ServiceException e) {
-            logger.error("error in finding all medicines " , e);
+            logger.error("error in finding all medicines ", e);
             throw new CommandException(e);
         }
         return router;

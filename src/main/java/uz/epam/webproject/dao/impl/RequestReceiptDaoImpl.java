@@ -34,8 +34,8 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
 
     private static RequestReceiptDaoImpl instance;
 
-    public static RequestReceiptDaoImpl getInstance(){
-        if (instance == null){
+    public static RequestReceiptDaoImpl getInstance() {
+        if (instance == null) {
             instance = new RequestReceiptDaoImpl();
         }
         return instance;
@@ -47,7 +47,7 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public List<RequestReceipt> findAll() throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_REQUEST_RECEIPTS)){
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_REQUEST_RECEIPTS)) {
             return getRequestReceiptsFromResultSet(preparedStatement);
         } catch (SQLException sqlException) {
             logger.error("error in getting all request receipts ", sqlException);
@@ -58,7 +58,7 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public boolean addEntity(RequestReceipt requestReceipt) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_REQUEST_RECEIPT)){
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_REQUEST_RECEIPT)) {
             preparedStatement.setString(1, requestReceipt.getIllnessDescription());
             preparedStatement.setLong(2, requestReceipt.getUserId());
             preparedStatement.setString(3, requestReceipt.getStatus().toString().toLowerCase());
@@ -74,9 +74,9 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public Optional<RequestReceipt> findById(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
-            try (ResultSet resultSet = preparedStatement.executeQuery()){
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     Optional<RequestReceipt> requestReceipt = requestReceiptMapper.map(resultSet);
                     return requestReceipt;
@@ -92,7 +92,7 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public boolean delete(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST_RECEIPT)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST_RECEIPT)) {
             preparedStatement.setLong(1, id);
             int count = preparedStatement.executeUpdate();
             return count == 1;
@@ -105,7 +105,7 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public List<RequestReceipt> findRequestReceiptsByUserId(Long userId) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(REQUEST_RECEIPTS_BY_USER)){
+             PreparedStatement preparedStatement = connection.prepareStatement(REQUEST_RECEIPTS_BY_USER)) {
             preparedStatement.setLong(1, userId);
             return getRequestReceiptsFromResultSet(preparedStatement);
         } catch (SQLException sqlException) {
@@ -117,7 +117,7 @@ public class RequestReceiptDaoImpl implements RequestReceiptDao {
     @Override
     public void changeStatus(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_STATUS)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_STATUS)) {
             preparedStatement.setString(1, String.valueOf(RequestReceiptStatus.RESPONDED).toLowerCase());
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();

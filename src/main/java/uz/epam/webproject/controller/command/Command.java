@@ -13,17 +13,15 @@ public interface Command {
 
     Router execute(HttpServletRequest request) throws CommandException;
 
-    default boolean isPharmacist(HttpSession session){
-        return getAuthUser(session).getRole().equals(UserRole.PHARMACIST); }
+    default boolean isPharmacist(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
+    }
 
-    default User getAuthUser(HttpSession session){
-        return (User) session.getAttribute(ParameterName.AUTHORIZED_USER); }
+    default boolean isAdmin(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
+    }
 
-        default boolean isAdmin(HttpSession session){
-        return getAuthUser(session).getRole().equals(UserRole.ADMIN);
-        }
-
-    default boolean isDoctor(HttpSession session){
-        return getAuthUser(session).getRole().equals(UserRole.DOCTOR);
+    default boolean isDoctor(HttpSession session) {
+        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 }

@@ -26,6 +26,8 @@ import java.util.Optional;
 
 public class OrderMedicineCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String SUCCESS_ORDER = " successfully ordered ";
+    private static final String UNSUCCESS_ORDER = " failed to order ";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -35,30 +37,22 @@ public class OrderMedicineCommand implements Command {
         OrderMedicineListService orderMedicineListService = OrderMedicineListServiceImpl.getInstance();
 
         User user = (User) session.getAttribute(ParameterName.USER);
-
         Timestamp now = new Timestamp(System.currentTimeMillis());
-
-
         session.setAttribute(ParameterName.TEMPORARY_USER, user);
 
         Order order = new Order(user.getId(), OrderStatus.NEW, now);
         OrderMedicineList orderMedicineList;
 
-
         logger.info("now ordered time: " + now);
-
         try {
-            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
-                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
-            }
 
-            if (orderService.addOrder(order)){
+            if (orderService.addOrder(order)) {
                 logger.info("order added");
 
                 Optional<Order> optionalOrder = orderService.findOrderByOrderedTime(now);
 
                 logger.info("now ordered time: " + now);
-                if (optionalOrder.isEmpty()){
+                if (optionalOrder.isEmpty()) {
                     throw new CommandException("error in find order by ordered time");
                 }
                 HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
@@ -67,14 +61,15 @@ public class OrderMedicineCommand implements Command {
                     orderMedicineList = new OrderMedicineList(optionalOrder.get().getId(), medicine.getId(), Integer.parseInt(medicineQuantityMap.get(medicine)), medicine.getPrice());
                     orderMedicineListService.addOrderMedicineList(orderMedicineList);
                 }
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, SUCCESS_ORDER);
+            }else {
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESS_ORDER);
             }
-
         } catch (ServiceException e) {
             logger.error("error in adding a new order: ");
             throw new CommandException(e);
         }
-
-        return new Router(ParameterName.BOOTSTRAP_CLIENT_INFO_PAGE, Router.Type.FORWARD);
+        return new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
     }
 
 }

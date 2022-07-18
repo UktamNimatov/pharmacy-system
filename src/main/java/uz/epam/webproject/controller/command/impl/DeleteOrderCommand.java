@@ -34,10 +34,10 @@ public class DeleteOrderCommand implements Command {
                     logger.info("order with id " + orderId + " successfully deleted");
                     List<Order> orderList = orderService.findAll();
                     request.setAttribute(ParameterName.ORDER_LIST, orderList);
-                    request.setAttribute(ParameterName.ORDER_DELETED, ParameterName.ORDER_DELETED);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.ORDER_DELETED);
                 } else {
                     logger.info("order with id " + orderId + " not deleted");
-                    request.setAttribute(ParameterName.ORDER_NOT_DELETED, ParameterName.ORDER_NOT_DELETED);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, ParameterName.ORDER_NOT_DELETED);
                 }
             }
             session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_ALL_ORDERS_PAGE);
@@ -47,11 +47,5 @@ public class DeleteOrderCommand implements Command {
             logger.error("error in deleting the medicine by id ", e);
             throw new CommandException(e);
         }
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

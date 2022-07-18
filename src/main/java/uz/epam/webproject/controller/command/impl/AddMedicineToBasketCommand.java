@@ -45,22 +45,22 @@ public class AddMedicineToBasketCommand implements Command {
                 return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
             }
 
-           Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
-           if (optionalMedicine.isEmpty()){
-               throw new ServiceException("could not find the medicine with id number: " + medicineId);
-           }
-           medicineToAdd = optionalMedicine.get();
+            Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
+            if (optionalMedicine.isEmpty()) {
+                throw new ServiceException("could not find the medicine with id number: " + medicineId);
+            }
+            medicineToAdd = optionalMedicine.get();
 
             if (medicineQuantityMap.containsKey(medicineToAdd)) {
                 logger.info("this medicine already exists ");
-               request.setAttribute(ALREADY_IN_BASKET, ALREADY_IN_BASKET_MESSAGE);
-            }else {
+                request.setAttribute(ALREADY_IN_BASKET, ALREADY_IN_BASKET_MESSAGE);
+            } else {
                 logger.info("new medicine is being added with the new quantity");
                 medicineQuantityMap.put(medicineToAdd, DEFAULT_QUANTITY);
             }
             session.setAttribute(ParameterName.MEDICINE_QUANTITY_MAP, medicineQuantityMap);
 
-           getStatistics(request);
+            getStatistics(request);
         } catch (ServiceException e) {
             logger.error("error in adding a medicine to basket", e);
             throw new CommandException(e);
@@ -69,14 +69,14 @@ public class AddMedicineToBasketCommand implements Command {
     }
 
 
-    public static void getStatistics(HttpServletRequest request){
+    protected static void getStatistics(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         HashMap<Medicine, String> medicineQuantityMap = (HashMap<Medicine, String>) session.getAttribute(ParameterName.MEDICINE_QUANTITY_MAP);
 
         double interval;
         SUM = 0d;
-        for (Medicine medicine1 : medicineQuantityMap.keySet()){
+        for (Medicine medicine1 : medicineQuantityMap.keySet()) {
             interval = medicine1.getPrice() * Double.parseDouble(medicineQuantityMap.get(medicine1));
             SUM = SUM + interval;
         }

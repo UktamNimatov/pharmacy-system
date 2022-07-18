@@ -27,8 +27,6 @@ import java.util.*;
 
 public class LoginCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String UNDERSCORE = "_";
-    private static final String HYPHEN = "-";
     private static final String ERROR_MESSAGE = "Incorrect login or password";
 
     @Override

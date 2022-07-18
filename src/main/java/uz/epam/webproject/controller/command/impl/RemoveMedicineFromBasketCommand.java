@@ -34,7 +34,7 @@ public class RemoveMedicineFromBasketCommand implements Command {
                 return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
             }
             Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
-            if (optionalMedicine.isEmpty()){
+            if (optionalMedicine.isEmpty()) {
                 throw new CommandException("could not find the medicine with id number: " + medicineId);
             }
             medicineToRemove = optionalMedicine.get();

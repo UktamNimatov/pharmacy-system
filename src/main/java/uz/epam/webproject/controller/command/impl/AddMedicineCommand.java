@@ -35,11 +35,11 @@ public class AddMedicineCommand implements Command {
         try {
             if (isPharmacist(session) || isAdmin(session)) {
                 if (medicineService.addEntity(medicine)) {
-                    request.setAttribute(ParameterName.MEDICINE_CREATED, MEDICINE_CREATED_MESSAGE+medicine.getTitle());
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, MEDICINE_CREATED_MESSAGE+medicine.getTitle());
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
                     router = new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE, Router.Type.FORWARD);
                 } else {
-                    request.setAttribute(ParameterName.MEDICINE_NOT_CREATED, MEDICINE_NOT_CREATED_MESSAGE);
+                    request.setAttribute(ParameterName.OPERATION_MESSAGE, MEDICINE_NOT_CREATED_MESSAGE);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
                     router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.FORWARD);
                 }
@@ -51,13 +51,4 @@ public class AddMedicineCommand implements Command {
         return router;
     }
 
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
 }

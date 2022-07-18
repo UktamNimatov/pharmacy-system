@@ -29,8 +29,8 @@ public class UpdatePasswordCommand implements Command {
         String currentPassword = request.getParameter(ParameterName.CURRENT_PASSWORD);
         String newPassword = request.getParameter(ParameterName.NEW_PASSWORD);
         String confirmNewPassword = request.getParameter(ParameterName.CONFIRM_NEW_PASSWORD);
-        if (!newPassword.equals(confirmNewPassword)){
-            request.setAttribute(ParameterName.PASSWORD_CHANGE_MESSAGE, NEW_PASSWORDS_ARE_NOT_THE_SAME);
+        if (!newPassword.equals(confirmNewPassword)) {
+            request.setAttribute(ParameterName.OPERATION_MESSAGE, NEW_PASSWORDS_ARE_NOT_THE_SAME);
             session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
             router = new Router(ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
             return router;
@@ -38,15 +38,15 @@ public class UpdatePasswordCommand implements Command {
         logger.info("retrieved login is " + username);
         logger.info("retrieved newPassword is " + newPassword);
         try {
-                if (userService.authenticate(username, currentPassword) && userService.updatePassword(username, newPassword)) {
-                    request.setAttribute(ParameterName.PASSWORD_CHANGE_MESSAGE, PASSWORD_CHANGE_SUCCESS);
-                    router = new Router(ParameterName.HOME_PAGE);
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
-                } else {
-                    session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
-                    router = new Router(ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
-                    request.setAttribute(ParameterName.PASSWORD_CHANGE_MESSAGE, PASSWORD_CHANGE_FAILURE);
-                }
+            if (userService.authenticate(username, currentPassword) && userService.updatePassword(username, newPassword)) {
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, PASSWORD_CHANGE_SUCCESS);
+                router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE);
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.HOME_PAGE);
+            } else {
+                session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
+                router = new Router(ParameterName.BOOTSTRAP_PASSWORD_CHANGE);
+                request.setAttribute(ParameterName.OPERATION_MESSAGE, PASSWORD_CHANGE_FAILURE);
+            }
         } catch (ServiceException e) {
             logger.error("error in updating the password", e);
             throw new CommandException(e);

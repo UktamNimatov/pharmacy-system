@@ -20,7 +20,6 @@ import java.util.Optional;
 
 public class FindMedicineToUpdateCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String NO_PERMISSION = "You have no permission to this action";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -36,26 +35,14 @@ public class FindMedicineToUpdateCommand implements Command {
                     throw new ServiceException("could not find the medicine with id number: " + medicineId);
                 }
                 medicineInfo = optionalMedicine.get();
-                session.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineInfo);
+                request.setAttribute(ParameterName.TEMPORARY_MEDICINE, medicineInfo);
                 session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE);
-                return new Router(ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE , Router.Type.FORWARD);
+                return new Router(ParameterName.BOOTSTRAP_MEDICINE_PROFILE_PAGE, Router.Type.FORWARD);
             }
-            request.setAttribute(ParameterName.NO_PERMISSION, NO_PERMISSION);
             return new Router(ParameterName.BOOTSTRAP_MEDICINE_LIST_TABLE);
         } catch (ServiceException e) {
             logger.error("error in deleting the medicine by id ", e);
             throw new CommandException(e);
         }
-    }
-
-    @Override
-    public boolean isPharmacist(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.PHARMACIST);
-    }
-
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
     }
 }

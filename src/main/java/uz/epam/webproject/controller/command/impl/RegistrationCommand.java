@@ -34,7 +34,7 @@ public class RegistrationCommand implements Command {
         String email = request.getParameter(ColumnName.EMAIL);
         String role = request.getParameter(ColumnName.ROLE);
         String certificate_serial_number = "";
-        if (role.equalsIgnoreCase(UserRole.DOCTOR.toString()) || role.equalsIgnoreCase(UserRole.PHARMACIST.toString())){
+        if (role.equalsIgnoreCase(UserRole.DOCTOR.toString()) || role.equalsIgnoreCase(UserRole.PHARMACIST.toString())) {
             certificate_serial_number = request.getParameter(ColumnName.CERTIFICATE);
         }
 
@@ -62,15 +62,15 @@ public class RegistrationCommand implements Command {
                 request.setAttribute(ParameterName.UNAVAILABLE_EMAIL_ADDRESS, email + ALREADY_EXISTING_EMAIL);
                 return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
             }
-            if (!certificate_serial_number.isBlank()){
-                if (userService.isCertificateValid(certificate_serial_number)){
+            if (!certificate_serial_number.isBlank()) {
+                if (userService.isCertificateValid(certificate_serial_number)) {
                     user.setCertificateSerialNumber(certificate_serial_number);
-                }else {
+                } else {
                     request.setAttribute(ParameterName.OPERATION_MESSAGE, UNSUCCESSFUL_REGISTRATION + certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
                     request.setAttribute(ParameterName.INVALID_CERTIFICATE_NUMBER, certificate_serial_number + INVALID_CERTIFICATE_NUMBER);
                     return new Router(ParameterName.BOOTSTRAP_REGISTRATION_PAGE, Router.Type.FORWARD);
                 }
-            }else {
+            } else {
                 user.setCertificateSerialNumber(certificate_serial_number);
             }
             user.setPassword(password);

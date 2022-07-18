@@ -34,9 +34,9 @@ public class ChangeMedicineQuantityCommand implements Command {
         Medicine medicine;
         try {
 
-            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
-                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
-            }
+//            if (session.getAttribute(ParameterName.ROLE) == UserRole.GUEST) {
+//                return new Router(ParameterName.INDEX_PAGE, Router.Type.FORWARD);
+//            }
 
             Optional<Medicine> optionalMedicine = medicineService.findById(medicineId);
             if (optionalMedicine.isEmpty()){

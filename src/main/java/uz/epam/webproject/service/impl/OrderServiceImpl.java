@@ -9,8 +9,6 @@ import uz.epam.webproject.entity.order.Order;
 import uz.epam.webproject.entity.order.OrderStatus;
 import uz.epam.webproject.service.OrderService;
 import uz.epam.webproject.service.exception.ServiceException;
-import uz.epam.webproject.validator.OrderValidator;
-import uz.epam.webproject.validator.impl.OrderValidatorImpl;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,7 +16,6 @@ import java.util.Optional;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LogManager.getLogger();
-    private final OrderValidator orderValidator = OrderValidatorImpl.getInstance();
 
     private static OrderServiceImpl instance;
     private final OrderDao orderDao = OrderDaoImpl.getInstance();

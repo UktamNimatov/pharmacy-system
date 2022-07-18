@@ -19,7 +19,6 @@ import java.util.List;
 
 public class FindAllRequestReceiptsCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
-    private static final String NO_PERMISSION = "You have no access to this page";
 
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
@@ -37,7 +36,6 @@ public class FindAllRequestReceiptsCommand implements Command {
                     return router;
                 }
             }
-            request.setAttribute(ParameterName.NO_PERMISSION, NO_PERMISSION);
             session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_HOME_PAGE);
             router = new Router(ParameterName.BOOTSTRAP_HOME_PAGE, Router.Type.REDIRECT);
 
@@ -46,15 +44,5 @@ public class FindAllRequestReceiptsCommand implements Command {
             throw new CommandException(e);
         }
         return router;
-    }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
-    @Override
-    public boolean isDoctor(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.DOCTOR);
     }
 }

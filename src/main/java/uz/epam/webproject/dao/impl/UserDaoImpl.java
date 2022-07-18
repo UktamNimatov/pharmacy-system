@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     private static UserDaoImpl instance;
 
     public static UserDaoImpl getInstance() {
-        if (instance == null){
+        if (instance == null) {
             return instance = new UserDaoImpl();
         }
         return instance;
@@ -50,20 +50,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean addEntity(User user) throws DaoException{
+    public boolean addEntity(User user) throws DaoException {
         boolean toReturn = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)){
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)) {
             if (user != null) {
                 preparedStatement.setString(1, user.getLogin());
                 preparedStatement.setString(2, user.getPassword());
                 preparedStatement.setString(3, user.getFirstName());
                 preparedStatement.setString(4, user.getLastName());
                 preparedStatement.setString(5, user.getEmail());
-                preparedStatement.setString(6, user.getRole().name().toLowerCase() );
-                if (user.getRole().name().equalsIgnoreCase(UserRole.CLIENT.toString()) || user.getRole().name().equalsIgnoreCase(UserRole.GUEST.toString())){
+                preparedStatement.setString(6, user.getRole().name().toLowerCase());
+                if (user.getRole().name().equalsIgnoreCase(UserRole.CLIENT.toString()) || user.getRole().name().equalsIgnoreCase(UserRole.GUEST.toString())) {
                     preparedStatement.setString(7, null);
-                }else {
+                } else {
                     preparedStatement.setString(7, user.getCertificateSerialNumber());
                 }
                 toReturn = preparedStatement.executeUpdate() != 0;
@@ -77,11 +77,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean authenticate(String login, String password) throws DaoException {
-        if (login.isBlank() || password.isBlank()){
+        if (login.isBlank() || password.isBlank()) {
             return false;
         }
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(AUTHENTICATE)){
+             PreparedStatement preparedStatement = connection.prepareStatement(AUTHENTICATE)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 String passwordFromDb;
@@ -100,7 +100,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)){
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_USERS)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<User> users = new ArrayList<>();
                 while (resultSet.next()) {
@@ -118,9 +118,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_LOGIN)){
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_LOGIN)) {
             preparedStatement.setString(1, login);
-            try ( ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Optional<User> user;
                 if (resultSet.next()) {
                     user = userMapper.map(resultSet);
@@ -136,9 +136,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserRole findUserRole(String login) throws DaoException {
-            UserRole userRole = null;
+        UserRole userRole = null;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ROLE_BY_LOGIN)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_ROLE_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -164,7 +164,7 @@ public class UserDaoImpl implements UserDao {
 
     private boolean EmailAndLoginCheck(String loginOrEmail, String check) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(check)){
+             PreparedStatement preparedStatement = connection.prepareStatement(check)) {
             logger.info(loginOrEmail + " is login or email");
             preparedStatement.setString(1, loginOrEmail);
             logger.info(preparedStatement.toString());
@@ -184,7 +184,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updatePassword(String login, String newHashedPassword) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD)){
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD)) {
             preparedStatement.setString(1, newHashedPassword);
             preparedStatement.setString(2, login);
             int result = preparedStatement.executeUpdate();
@@ -200,7 +200,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> findById(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 Optional<User> user;
@@ -219,11 +219,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean delete(Long id) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)){
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
             preparedStatement.setLong(1, id);
             int count = preparedStatement.executeUpdate();
             return count == 1;
-        }catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             logger.error("error in deleting the user by id", sqlException);
             throw new DaoException(sqlException);
         }
@@ -232,7 +232,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findUsersByRole(UserRole userRole) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ROLE)){
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ROLE)) {
             preparedStatement.setString(1, userRole.name().toLowerCase());
             return getUsersByRoleOrQuery(preparedStatement);
         } catch (SQLException sqlException) {
@@ -244,7 +244,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findUsersByQuery(String searchQuery) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(USER_SEARCH_QUERY)){
+             PreparedStatement preparedStatement = connection.prepareStatement(USER_SEARCH_QUERY)) {
             preparedStatement.setString(1, searchQuery);
             preparedStatement.setString(2, searchQuery);
             preparedStatement.setString(3, searchQuery);
@@ -267,14 +267,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean isCertificateValid(String serialNumber) throws DaoException{
+    public boolean isCertificateValid(String serialNumber) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(CERTIFICATE_CHECK_FIRST);
-        PreparedStatement preparedStatement1 = connection.prepareStatement(CERTIFICATE_CHECK_SECOND)){
+             PreparedStatement preparedStatement = connection.prepareStatement(CERTIFICATE_CHECK_FIRST);
+             PreparedStatement preparedStatement1 = connection.prepareStatement(CERTIFICATE_CHECK_SECOND)) {
             preparedStatement.setString(1, serialNumber);
             preparedStatement1.setString(1, serialNumber);
             try (ResultSet resultSet = preparedStatement.executeQuery();
-            ResultSet resultSet1 = preparedStatement1.executeQuery()){
+                 ResultSet resultSet1 = preparedStatement1.executeQuery()) {
                 return resultSet.next() && !resultSet1.next();
             }
         } catch (SQLException sqlException) {
@@ -286,15 +286,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateUser(User user) throws DaoException {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)){
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)) {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getEmail());
-            if (user.getCertificateSerialNumber() == null || user.getCertificateSerialNumber().isBlank()){
+            if (user.getCertificateSerialNumber() == null || user.getCertificateSerialNumber().isBlank()) {
                 logger.info("as certificate is null or empty null is being set");
                 preparedStatement.setObject(5, null);
-            }else {
+            } else {
                 preparedStatement.setString(5, user.getCertificateSerialNumber());
             }
             preparedStatement.setLong(6, user.getId());
@@ -302,7 +302,7 @@ public class UserDaoImpl implements UserDao {
             logger.info("number of rows changed is " + count);
             return count == 1;
         } catch (SQLException sqlException) {
-            logger.error("error in updating the user with id number " + user.getId(),sqlException);
+            logger.error("error in updating the user with id number " + user.getId(), sqlException);
             throw new DaoException(sqlException);
         }
     }

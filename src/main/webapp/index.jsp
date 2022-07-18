@@ -50,7 +50,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4"><fmt:message key="welcome.back"/> </h1>
                                     </div>
                                     <form class="user" action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" class="form-control form-control-user" value="login" name="command">
@@ -66,18 +66,14 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck"><fmt:message key="remember.me"/></label>
                                             </div>
                                         </div>
                                             <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="startbootstrap/forgot-password.jsp">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="${pageContext.request.contextPath}/startbootstrap/register.jsp">Create an Account!</a>
+                                        <a class="small" href="${pageContext.request.contextPath}/startbootstrap/register.jsp"><fmt:message key="create.an.account"/> </a>
                                     </div>
                                 </div>
                                 <c:if test="${not empty error_message}">
@@ -86,12 +82,11 @@
                                     </div>
                                 </c:if>
                                 <c:if test="${not empty operation_message}">
-                                    <a href="#" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        ${operation_message}
-                                    </a>
+                                    <div class="card bg-secondary text-white shadow">
+                                        <div class="card-body">
+                                                ${operation_message}
+                                        </div>
+                                    </div>
                                 </c:if>
                             </div>
                         </div>

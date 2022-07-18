@@ -17,8 +17,8 @@ public enum ParameterName {
     public static final String NEW_PASSWORD = "new_password";
     public static final String CONFIRM_NEW_PASSWORD = "confirm_new_password";
     public static final String LOGIN = "login";
-    public static final String USER_DELETED = "user_deleted";
-    public static final String USER_NOT_DELETED = "user_not_deleted";
+    public static final String USER_DELETED = " user_deleted: ";
+    public static final String USER_NOT_DELETED = " user_not_deleted ";
     public static final String UPDATED_USER = "updated_user";
     public static final String USER_ID = "user_id";
     public static final String TEMPORARY_USER = "temp_user";

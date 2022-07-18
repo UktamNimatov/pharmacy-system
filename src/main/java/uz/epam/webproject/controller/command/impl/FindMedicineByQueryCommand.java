@@ -28,12 +28,12 @@ public class FindMedicineByQueryCommand implements Command {
         String searchQuery = request.getParameter(ParameterName.MEDICINE_SEARCH_QUERY);
         try {
             List<Medicine> medicineList = medicineService.findMedicineByQuery(searchQuery);
-            if (medicineList != null){
+            if (medicineList != null) {
                 request.setAttribute(ParameterName.MEDICINE_LIST_BY_QUERY, medicineList);
-            }else {
+            } else {
                 request.setAttribute(NO_MEDICINE, NO_MEDICINE);
             }
-                router = new Router(ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE, Router.Type.FORWARD);
+            router = new Router(ParameterName.BOOTSTRAP_ORDER_MEDICINE_PAGE, Router.Type.FORWARD);
         } catch (ServiceException e) {
             logger.error("error in finding medicine by search query", e);
             throw new CommandException(e);

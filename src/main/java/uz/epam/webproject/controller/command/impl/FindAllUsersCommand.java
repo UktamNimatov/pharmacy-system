@@ -29,7 +29,7 @@ public class FindAllUsersCommand implements Command {
             if (isAdmin(session)) {
                 List<User> users = userService.findAll();
                 if (users != null) {
-                    session.setAttribute(ParameterName.USERS, users);
+                    request.setAttribute(ParameterName.USERS, users);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
                     router = new Router(ParameterName.BOOTSTRAP_USERS_LIST_TABLE, Router.Type.FORWARD);
                     return router;
@@ -44,10 +44,4 @@ public class FindAllUsersCommand implements Command {
         }
         return router;
     }
-
-    @Override
-    public boolean isAdmin(HttpSession session) {
-        return session.getAttribute(ParameterName.ROLE).equals(UserRole.ADMIN);
-    }
-
 }
