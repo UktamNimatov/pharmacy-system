@@ -29,7 +29,7 @@ public class FindAllUsersCommand implements Command {
             if (isAdmin(session)) {
                 List<User> users = userService.findAll();
                 if (users != null) {
-                    request.setAttribute(ParameterName.USERS, users);
+                    session.setAttribute(ParameterName.USERS, users);
                     session.setAttribute(ParameterName.CURRENT_PAGE, ParameterName.BOOTSTRAP_USERS_LIST_TABLE);
                     router = new Router(ParameterName.BOOTSTRAP_USERS_LIST_TABLE, Router.Type.FORWARD);
                     return router;

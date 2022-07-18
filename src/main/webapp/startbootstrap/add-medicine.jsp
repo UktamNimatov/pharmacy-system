@@ -109,29 +109,29 @@
         <hr class="sidebar-divider">
 
         <!-- Heading -->
-        <c:if test="${role.toString().equals('ADMIN')}">
-            <div class="sidebar-heading">
-                <fmt:message key="addons"/>
-            </div>
+        <div class="sidebar-heading">
+            <fmt:message key="addons"/>
+        </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span><fmt:message key="pharmacy.data" /></span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span><fmt:message key="pharmacy.data" /></span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header"><fmt:message key="data.tables" /></h6>
+                    <c:if test="${role.toString().equals('ADMIN')}">
                         <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_users"><fmt:message key="table.users" /></a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
-                    </div>
+                    </c:if>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/controller?command=find_all_medicine"><fmt:message key="table.medicines" /></a>
+                    <div class="collapse-divider"></div>
+                    <h6 class="collapse-header"><fmt:message key="other.pages" /></h6>
                 </div>
-            </li>
-        </c:if>
+            </div>
+        </li>
 
         <!-- Nav Item - Charts -->
         <c:if test="${role.toString().equals('ADMIN') || role.toString().equals('PHARMACIST')}">

@@ -35,11 +35,6 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-        response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-        response.setHeader("Pragma","no-cache");
-        response.setDateHeader ("Expires", 0);
-
         String strCommand = request.getParameter(ParameterName.COMMAND);
         logger.info("command is: " + strCommand);
         Command command = CommandType.of(strCommand);
