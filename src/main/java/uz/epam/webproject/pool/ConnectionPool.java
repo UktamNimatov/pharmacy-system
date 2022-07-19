@@ -45,7 +45,6 @@ public enum ConnectionPool {
                 proxyConnection = new ProxyConnection
                         (DriverManager.getConnection(properties.getProperty(DATABASE_URL), properties));
             } catch (SQLException sqlException) {
-//            logger.fatal("error in loading connection", sqlException);
                 throw new ExceptionInInitializerError(sqlException);
             }
             freeConnections.add(proxyConnection);
